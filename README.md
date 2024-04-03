@@ -9,6 +9,9 @@ SEI-49 project 3 (MERN)
 JavaScript
 HTML
 CSS
+Mernstack
+Mongodb
+Express
 
 # Next Steps
 
