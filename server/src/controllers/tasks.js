@@ -1,18 +1,18 @@
 /*******************************************************************************
  *
  * Copyright         : 2024 Damian Chee
- * File Name         : controller.js
+ * File Name         : tasks.js
  * Description       : Controller (functions) for mongodb CRUD operations.
- *                     For template purposes
+ *                     For tasks collection.
  *
  ******************************************************************************/
-const Model = require("../models/Model");
+const TasksModel = require("../models/Tasks");
 
-const seed = async (req, res) => {
+const seedTasks = async (req, res) => {
   try {
-    await Model.deleteMany({});
+    await TasksModel.deleteMany({});
 
-    const seeds = await Model.create([
+    const tasks = await TasksModel.create([
       // stuff goes in here
     ]);
   } catch (error) {
@@ -21,7 +21,7 @@ const seed = async (req, res) => {
   }
 };
 
-const getAll = async (req, res) => {
+const getAllTasks = async (req, res) => {
   try {
   } catch (error) {
     console.error(error.message);
@@ -29,7 +29,7 @@ const getAll = async (req, res) => {
   }
 };
 
-const add = async (req, res) => {
+const addTask = async (req, res) => {
   try {
   } catch (error) {
     console.error(error.message);
@@ -37,7 +37,7 @@ const add = async (req, res) => {
   }
 };
 
-const update = async (req, res) => {
+const updateTask = async (req, res) => {
   try {
   } catch (error) {
     console.error(error.message);
@@ -45,7 +45,7 @@ const update = async (req, res) => {
   }
 };
 
-const del = async (req, res) => {
+const deleteTask = async (req, res) => {
   try {
   } catch (error) {
     console.error(error.message);
@@ -54,9 +54,9 @@ const del = async (req, res) => {
 };
 
 module.exports = {
-  seed,
-  getAll,
-  add,
-  update,
-  del,
+  seedTasks,
+  getAllTasks,
+  addTask,
+  updateTask,
+  deleteTask,
 };

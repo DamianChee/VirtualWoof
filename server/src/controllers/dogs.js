@@ -1,18 +1,18 @@
 /*******************************************************************************
  *
  * Copyright         : 2024 Damian Chee
- * File Name         : controller.js
+ * File Name         : dogs.js
  * Description       : Controller (functions) for mongodb CRUD operations.
- *                     For template purposes
+ *                     For dogs collection.
  *
  ******************************************************************************/
-const Model = require("../models/Model");
+const DogsModel = require("../models/Dogs");
 
-const seed = async (req, res) => {
+const seedDogs = async (req, res) => {
   try {
-    await Model.deleteMany({});
+    await DogsModel.deleteMany({});
 
-    const seeds = await Model.create([
+    const dogs = await DogsModel.create([
       // stuff goes in here
     ]);
   } catch (error) {
@@ -21,7 +21,7 @@ const seed = async (req, res) => {
   }
 };
 
-const getAll = async (req, res) => {
+const getAllDogs = async (req, res) => {
   try {
   } catch (error) {
     console.error(error.message);
@@ -29,7 +29,7 @@ const getAll = async (req, res) => {
   }
 };
 
-const add = async (req, res) => {
+const addDog = async (req, res) => {
   try {
   } catch (error) {
     console.error(error.message);
@@ -37,7 +37,7 @@ const add = async (req, res) => {
   }
 };
 
-const update = async (req, res) => {
+const updateDog = async (req, res) => {
   try {
   } catch (error) {
     console.error(error.message);
@@ -45,7 +45,7 @@ const update = async (req, res) => {
   }
 };
 
-const del = async (req, res) => {
+const deleteDog = async (req, res) => {
   try {
   } catch (error) {
     console.error(error.message);
@@ -54,9 +54,9 @@ const del = async (req, res) => {
 };
 
 module.exports = {
-  seed,
-  getAll,
-  add,
-  update,
-  del,
+  seedDogs,
+  getAllDogs,
+  addDog,
+  updateDog,
+  deleteDog,
 };
