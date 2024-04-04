@@ -1,7 +1,7 @@
 import React from "react";
 import MuiButton from "@mui/material/Button";
 
-const Button = () => {
+const Button = (props) => {
   return <MuiButton>{props.children}</MuiButton>;
 };
 
