@@ -68,13 +68,14 @@ const getAllUsers = async (req, res) => {
 
 const addUser = async (req, res) => {
   try {
+    const newPassword = await bcrypt.hash(req.body.password, 12);
     const newUser = {
       email: req.body.email,
       username: req.body.username,
-      password: password,
-      goalMode: "Blank",
-      tasks: [],
-      dogs: [],
+      password: newPassword,
+      goalMode: req.body.goalMode || "Blank",
+      tasks: req.body.tasks || [],
+      dogs: req.body.dogs || [],
     };
     const users = await UsersModel.create(newUser);
 

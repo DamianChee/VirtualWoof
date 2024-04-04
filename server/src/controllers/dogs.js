@@ -21,6 +21,26 @@ const seedDogs = async (req, res) => {
   }
 };
 
+const getDogById = async (req, res) => {
+  try {
+    const dog = await DogsModel.findById(req.param.id);
+    res.json({ status: "ok", msg: "dogs found", data: dog });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting" });
+  }
+};
+
+const getDogsByOwner = async (req, res) => {
+  try {
+    const dogs = await DogsModel.find({ owner: req.body.id });
+    res.json({ status: "ok", msg: "dogs found", data: dogs });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting" });
+  }
+};
+
 const getAllDogs = async (req, res) => {
   try {
     const allDogs = await BooksModel.find();
@@ -68,7 +88,7 @@ const updateDog = async (req, res) => {
     if (req.body.currentHunger)
       updateDog.currentHunger = req.body.currentHunger;
     if (req.body.owner) updateDog.owner = req.body.owner;
-    const dogs = await DogsModel.findByIdAndUpdate(req.params.id, updateDog);
+    const dogs = await DogsModel.findByIdAndUpdate(req.body.id, updateDog);
 
     res.json({ status: "ok", msg: "dog updated", data: dogs });
   } catch (error) {
@@ -90,6 +110,8 @@ const deleteDog = async (req, res) => {
 module.exports = {
   seedDogs,
   getAllDogs,
+  getDogById,
+  getDogsByOwner,
   addDog,
   updateDog,
   deleteDog,
