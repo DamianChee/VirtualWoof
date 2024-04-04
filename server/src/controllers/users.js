@@ -58,6 +58,8 @@ const seedUsers = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
+    const allUsers = await UsersModel.find();
+    res.json(allUsers);
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "error getting" });
@@ -66,14 +68,51 @@ const getAllUsers = async (req, res) => {
 
 const addUser = async (req, res) => {
   try {
+    const newUser = {
+      email: req.body.email,
+      username: req.body.username,
+      password: password,
+      goalMode: "Blank",
+      tasks: [],
+      dogs: [],
+    };
+    const users = await UsersModel.create(newUser);
+
+    res.json({ status: "ok", msg: "user saved", data: users });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "error adding" });
   }
 };
 
+// const giveUserDog = async (req, res) => {
+//   try {
+//     const userDoc = await UsersModel.findById(req.body.id);
+//     const user = userDoc.json();
+
+//     user.dogs.push(req.body.dog);
+//     res.json({ status: "ok", msg: "dog adopted!", data: user });
+//   } catch (error) {
+//     console.error(error.message);
+//     res.status(400).json({ status: "error", msg: "error adopting dog" });
+//   }
+// };
+
 const updateUser = async (req, res) => {
   try {
+    const updateUser = {};
+    if (req.body.email) updateUser.email = req.body.email;
+    if (req.body.username) updateUser.username = req.body.username;
+    if (req.body.password) {
+      const newPassword = await bcrypt.hash(req.body.password, 12);
+      updateUser.password = newPassword;
+    }
+    if (req.body.goalMode) updateUser.goalMode = req.body.goalMode;
+    if (req.body.tasks) updateUser.tasks = req.body.tasks;
+    if (req.body.dogs) updateUser.dogs = req.body.dogs;
+    const users = await UsersModel.findByIdAndUpdate(req.params.id, updateUser);
+
+    res.json({ status: "ok", msg: "book updated", data: users });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "error updating" });
@@ -82,6 +121,8 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
+    const user = await UsersModel.findByIdAndDelete(req.body.id);
+    res.json({ status: "ok", msg: "user deleted", data: user });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "error deleting" });
@@ -96,10 +137,14 @@ const register = async (req, res) => {
     const password = await bcrypt.hash(req.body.password, 12);
     const data = await AuthModel.create({
       email: req.body.email,
-      password,
+      username: req.body.username,
+      password: password,
+      goalMode: "Blank",
+      tasks: [],
+      dogs: [],
     });
 
-    res.json({ status: "ok", msg: "user created" });
+    res.json({ status: "ok", msg: "user created", data: data });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "invalid registration" });
