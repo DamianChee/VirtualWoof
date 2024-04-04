@@ -7,7 +7,7 @@ import styles from "./PageStyles.module.css";
 
 /*
 
-currently, registration is not working 
+currently, login is not working 
 
 */
 
@@ -16,10 +16,15 @@ const Login = (props) => {
 
   const userCtx = useContext(UserContext);
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    const res = await fetchData("/auth/login", "POST", { email, password });
+    const res = await fetchData("/api/users/register", "POST", {
+      email,
+      username,
+      password,
+    });
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
       const decoded = jwtDecode(res.data.access);
@@ -29,7 +34,7 @@ const Login = (props) => {
   };
 
   return (
-    <div>
+    <>
       <h1 className={`${styles.pageheader}`}>Login</h1>
       <br />
       <div>
@@ -41,7 +46,17 @@ const Login = (props) => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-
+      <div>
+        <input
+          className={`${styles.usernameinputbox}`}
+          placeholder="username"
+          type="text"
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+        />
+      </div>
       <div>
         <input
           type="password"
@@ -65,7 +80,7 @@ const Login = (props) => {
         </button>
       </Link>
       <div className="col-md-4"></div>
-    </div>
+    </>
   );
 };
 
