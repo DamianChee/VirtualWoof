@@ -42,7 +42,7 @@ Thumbs.db
 # Node/npm #
 ##############
 node_modules
-.env
+# .env
 
 # Sass #
 ##############
