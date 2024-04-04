@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import NavBar from "../components/Navbar";
 import SelectDog from "../components/selectDog";
 import SelectGoal from "../components/SelectGoal";
-import DogCard from "../components/DogCard";
+import DogList from "../components/DogList";
 
 const Main = () => {
   const userCtx = useContext(userContext);
@@ -45,9 +45,7 @@ const Main = () => {
   return (
     <div>
       <NavBar></NavBar>
-      <SelectDog dog={setDogs}></SelectDog>
-      <SelectGoal></SelectGoal>
-      <DogCard></DogCard>
+      <DogList dogs={dogs}></DogList>
 
       <h1>Main</h1>
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 
 const selectDog = (props) => {
-  return <div>{}</div>;
+  return <Dogs></Dogs>;
 };
 
 export default selectDog;

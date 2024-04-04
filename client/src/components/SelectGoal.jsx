@@ -1,7 +1,8 @@
 import React from "react";
+import DogList from "./DogList";
 
 const SelectGoal = (props) => {
-  return <div></div>;
+  return <DogList></DogList>;
 };
 
 export default SelectGoal;
