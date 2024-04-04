@@ -3,7 +3,7 @@ import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 import { jwtDecode } from "jwt-decode";
 import { Link } from "react-router-dom";
-import styles from "../components/PageStyles.module.css";
+import styles from "./PageStyles.module.css";
 
 /*
 
@@ -29,29 +29,27 @@ const Login = (props) => {
   };
 
   return (
-    <>
+    <div>
+      <h1 className={`${styles.pageheader}`}>Login</h1>
       <br />
-      <div className="row">
-        <div className="col-md-4"></div>
+      <div>
         <input
           type="text"
-          className="col-md-4"
+          className={`${styles.emailinputbox}`}
           placeholder="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <div className="col-md-4"></div>
       </div>
-      <div className="row">
-        <div className="col-md-4"></div>
+
+      <div>
         <input
           type="password"
-          className="col-md-4"
+          className={`${styles.passwordinputbox}`}
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <div className="col-md-4"></div>
       </div>
       <button
         className={`${styles.loginbutton}`}
@@ -67,7 +65,7 @@ const Login = (props) => {
         </button>
       </Link>
       <div className="col-md-4"></div>
-    </>
+    </div>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UserContext from "../context/user";
 import LoginUser from "../components/Login";
 import RegisterUser from "../pages/Register";
+import styles from "../components/PageStyles.module.css";
 
 /* 
 
@@ -14,7 +15,7 @@ const Login = () => {
   const [showLogin, setShowLogin] = useState(true);
 
   return (
-    <>
+    <div className={`${styles.backgroundpage}`}>
       <UserContext.Provider value={{ accessToken, setAccessToken }}>
         {accessToken.length > 0 && <BooksDisplay></BooksDisplay>}
         {accessToken.length === 0 && showLogin && (
@@ -24,7 +25,7 @@ const Login = () => {
           <RegisterUser setShowLogin={setShowLogin}></RegisterUser>
         )}
       </UserContext.Provider>
-    </>
+    </div>
   );
 };
 
