@@ -2,8 +2,16 @@ import React, { useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 import { jwtDecode } from "jwt-decode";
+import { Link } from "react-router-dom";
+import styles from "../components/PageStyles.module.css";
 
-const Login = () => {
+/*
+
+currently, registration is not working 
+
+*/
+
+const Login = (props) => {
   const fetchData = useFetch();
 
   const userCtx = useContext(UserContext);
@@ -15,7 +23,6 @@ const Login = () => {
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
       const decoded = jwtDecode(res.data.access);
-      userCtx.setRole(decoded.role);
     } else {
       alert(JSON.stringify(res.data));
     }
@@ -46,25 +53,20 @@ const Login = () => {
         />
         <div className="col-md-4"></div>
       </div>
-      <div className="row">
-        <div className="col-md-4"></div>
-        <button className="col-md-4" type="submit" onClick={handleLogin}>
-          login
-        </button>
-        <div className="col-md-4"></div>
-      </div>
+      <button
+        className={`${styles.loginbutton}`}
+        type="submit"
+        onClick={handleLogin}
+      >
+        login
+      </button>
       <br />
-      <div className="row">
-        <div className="col-md-4"></div>
-        <button
-          className="col-md-4"
-          type="submit"
-          onClick={() => props.setShowLogin(false)}
-        >
+      <Link to="/register">
+        <button className={`${styles.registerbutton}`}>
           go to registration screen
         </button>
-        <div className="col-md-4"></div>
-      </div>
+      </Link>
+      <div className="col-md-4"></div>
     </>
   );
 };
