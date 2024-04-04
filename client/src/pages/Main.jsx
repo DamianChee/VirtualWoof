@@ -12,7 +12,7 @@ const Main = () => {
   //FETCH DOG DATA
   const getDogs = async () => {
     const res = await fetchData(
-      "/endpoint",
+      "/api/dogs",
       undefined,
       undefined,
       userCtx.accessToken
@@ -45,7 +45,7 @@ const Main = () => {
   return (
     <div>
       <NavBar></NavBar>
-      <SelectDog></SelectDog>
+      <SelectDog dog={setDogs}></SelectDog>
       <SelectGoal></SelectGoal>
       <DogCard></DogCard>
 
