@@ -1,0 +1,18 @@
+.loginbutton {
+  width: 150px;
+  height: 50px;
+  position: relative;
+  top: 30px;
+  left: 415px;
+  background-color: rgb(89, 89, 89);
+  color: white;
+}
+.registerbutton {
+  width: 180px;
+  height: 85px;
+  position: relative;
+  top: 50px;
+  left: 400px;
+  background-color: rgb(89, 89, 89);
+  color: white;
+}
