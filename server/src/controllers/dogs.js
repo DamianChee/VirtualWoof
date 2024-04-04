@@ -13,17 +13,114 @@ const seedDogs = async (req, res) => {
     await DogsModel.deleteMany({});
 
     const dogs = await DogsModel.create([
-      // stuff goes in here
+      {
+        _id: "660e20599a62ff52a09a9b02",
+        breed: "Corgi",
+        size: "Medium",
+        personality: "Lazy",
+        coat: "Short",
+        currentAffection: 80,
+        currentObedience: 50,
+        currentHunger: 25,
+        owner: "660e1c58b23ff2bdba967db5",
+        birthday: "2024-04-04T03:36:57.119Z",
+      },
+      {
+        _id: "660e20689a62ff52a09a9b04",
+        breed: "Husky",
+        size: "Large",
+        personality: "Exciteable",
+        coat: "Short",
+        currentAffection: 80,
+        currentObedience: 50,
+        currentHunger: 25,
+        owner: "660e1c58b23ff2bdba967db5",
+        birthday: "2024-04-04T03:37:12.158Z",
+      },
+      {
+        _id: "660e25f6a081619e89b45d92",
+        breed: "Husky",
+        size: "Large",
+        personality: "Exciteable",
+        coat: "Short",
+        currentAffection: 80,
+        currentObedience: 50,
+        currentHunger: 25,
+        owner: "660e1b5c65f086c63d2edfc7",
+        birthday: "2024-04-04T04:00:54.090Z",
+      },
+      {
+        _id: "660e25fea081619e89b45d94",
+        breed: "Husky",
+        size: "Large",
+        personality: "Exciteable",
+        coat: "Short",
+        currentAffection: 80,
+        currentObedience: 50,
+        currentHunger: 25,
+        owner: "660e1c6eb23ff2bdba967dbe",
+        birthday: "2024-04-04T04:01:02.314Z",
+      },
+      {
+        _id: "660e2605a081619e89b45d96",
+        breed: "Husky",
+        size: "Large",
+        personality: "Exciteable",
+        coat: "Short",
+        currentAffection: 80,
+        currentObedience: 50,
+        currentHunger: 25,
+        owner: "660e1c62b23ff2bdba967db8",
+        birthday: "2024-04-04T04:01:09.104Z",
+      },
+      {
+        _id: "660e260fa081619e89b45d98",
+        breed: "Husky",
+        size: "Large",
+        personality: "Exciteable",
+        coat: "Short",
+        currentAffection: 80,
+        currentObedience: 50,
+        currentHunger: 25,
+        owner: "660e1c68b23ff2bdba967dbb",
+        birthday: "2024-04-04T04:01:19.459Z",
+      },
+      {
+        _id: "660e263ba081619e89b45d9a",
+        breed: "Corgi",
+        size: "Medium",
+        personality: "Lazy",
+        coat: "Short",
+        currentAffection: 50,
+        currentObedience: 50,
+        currentHunger: 25,
+        owner: "660e1c58b23ff2bdba967db5",
+        birthday: "2024-04-04T04:02:03.177Z",
+      },
     ]);
+
+    res.json({ status: "ok", msg: "seed completed", data: dogs });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "seeding failed" });
   }
 };
 
+const getAllDogs = async (req, res) => {
+  try {
+    const allDogs = await DogsModel.find();
+    if (allDogs.length)
+      res.json({ status: "ok", msg: "dogs found", data: allDogs });
+    else res.json({ status: "ok", msg: "no dogs found" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting" });
+  }
+};
+
 const getDogById = async (req, res) => {
   try {
-    const dog = await DogsModel.findById(req.param.id);
+    const dog = await DogsModel.findById(req.body.id);
     res.json({ status: "ok", msg: "dogs found", data: dog });
   } catch (error) {
     console.error(error.message);
@@ -33,20 +130,8 @@ const getDogById = async (req, res) => {
 
 const getDogsByOwner = async (req, res) => {
   try {
-    const dogs = await DogsModel.find({ owner: req.body.id });
+    const dogs = await DogsModel.find({ owner: req.body.owner });
     res.json({ status: "ok", msg: "dogs found", data: dogs });
-  } catch (error) {
-    console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error getting" });
-  }
-};
-
-const getAllDogs = async (req, res) => {
-  try {
-    const allDogs = await BooksModel.find();
-    if (allDogs.length)
-      res.json({ status: "ok", msg: "dogs found", data: allDogs });
-    else res.json({ status: "ok", msg: "no dogs found" });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "error getting" });
@@ -63,7 +148,7 @@ const addDog = async (req, res) => {
       currentAffection: req.body.currentAffection,
       currentObedience: req.body.currentObedience,
       currentHunger: req.body.currentHunger,
-      owner: req.body.user,
+      owner: req.body.owner,
     };
     const dogs = await DogsModel.create(newDog);
 
@@ -99,7 +184,7 @@ const updateDog = async (req, res) => {
 
 const deleteDog = async (req, res) => {
   try {
-    const dog = await BooksModel.findByIdAndUpdate(req.body.id);
+    const dog = await DogsModel.findByIdAndUpdate(req.body.id);
     res.json({ status: "ok", msg: "dog deleted", data: dog });
   } catch (error) {
     console.error(error.message);

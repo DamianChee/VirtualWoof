@@ -12,8 +12,8 @@ const router = express.Router();
 
 router.get("/dogs/seed", seedDogs);
 router.get("/dogs", getAllDogs);
-router.get("/dogs/:id", getDogById);
-router.post("dogs", getDogsByOwner);
+router.post("/dogs/id", getDogById);
+router.post("/dogs/owner", getDogsByOwner);
 router.put("/dogs", addDog);
 router.patch("/dogs", updateDog);
 router.delete("/dogs", deleteDog);

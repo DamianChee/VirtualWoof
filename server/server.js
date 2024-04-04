@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", dogs);
-app.use("/api", tasks);
+// app.use("/api", tasks);
 app.use("/api", users);
 
 const PORT = process.env.PORT || 5001;

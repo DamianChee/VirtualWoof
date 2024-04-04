@@ -3,6 +3,7 @@ const {
   seedUsers,
   getAllUsers,
   addUser,
+  giveUserDog,
   updateUser,
   deleteUser,
   register,
@@ -14,6 +15,7 @@ const router = express.Router();
 router.get("/users/seed", seedUsers);
 router.get("/users", getAllUsers);
 router.put("/users", addUser);
+router.put("/users/adopt", giveUserDog);
 router.patch("/users", updateUser);
 router.delete("/users", deleteUser);
 router.post("/users/register", register);
