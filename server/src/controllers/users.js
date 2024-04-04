@@ -17,9 +17,49 @@ const seedUsers = async (req, res) => {
 
     const users = await UsersModel.create([
       {
+        _id: "660e1c58b23ff2bdba967db5",
         email: "test@mail.com",
         username: "test",
-        password: "?",
+        password:
+          "$2b$12$37LpR..erY9KK0/IBokpSub6sYeGdzIj.N0P6m5TeJydomel22iEi",
+        goalMode: "Show",
+        tasks: [
+          {
+            name: "Play with the dog",
+            description: "A healthy dog is a happy dog!",
+            type: "Routine",
+            difficulty: "easy",
+            startValue: 0,
+            endValue: 3,
+            deadline: "2024-04-03T15:59:59.000Z",
+            created_at: "2024-04-02T16:00:00.000Z",
+            _id: "660e1d3d31b260c3ea0d1495",
+          },
+          {
+            name: "Feed the dog",
+            description:
+              "Keeping a routine of feeding your dog on time builds discipline and allows your dog to feel less stressed and worried about when their next meal will be provided!",
+            type: "Routine",
+            difficulty: "easy",
+            startValue: 0,
+            endValue: 3,
+            deadline: "2024-04-03T15:59:59.000Z",
+            created_at: "2024-04-02T16:00:00.000Z",
+            _id: "660e1d3d31b260c3ea0d1496",
+          },
+        ],
+        dogs: [
+          "660e20599a62ff52a09a9b02",
+          "660e20689a62ff52a09a9b04",
+          "660e263ba081619e89b45d9a",
+        ],
+      },
+      {
+        _id: "660e1b5c65f086c63d2edfc7",
+        email: "test1@mail.com",
+        username: "test1",
+        password:
+          "$2b$12$b5DSKTNpUg1rVXksuVWLnu/lOe9JaPp4evbiRa8WszrU7PTFZc8HG",
         goalMode: "Companion",
         tasks: [
           {
@@ -30,8 +70,9 @@ const seedUsers = async (req, res) => {
             difficulty: "easy",
             startValue: 0,
             endValue: 3,
-            deadline: "2024-04-03T23:59:59",
-            created_at: "2024-04-03T00:00:00",
+            deadline: "2024-04-03T15:59:59.000Z",
+            created_at: "2024-04-02T16:00:00.000Z",
+            _id: "660e1d3d31b260c3ea0d1498",
           },
           {
             name: "Feed the dog",
@@ -41,11 +82,117 @@ const seedUsers = async (req, res) => {
             difficulty: "easy",
             startValue: 0,
             endValue: 3,
-            deadline: "2024-04-03T23:59:59",
-            created_at: "2024-04-03T00:00:00",
+            deadline: "2024-04-03T15:59:59.000Z",
+            created_at: "2024-04-02T16:00:00.000Z",
+            _id: "660e1d3d31b260c3ea0d1499",
           },
         ],
-        dogs: [{ _id: "?" }],
+        dogs: ["660e25f6a081619e89b45d92"],
+      },
+      {
+        _id: "660e1c62b23ff2bdba967db8",
+        email: "test2@mail.com",
+        username: "test2",
+        password:
+          "$2b$12$i9MCZ7K5e5r6za/oOQeZAudNZE4MB8.Rbndjt8YYBOVoTG1VYZzXy",
+        goalMode: "Companion",
+        tasks: [
+          {
+            name: "Feed the dog",
+            description:
+              "Keeping a routine of feeding your dog on time builds discipline and allows your dog to feel less stressed and worried about when their next meal will be provided!",
+            type: "Routine",
+            difficulty: "easy",
+            startValue: 0,
+            endValue: 3,
+            deadline: "2024-04-03T15:59:59.000Z",
+            created_at: "2024-04-02T16:00:00.000Z",
+            _id: "660e1d3d31b260c3ea0d149b",
+          },
+          {
+            name: "Feed the dog",
+            description:
+              "Keeping a routine of feeding your dog on time builds discipline and allows your dog to feel less stressed and worried about when their next meal will be provided!",
+            type: "Routine",
+            difficulty: "easy",
+            startValue: 0,
+            endValue: 3,
+            deadline: "2024-04-03T15:59:59.000Z",
+            created_at: "2024-04-02T16:00:00.000Z",
+            _id: "660e1d3d31b260c3ea0d149c",
+          },
+        ],
+        dogs: ["660e2605a081619e89b45d96"],
+      },
+      {
+        _id: "660e1c68b23ff2bdba967dbb",
+        email: "test3@mail.com",
+        username: "test3",
+        password:
+          "$2b$12$y/3y53fZv.OnAoc8yx6.LOs7zz4Iy3WdXSFoVTKChF6qj956MOX1e",
+        goalMode: "Companion",
+        tasks: [
+          {
+            name: "Feed the dog",
+            description:
+              "Keeping a routine of feeding your dog on time builds discipline and allows your dog to feel less stressed and worried about when their next meal will be provided!",
+            type: "Routine",
+            difficulty: "easy",
+            startValue: 0,
+            endValue: 3,
+            deadline: "2024-04-03T15:59:59.000Z",
+            created_at: "2024-04-02T16:00:00.000Z",
+            _id: "660e1d3d31b260c3ea0d149e",
+          },
+          {
+            name: "Feed the dog",
+            description:
+              "Keeping a routine of feeding your dog on time builds discipline and allows your dog to feel less stressed and worried about when their next meal will be provided!",
+            type: "Routine",
+            difficulty: "easy",
+            startValue: 0,
+            endValue: 3,
+            deadline: "2024-04-03T15:59:59.000Z",
+            created_at: "2024-04-02T16:00:00.000Z",
+            _id: "660e1d3d31b260c3ea0d149f",
+          },
+        ],
+        dogs: ["660e260fa081619e89b45d98"],
+      },
+      {
+        _id: "660e1c6eb23ff2bdba967dbe",
+        email: "test4@mail.com",
+        username: "test4",
+        password:
+          "$2b$12$Q7VWVk5C0ITmc4nj/XUX.OY./CFIOS/Wya0xScyKeK1j/sKsJAOOS",
+        goalMode: "Companion",
+        tasks: [
+          {
+            name: "Feed the dog",
+            description:
+              "Keeping a routine of feeding your dog on time builds discipline and allows your dog to feel less stressed and worried about when their next meal will be provided!",
+            type: "Routine",
+            difficulty: "easy",
+            startValue: 0,
+            endValue: 3,
+            deadline: "2024-04-03T15:59:59.000Z",
+            created_at: "2024-04-02T16:00:00.000Z",
+            _id: "660e1d3d31b260c3ea0d14a1",
+          },
+          {
+            name: "Feed the dog",
+            description:
+              "Keeping a routine of feeding your dog on time builds discipline and allows your dog to feel less stressed and worried about when their next meal will be provided!",
+            type: "Routine",
+            difficulty: "easy",
+            startValue: 0,
+            endValue: 3,
+            deadline: "2024-04-03T15:59:59.000Z",
+            created_at: "2024-04-02T16:00:00.000Z",
+            _id: "660e1d3d31b260c3ea0d14a2",
+          },
+        ],
+        dogs: ["660e25fea081619e89b45d94"],
       },
     ]);
 
@@ -68,13 +215,14 @@ const getAllUsers = async (req, res) => {
 
 const addUser = async (req, res) => {
   try {
+    const newPassword = await bcrypt.hash(req.body.password, 12);
     const newUser = {
       email: req.body.email,
       username: req.body.username,
-      password: password,
-      goalMode: "Blank",
-      tasks: [],
-      dogs: [],
+      password: newPassword,
+      goalMode: req.body.goalMode || "Blank",
+      tasks: req.body.tasks || [],
+      dogs: req.body.dogs || [],
     };
     const users = await UsersModel.create(newUser);
 
@@ -85,18 +233,18 @@ const addUser = async (req, res) => {
   }
 };
 
-// const giveUserDog = async (req, res) => {
-//   try {
-//     const userDoc = await UsersModel.findById(req.body.id);
-//     const user = userDoc.json();
+const giveUserDog = async (req, res) => {
+  try {
+    let user = await UsersModel.findById(req.body.id);
+    user.dogs.push(req.body.dog);
+    await UsersModel.findByIdAndUpdate(req.body.id, user);
 
-//     user.dogs.push(req.body.dog);
-//     res.json({ status: "ok", msg: "dog adopted!", data: user });
-//   } catch (error) {
-//     console.error(error.message);
-//     res.status(400).json({ status: "error", msg: "error adopting dog" });
-//   }
-// };
+    res.json({ status: "ok", msg: "dog adopted!", data: user });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error adopting dog" });
+  }
+};
 
 const updateUser = async (req, res) => {
   try {
@@ -108,11 +256,13 @@ const updateUser = async (req, res) => {
       updateUser.password = newPassword;
     }
     if (req.body.goalMode) updateUser.goalMode = req.body.goalMode;
-    if (req.body.tasks) updateUser.tasks = req.body.tasks;
-    if (req.body.dogs) updateUser.dogs = req.body.dogs;
-    const users = await UsersModel.findByIdAndUpdate(req.params.id, updateUser);
+    if (req.body.tasks) updateUser.$set = { tasks: req.body.tasks };
+    if (req.body.dogs) updateUser.$set = { dogs: req.body.dogs };
+    const users = await UsersModel.findByIdAndUpdate(req.body.id, updateUser, {
+      new: true,
+    });
 
-    res.json({ status: "ok", msg: "book updated", data: users });
+    res.json({ status: "ok", msg: "user updated", data: users });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "error updating" });
@@ -135,7 +285,7 @@ const register = async (req, res) => {
     if (auth)
       return res.status(400).json({ status: "error", msg: "duplicate email" });
     const password = await bcrypt.hash(req.body.password, 12);
-    const data = await AuthModel.create({
+    const data = await UsersModel.create({
       email: req.body.email,
       username: req.body.username,
       password: password,
@@ -153,11 +303,11 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const auth = await UserModel.findOne({ email: req.body.email });
+    const auth = await UsersModel.findOne({ email: req.body.email });
     if (!auth)
       return res.status(400).json({ status: "error", msg: "not authorized" });
 
-    const result = await bcrypt.compare(req.body.password, auth.hash);
+    const result = await bcrypt.compare(req.body.password, auth.password);
     if (!result) {
       console.error("email or password incorrect");
       return res.status(401).json({ status: "error", msg: "login failed" });
@@ -210,6 +360,7 @@ module.exports = {
   seedUsers,
   getAllUsers,
   addUser,
+  giveUserDog,
   updateUser,
   deleteUser,
   register,
