@@ -17,7 +17,6 @@ const Login = () => {
   return (
     <div className={`${styles.backgroundpage}`}>
       <UserContext.Provider value={{ accessToken, setAccessToken }}>
-        {accessToken.length > 0 && <BooksDisplay></BooksDisplay>}
         {accessToken.length === 0 && showLogin && (
           <LoginUser setShowLogin={setShowLogin}></LoginUser>
         )}
