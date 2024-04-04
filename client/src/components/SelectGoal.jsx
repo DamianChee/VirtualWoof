@@ -1,6 +1,6 @@
 import React from "react";
 
-const SelectGoal = () => {
+const SelectGoal = (props) => {
   return <div></div>;
 };
 
