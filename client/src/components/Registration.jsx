@@ -5,7 +5,7 @@ import styles from "./PageStyles.module.css";
 
 /*
 
-currently, register is not working 
+currently, register is working 
 
 */
 
