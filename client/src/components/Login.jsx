@@ -27,6 +27,7 @@ const Login = (props) => {
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
       const decoded = jwtDecode(res.data.access);
+      console.log(res);
     } else {
       alert(JSON.stringify(res.data));
     }
