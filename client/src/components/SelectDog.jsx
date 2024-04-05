@@ -5,41 +5,48 @@ import Dog2 from "../images/Dog2.png";
 import Dog3 from "../images/Dog3.png";
 import DogList from "./DogList";
 
-const selectDog = (props) => {
-  const [selectedDog, setSelectedDog] = useState(null);
+const SelectDog = (props) => {
+  const dogs = props.dogs;
+  // const dogs = [
+  //   {
+  //     breed: "Poodle",
+  //     personality: "Friendly and sensitive",
+  //     coat: "curly",
+  //     size: "medium",
+  //     imageUrl: Dog1,
+  //   },
+  //   {
+  //     breed: "Beagle",
+  //     personality: "Friendly and loyal",
+  //     coat: "straight",
+  //     size: "medium",
+  //     imageUrl: Dog2,
+  //   },
+  //   {
+  //     breed: "Chihuahua",
+  //     personality: "Friendly and playful",
+  //     coat: "straight",
+  //     size: "medium",
+  //     imageUrl: Dog3,
+  //   },
+  // ];
 
-  const handleSelectedDog = (dog) => {
-    setSelectedDog(dog);
-  };
+  // const handleSelectedDog = (dog) => {
+  //   console.log("Selected dog:", dog);
+  //   setSelectedDog(dog);
+  // };
 
   return (
     <div>
-      <DogList
-        dog="Poodle"
-        imageUrl={Dog1}
-        personality="Friendly and sensitive"
-        coat="curly"
-        size="medium"
-        onClick={() => handleSelectedDog("Poodle")}
-      ></DogList>
-      <DogList
-        dog="Beagle"
-        imageUrl={Dog2}
-        personality="Friendly and sensitive"
-        coat="straight"
-        size="medium"
-        onClick={() => handleSelectedDog("Poodle")}
-      ></DogList>
-      <DogList
-        dog="Chihuahua"
-        imageUrl={Dog3}
-        personality="Friendly and sensitive"
-        coat="straight"
-        size="small"
-        onClick={() => handleSelectedDog("Poodle")}
-      ></DogList>
+      {dogs.map((dog) => (
+        <DogList
+          key={dog.breed}
+          dog={dog}
+          handleSelectedDog={props.handleSelectedDog}
+        ></DogList>
+      ))}
     </div>
   );
 };
 
-export default selectDog;
+export default SelectDog;

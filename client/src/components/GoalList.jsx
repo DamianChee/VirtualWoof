@@ -1,24 +1,11 @@
 import React from "react";
 import { Card, Typography } from "@mui/material";
 import { CardContent } from "@mui/material";
-import { CardMedia } from "@mui/material";
 
-const DogList = (props) => {
-  // const handleClick = (dog) => {
-  //   console.log(dog);
-  // };
+const GoalList = () => {
   return (
     <>
-      <Card
-        onClick={() => props.handleSelectedDog(props.dog)}
-        sx={{ width: 200 }}
-      >
-        <CardMedia
-          component="img"
-          height="max"
-          image={props.dog.imageUrl}
-          alt={props.dog}
-        ></CardMedia>
+      <Card onClick={() => props.onClick(props.dog)} sx={{ width: 200 }}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {props.dog.breed}
@@ -38,4 +25,4 @@ const DogList = (props) => {
   );
 };
 
-export default DogList;
+export default GoalList;

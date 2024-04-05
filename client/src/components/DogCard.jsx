@@ -3,9 +3,10 @@ import DogList from "./DogList";
 import Button from "./Button";
 
 const DogCard = (props) => {
+  console.log(props.selectedDog);
   return (
     <>
-      <SelectDog></SelectDog>
+      <div>{props.selectedDog.breed}</div>
       <Button>Feed</Button>
       <Button>Train</Button>
       <Button>Play</Button>
