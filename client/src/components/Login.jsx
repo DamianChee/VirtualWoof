@@ -20,9 +20,8 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    const res = await fetchData("/api/users/register", "POST", {
+    const res = await fetchData("/api/users/login", "POST", {
       email,
-      username,
       password,
     });
     if (res.ok) {
@@ -44,17 +43,6 @@ const Login = (props) => {
           placeholder="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          className={`${styles.usernameinputbox}`}
-          placeholder="username"
-          type="text"
-          value={username}
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
         />
       </div>
       <div>

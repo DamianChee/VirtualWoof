@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NavBar from "../components/Navbar";
-import SelectDog from "../components/selectDog";
+import SelectDog from "../components/SelectDog";
 import SelectGoal from "../components/SelectGoal";
 import DogList from "../components/DogList";
 
