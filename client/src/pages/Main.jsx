@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import NavBar from "../components/Navbar";
-import SelectDog from "../components/selectDog";
+import SelectDog from "../components/SelectDog";
 import SelectGoal from "../components/SelectGoal";
 import DogList from "../components/DogList";
 
 const Main = () => {
-  const userCtx = useContext(userContext);
+  // const userCtx = useContext(userContext);
   const [dogs, setDogs] = useState([]);
   const [tasks, setTasks] = useState([]);
 
@@ -45,7 +45,7 @@ const Main = () => {
   return (
     <div>
       <NavBar></NavBar>
-      <DogList dogs={dogs}></DogList>
+      <SelectDog></SelectDog>
 
       <h1>Main</h1>
     </div>
