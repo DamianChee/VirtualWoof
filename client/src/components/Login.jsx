@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 import { jwtDecode } from "jwt-decode";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./PageStyles.module.css";
 
 /*
@@ -13,6 +13,7 @@ currently, login is not working
 
 const Login = (props) => {
   const fetchData = useFetch();
+  const navigate = useNavigate();
 
   const userCtx = useContext(UserContext);
   const [email, setEmail] = useState("");
@@ -27,6 +28,8 @@ const Login = (props) => {
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
       const decoded = jwtDecode(res.data.access);
+      // redirect to main page
+      navigate("/main");
       console.log(res);
     } else {
       alert(JSON.stringify(res.data));
