@@ -17,6 +17,16 @@ const seedUsers = async (req, res) => {
 
     const users = await UsersModel.create([
       {
+        _id: "660f6811728f55dc40297b90",
+        email: "test@gmail.com",
+        username: "test",
+        password:
+          "$2b$12$L3Y15OdcRAGb1eDrj8H/du1LG1CXNwAn/G8qQgr6lN1Lxfel/BiLC",
+        goalMode: "Blank",
+        tasks: [],
+        dogs: [],
+      },
+      {
         _id: "660e1c58b23ff2bdba967db5",
         email: "test@mail.com",
         username: "test",
@@ -305,12 +315,12 @@ const login = async (req, res) => {
   try {
     const auth = await UsersModel.findOne({ email: req.body.email });
     if (!auth)
-      return res.status(400).json({ status: "error", msg: "not authorized" });
+      return res.status(400).json({ status: "error", msg: "email failure" });
 
     const result = await bcrypt.compare(req.body.password, auth.password);
     if (!result) {
       console.error("email or password incorrect");
-      return res.status(401).json({ status: "error", msg: "login failed" });
+      return res.status(401).json({ status: "error", msg: "password failure" });
     }
 
     const claims = {
@@ -331,7 +341,7 @@ const login = async (req, res) => {
     res.json({ status: "ok", msg: "logged in", access, refresh });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "not authorized" });
+    res.status(400).json({ status: "error", msg: "error not authorized" });
   }
 };
 
