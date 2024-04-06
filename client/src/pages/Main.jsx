@@ -7,6 +7,7 @@ import DogCard from "../components/DogCard";
 import Dog1 from "../images/Dog1.png";
 import Dog2 from "../images/Dog2.png";
 import Dog3 from "../images/Dog3.png";
+import TaskList from "../components/TaskList";
 
 const Main = () => {
   // const userCtx = useContext(userContext);
@@ -67,7 +68,7 @@ const Main = () => {
   };
 
   // GET TASKS DATA
-  const getTasks = async () => {
+  const getAllTasks = async () => {
     const res = await fetchData(
       "/endpoint",
       undefined,
@@ -99,6 +100,7 @@ const Main = () => {
       ></SelectGoal>
       <DogCard dogs={dogs} selectedDog={selectedDog}></DogCard>
       <div>{selectedGoal.goal}</div>
+      <TaskList></TaskList>
     </div>
   );
 };

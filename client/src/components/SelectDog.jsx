@@ -18,6 +18,7 @@ const SelectDog = (props) => {
           handleSelectedDog={props.handleSelectedDog}
         ></DogList>
       ))}
+      <Button onClick={() => props.handleSelectedDog(props.dog)}>Test</Button>
     </div>
   );
 };

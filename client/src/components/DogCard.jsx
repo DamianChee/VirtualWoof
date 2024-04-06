@@ -18,7 +18,9 @@ const DogCard = (props) => {
       addDog();
       getDogbyOwner();
     }
-  }, [props.selectedDog]);
+  }, [props.selectedDog, userCtx.accessToken]);
+
+  console.log(dogbyOwner);
 
   const addDog = async () => {
     const res = await fetchData(
@@ -29,6 +31,7 @@ const DogCard = (props) => {
         size: props.selectedDog.size,
         personality: props.selectedDog.personality,
         coat: props.selectedDog.coat,
+        owner: "660f6811728f55dc40297b90", // need to change this to dynamically reflect the userid
       },
       userCtx.accessToken
     );
@@ -43,15 +46,17 @@ const DogCard = (props) => {
 
   const getDogbyOwner = async () => {
     const res = await fetchData(
-      "/api/dogs/id",
+      "/api/dogs/owner",
       "POST",
       {
-        owner: "660e1c58b23ff2bdba967db5",
+        owner: "660f6811728f55dc40297b90",
       }, // need to change this to dynamically reflect the userid
       userCtx.accessToken
     );
     if (res.ok) {
-      setDogByOwner(res.data);
+      setDogByOwner(res.data.data);
+      console.log(JSON.stringify(res.data.data));
+      console.log("sucessfully got dog");
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -60,14 +65,20 @@ const DogCard = (props) => {
 
   return (
     <>
-      {/* <div>{props.selectedDog?.breed}</div>
-      {dogbyOwner.map((dog, idx) => (
-        <div key={idx}>{dog.breed}</div>
-      ))}
-      <div>{dogbyOwner.breed}</div>
+      <div>
+        {dogbyOwner.map((dog, index) => (
+          <div key={index}>
+            <p>{dog.breed}</p>
+            <p>{dog.personality}</p>
+            <p>{dog.coat}</p>
+            <p>{dog.size}</p>
+            <p>{dog.birthday}</p>
+          </div>
+        ))}
+      </div>
       <Button>Feed</Button>
       <Button>Train</Button>
-      <Button>Play</Button> */}
+      <Button>Play</Button>
     </>
   );
 };

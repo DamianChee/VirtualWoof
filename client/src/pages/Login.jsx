@@ -14,9 +14,9 @@ const Login = () => {
 
   return (
     <div className={`${styles.backgroundpage}`}>
-      <UserContext.Provider value={{ accessToken, setAccessToken }}>
-        <LoginUser></LoginUser>
-      </UserContext.Provider>
+      {/* <UserContext.Provider value={{ accessToken, setAccessToken }}> */}
+      <LoginUser></LoginUser>
+      {/* </UserContext.Provider> */}
     </div>
   );
 };
