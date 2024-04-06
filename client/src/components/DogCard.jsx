@@ -10,8 +10,12 @@ const DogCard = (props) => {
   const dogByOwner = props.dogByOwner;
   console.log(props.selectedDog);
   console.log(props.selectedDog.breed);
+  console.log(props.selectedGoal);
+  const userGoal = props.selectedGoal.goal;
+  console.log(userGoal);
+
   console.log(userCtx);
-  console.log(dogByOwner);
+  // console.log(dogByOwner[0].currentAffection);
 
   return (
     <>
@@ -25,6 +29,15 @@ const DogCard = (props) => {
             <p>{dog.birthday}</p>
           </div>
         ))}
+        {userGoal === "Companionship" && dogByOwner[0] && (
+          <div>Affection Level:{dogByOwner[0].currentAffection}</div>
+        )}
+        {userGoal === "Routine & Discipline" && dogByOwner[0] && (
+          <div>Hunger Level:{dogByOwner[0].currentHunger}</div>
+        )}
+        {userGoal === "Dog Confomation Show" && dogByOwner[0] && (
+          <div>Obdience Level:{dogByOwner[0].currentObedience}</div>
+        )}
       </div>
       <Button>Feed</Button>
       <Button>Train</Button>

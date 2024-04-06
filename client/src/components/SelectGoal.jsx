@@ -1,5 +1,6 @@
 import React from "react";
 import GoalList from "./GoalList";
+import Button from "./Button";
 
 const SelectGoal = (props) => {
   const goals = props.goals;
@@ -13,6 +14,7 @@ const SelectGoal = (props) => {
           handleSelectedGoal={props.handleSelectedGoal}
         ></GoalList>
       ))}
+      <Button onClick={props.handleGoalClick}>Next</Button>
     </div>
   );
 };

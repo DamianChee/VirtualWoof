@@ -77,8 +77,15 @@ const Main = () => {
   const handleNextClick = async () => {
     if (selectedDog) {
       toggleSelectGoal();
+      toggleSelectDog();
       await addDog();
       getDogByOwner();
+    }
+  };
+
+  const handleGoalClick = () => {
+    if (selectedGoal) {
+      toggleSelectGoal();
     }
   };
 
@@ -99,7 +106,7 @@ const Main = () => {
         size: selectedDog.size,
         personality: selectedDog.personality,
         coat: selectedDog.coat,
-        owner: "660f6811728f55dc40297b90", // need to change this to dynamically reflect the userid
+        owner: "66112280318207e2c47f1214", // need to change this to dynamically reflect the userid
       },
       userCtx.accessToken
     );
@@ -117,7 +124,7 @@ const Main = () => {
       "/api/dogs/owner",
       "POST",
       {
-        owner: "660f6811728f55dc40297b90",
+        owner: "66112280318207e2c47f1214",
       }, // need to change this to dynamically reflect the userid
       userCtx.accessToken
     );
@@ -169,12 +176,15 @@ const Main = () => {
           handleSelectedGoal={handleSelectedGoal}
           selectedGoal={selectedGoal}
           setSelectedGoal={selectedGoal}
+          handleGoalClick={handleGoalClick}
         ></SelectGoal>
       )}
       <DogCard
         dogs={dogs}
         selectedDog={selectedDog}
         dogByOwner={dogByOwner}
+        selectedGoal={selectedGoal}
+        setSelectedGoal={selectedGoal}
       ></DogCard>
       <div>{selectedGoal.goal}</div>
       <TaskList></TaskList>
