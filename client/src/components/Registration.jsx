@@ -3,12 +3,6 @@ import useFetch from "../hooks/useFetch";
 import { Link } from "react-router-dom";
 import styles from "./PageStyles.module.css";
 
-/*
-
-currently, register is working 
-
-*/
-
 const Registration = (props) => {
   const fetchData = useFetch();
 

@@ -2,13 +2,8 @@ import React from "react";
 import { Card, Typography } from "@mui/material";
 import { CardContent } from "@mui/material";
 import { CardMedia } from "@mui/material";
-import { CardActions } from "@mui/material";
-import Button from "./Button";
 
 const DogList = (props) => {
-  // const handleClick = (dog) => {
-  //   console.log(dog);
-  // };
   return (
     <>
       <Card
