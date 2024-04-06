@@ -2,22 +2,19 @@ import React from "react";
 import { Card, Typography } from "@mui/material";
 import { CardContent } from "@mui/material";
 
-const GoalList = () => {
+const GoalList = (props) => {
   return (
     <>
-      <Card onClick={() => props.onClick(props.dog)} sx={{ width: 200 }}>
+      <Card
+        onClick={() => props.handleSelectedGoal(props.goal)}
+        sx={{ width: 200 }}
+      >
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {props.dog.breed}
+            {props.goal.goal}
           </Typography>
           <Typography variant="body2" component="div">
-            {props.dog.personality}
-          </Typography>
-          <Typography variant="body2" component="div">
-            {props.dog.size}
-          </Typography>
-          <Typography variant="body2" component="div">
-            {props.dog.coat}
+            {props.goal.description}
           </Typography>
         </CardContent>
       </Card>

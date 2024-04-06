@@ -1,23 +1,20 @@
 import React from "react";
+import GoalList from "./GoalList";
 
 const SelectGoal = (props) => {
-  const goals = [
-    {
-      goal: "Companionship",
-      Description:
-        " You seek a furry virtual companion that you can interact with",
-    },
-    {
-      goal: "Routine & Discipline",
-      Description: "You seek to instill displine by following a schedule",
-    },
-    {
-      goal: "Dog Confomation Show",
-      Description:
-        "You seek to exhibit your dog's attributes and conformation ",
-    },
-  ];
-  return <div></div>;
+  const goals = props.goals;
+  console.log(props.selectedGoal);
+  return (
+    <div>
+      {goals.map((goal) => (
+        <GoalList
+          key={goal.goal}
+          goal={goal}
+          handleSelectedGoal={props.handleSelectedGoal}
+        ></GoalList>
+      ))}
+    </div>
+  );
 };
 
 export default SelectGoal;

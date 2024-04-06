@@ -3,6 +3,7 @@ import DogList from "./DogList";
 import Button from "./Button";
 import useFetch from "../hooks/useFetch";
 import userContext from "../context/user";
+import GoalList from "./GoalList";
 
 const DogCard = (props) => {
   const userCtx = useContext(userContext);
