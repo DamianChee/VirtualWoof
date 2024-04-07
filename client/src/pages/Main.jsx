@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import NavBar from "../components/Navbar";
 import SelectGoal from "../components/SelectGoal";
 import SelectDog from "../components/SelectDog";
@@ -20,6 +20,11 @@ const Main = () => {
   const [dogByOwner, setDogByOwner] = useState([]);
   const [showSelectDog, setShowSelectDog] = useState(null);
   const [showSelectGoal, setShowSelectGoal] = useState(null);
+  const [dogValue, setDogValue] = useState({});
+
+  console.log(dogByOwner[0]);
+  // const dogId = dogByOwner[0]._id;
+  // console.log(dogId);
 
   // const userId = user;
 
@@ -97,6 +102,18 @@ const Main = () => {
     setShowSelectGoal(!showSelectGoal);
   };
 
+  const handleActionClick = async () => {
+    setDogValue((prevDogValue) => ({
+      ...prevDogValue,
+      currentAffection: prevDogValue.currentAffection + 5,
+      currentHunger: prevDogValue.currentHunger + 5,
+      currentObedience: prevDogValue.currentObedience + 5,
+    }));
+    console.log(dogValue.currentAffection);
+    await updateDog();
+    // getDogByOwner();
+  };
+
   const addDog = async () => {
     const res = await fetchData(
       "/api/dogs",
@@ -138,6 +155,27 @@ const Main = () => {
     }
   };
 
+  const updateDog = async () => {
+    const res = await fetchData(
+      "/api/dogs",
+      "PATCH",
+      {
+        id: dogByOwner[0]._id,
+        currentAffection: dogValue.currentAffection,
+        currentObedience: dogValue.currentObedience,
+        currentHunger: dogValue.currentHunger,
+      },
+      userCtx.accessToken
+    );
+    if (res.okay) {
+      console.log("sucessfully updated dog value");
+      getDogByOwner();
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
   // GET TASKS DATA
   const getAllTasks = async () => {
     const res = await fetchData(
@@ -153,6 +191,17 @@ const Main = () => {
       console.log(res.data);
     }
   };
+
+  useEffect(() => {
+    if (dogByOwner.length > 0) {
+      setDogValue(dogByOwner[0]);
+    }
+  }, [dogByOwner]);
+
+  useEffect(() => {
+    // Perform actions with the updated dogValue here
+    console.log(dogValue.currentAffection);
+  }, [dogValue]);
 
   return (
     <div>
@@ -185,6 +234,8 @@ const Main = () => {
         dogByOwner={dogByOwner}
         selectedGoal={selectedGoal}
         setSelectedGoal={selectedGoal}
+        dogValue={dogValue}
+        handleActionClick={handleActionClick}
       ></DogCard>
       <div>{selectedGoal.goal}</div>
       <TaskList></TaskList>

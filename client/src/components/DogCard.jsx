@@ -15,7 +15,22 @@ const DogCard = (props) => {
   console.log(userGoal);
 
   console.log(userCtx);
+  // const dogValue = props.dogValue;
+  // const [currentDog, setCurrentDog] = useState(dogByOwner);
+  // useEffect(() => {
+  //   setCurrentDog(dogByOwner);
+  // }, [dogByOwner]);
+
+  // console.log(props.dogByOwner[1].currentHunger);
+
+  // const affectionLevel = dogByOwner[0].currentAffection;
+  // console.log(affectionLevel);
+  // // const hungerLevel = dogByOwner[0].currentHunger;
+  // const obedienceLevel = dogByOwner[0].currentObedience;
+
   // console.log(dogByOwner[0].currentAffection);
+
+  // console.log(affectionLevel + 10);
 
   return (
     <>
@@ -30,18 +45,18 @@ const DogCard = (props) => {
           </div>
         ))}
         {userGoal === "Companionship" && dogByOwner[0] && (
-          <div>Affection Level:{dogByOwner[0].currentAffection}</div>
+          <div>Affection Level:{dogValue.currentAffection}</div>
         )}
         {userGoal === "Routine & Discipline" && dogByOwner[0] && (
-          <div>Hunger Level:{dogByOwner[0].currentHunger}</div>
+          <div>Hunger Level:{dogValue.currentHunger}</div>
         )}
         {userGoal === "Dog Confomation Show" && dogByOwner[0] && (
-          <div>Obdience Level:{dogByOwner[0].currentObedience}</div>
+          <div>Obdience Level:{dogValue.currentObedience}</div>
         )}
       </div>
-      <Button>Feed</Button>
-      <Button>Train</Button>
-      <Button>Play</Button>
+      <Button onClick={props.handleActionClick}>Feed</Button>
+      <Button onClick={props.handleActionClick}>Train</Button>
+      <Button onClick={props.handleActionClick}>Play</Button>
     </>
   );
 };
