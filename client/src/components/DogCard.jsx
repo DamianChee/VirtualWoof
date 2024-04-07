@@ -8,6 +8,7 @@ const DogCard = (props) => {
   // const fetchData = useFetch();
   // const [dogbyOwner, setDogByOwner] = useState([]);
   const dogByOwner = props.dogByOwner;
+  const dogValue = props.dogValue;
   console.log(props.selectedDog);
   console.log(props.selectedDog.breed);
   console.log(props.selectedGoal);
