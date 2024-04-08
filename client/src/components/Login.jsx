@@ -11,7 +11,6 @@ const Login = () => {
 
   const userCtx = useContext(UserContext);
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
@@ -21,10 +20,10 @@ const Login = () => {
     });
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
-      const decoded = jwtDecode(res.data.access);
+      const userData = res.data;
+      userCtx.setUserById(userData.data._id);
       // redirect to main page
       navigate("/main");
-      console.log(res);
     } else {
       alert(JSON.stringify(res.data));
     }
@@ -32,7 +31,9 @@ const Login = () => {
 
   return (
     <>
-      <h1 className={`${styles.pageheader}`}>Login</h1>
+      <h1 className={`${styles.pageheader}`}>
+        Welcome to Virtualwoof Login Page
+      </h1>
       <br />
       <div>
         <input

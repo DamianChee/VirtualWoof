@@ -16,9 +16,13 @@ main is the dog stuff
 function App() {
   const [accessToken, setAccessToken] = useState("");
   const [showLogin, setShowLogin] = useState(true);
+  const [userById, setUserById] = useState({});
+
   return (
     <div>
-      <UserContext.Provider value={{ accessToken, setAccessToken }}>
+      <UserContext.Provider
+        value={{ accessToken, setAccessToken, userById, setUserById }}
+      >
         <Routes>
           <Route path="/" element={<Navigate replace to="/login" />}></Route>
           <Route path="main" element={<Main />}></Route>

@@ -23,7 +23,6 @@ const Main = () => {
   const [dogValue, setDogValue] = useState({});
   const [userById, setUserById] = useState({});
   const [tasks, setTasks] = useState([]);
-  const userId = userCtx.userById;
 
   console.log(dogByOwner[0]);
   // const dogId = dogByOwner[0]._id;
@@ -101,7 +100,7 @@ const Main = () => {
       const randomTasks = selectRandomTasks(tasks, 3);
       console.log("Random tasks selected:", randomTasks);
       await assignTaskToUser(randomTasks);
-      getAllTasks();
+      getUserById();
     }
   };
 
@@ -130,7 +129,7 @@ const Main = () => {
       "/api/users/userid",
       "POST",
       {
-        id: userId, // need to change this to dynamically reflect the userid
+        id: "66112280318207e2c47f1214", // need to change this to dynamically reflect the userid
       },
       userCtx.accessToken
     );
@@ -151,7 +150,7 @@ const Main = () => {
         size: selectedDog.size,
         personality: selectedDog.personality,
         coat: selectedDog.coat,
-        owner: userId, // need to change this to dynamically reflect the userid
+        owner: "66112280318207e2c47f1214", // need to change this to dynamically reflect the userid
       },
       userCtx.accessToken
     );
@@ -169,7 +168,7 @@ const Main = () => {
       "/api/dogs/owner",
       "POST",
       {
-        owner: userId,
+        owner: "66112280318207e2c47f1214",
       }, // need to change this to dynamically reflect the userid
       userCtx.accessToken
     );
@@ -188,7 +187,7 @@ const Main = () => {
       "/api/dogs",
       "PATCH",
       {
-        id: userId,
+        id: dogByOwner[0]._id,
         currentAffection: dogValue.currentAffection,
         currentObedience: dogValue.currentObedience,
         currentHunger: dogValue.currentHunger,
@@ -209,7 +208,7 @@ const Main = () => {
       "/api/users",
       "PATCH",
       {
-        id: userId, // // need to change this to dynamically reflect the userid
+        id: "66112280318207e2c47f1214", // // need to change this to dynamically reflect the userid
         goalMode: selectedGoal.goal,
       },
       userCtx.accessToken
@@ -257,7 +256,7 @@ const Main = () => {
       "/api/users",
       "PATCH",
       {
-        id: userId,
+        id: "66112280318207e2c47f1214",
         tasks: randomTasks,
       },
       userCtx.accessToken
@@ -360,19 +359,17 @@ const Main = () => {
         handleActionClick={handleActionClick}
         userById={userById}
       ></DogCard>
-      {/* <div>{selectedGoal.goal}</div> */}
-      <div>{userById.goalMode}</div>
+      <div>{selectedGoal.goal}</div>
+      {/* <div>{userById.goalMode}</div> */}
       {/* <div>tasks:{userById.tasks}</div> */}
-      {/* {userById.tasks.map((task) => (
+      {userById.tasks.map((task) => (
         <TaskList
           tasks={tasks}
           key={task.id}
           task={task.name}
           description={task.description}
-          startValue={task.startValue}
-          endValue={task.endValue}
         ></TaskList>
-      ))} */}
+      ))}
     </div>
   );
 };

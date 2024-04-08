@@ -16,7 +16,7 @@ const DogCard = (props) => {
   const userGoal = props.userById.goalMode;
   console.log(userGoal);
   console.log(props.userById);
-  const userId = userCtx.userById;
+  // const userId = userCtx.userById;
   // console.log(props.);
 
   console.log(userCtx);

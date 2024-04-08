@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { Link } from "react-router-dom";
 import styles from "./PageStyles.module.css";
 
-const Registration = (props) => {
+const Registration = () => {
   const fetchData = useFetch();
 
   const [email, setEmail] = useState("");
