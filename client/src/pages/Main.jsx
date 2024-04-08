@@ -103,7 +103,7 @@ const Main = () => {
       const randomTasks = selectRandomTasks(tasks, 3);
       console.log("Random tasks selected:", randomTasks);
       await assignTaskToUser(randomTasks);
-      getUserById();
+      await getUserById();
     }
   };
 
@@ -317,15 +317,10 @@ const Main = () => {
   //   };
   //   fetchTasks();
   // }, []);
-  // useEffect(() => {
-  //   if (userById.tasks) {
-  //     const startValue = userById.tasks.startValue;
-  //     const endValue = userById.tasks.endValue;
-  //     const deadline = userById.tasks.deadline;
-
-  //     checkAndAssignTasks(startValue, endValue, deadline);
-  //   }
-  // }, [userById]);
+  useEffect(() => {
+    if (userById.tasks) {
+    }
+  }, [userById]);
 
   return (
     <div>
@@ -362,17 +357,17 @@ const Main = () => {
         handleActionClick={handleActionClick}
         userById={userById}
       ></DogCard>
-      <div>{selectedGoal.goal}</div>
-      {/* <div>{userById.goalMode}</div> */}
+      {/* <div>{selectedGoal.goal}</div> */}
+      <div>{userById.goalMode}</div>
       {/* <div>tasks:{userById.tasks}</div> */}
-      {/* {userId.tasks.map((task) => (
+      {userById?.tasks?.map((task) => (
         <TaskList
           tasks={tasks}
           key={task.id}
           task={task.name}
           description={task.description}
         ></TaskList>
-      ))} */}
+      ))}
     </div>
   );
 };
