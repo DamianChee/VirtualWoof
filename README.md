@@ -13,6 +13,13 @@ Mernstack
 Mongodb
 Express
 
+# .env
+
+VITE_SERVER
+DATABASE
+ACCESS_SECRET
+REFRESH_SECRET
+
 # Next Steps
 
 Future enhancement one:
