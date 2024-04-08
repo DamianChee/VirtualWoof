@@ -226,7 +226,7 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
   try {
     const getUserId = await UsersModel.findById(req.body.id);
-    res(getUserId);
+    res.json(getUserId);
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "error getting" });
