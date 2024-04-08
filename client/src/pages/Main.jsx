@@ -63,7 +63,7 @@ const Main = () => {
       description: "You seek to instill displine by following a schedule.",
     },
     {
-      goal: "Dog Confomation Show",
+      goal: "Dog Show",
       description:
         "You seek to exhibit your dog's attributes and conformation.",
     },
@@ -174,6 +174,18 @@ const Main = () => {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
+  };
+
+  const updateUser = async () => {
+    const res = await fetchData(
+      "/api/users",
+      "PATCH",
+      {
+        id: "66112280318207e2c47f1214", // // need to change this to dynamically reflect the userid
+        goalMode: selectedGoal.goal,
+      },
+      userCtx.accessToken
+    );
   };
 
   // GET TASKS DATA
