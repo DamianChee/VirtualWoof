@@ -24,7 +24,7 @@ const Main = () => {
   const [userById, setUserById] = useState({});
   const [tasks, setTasks] = useState([]);
 
-  console.log(dogByOwner[0]);
+  console.log(userCtx.userById);
   // const dogId = dogByOwner[0]._id;
   // console.log(dogId);
 
