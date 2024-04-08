@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./PageStyles.module.css";
 
-const Login = (props) => {
+const Login = () => {
   const fetchData = useFetch();
   const navigate = useNavigate();
 
