@@ -9,12 +9,15 @@ const DogCard = (props) => {
   // const [dogbyOwner, setDogByOwner] = useState([]);
   const dogByOwner = props.dogByOwner;
   const dogValue = props.dogValue;
-  const userById = props.userById;
+  // const userById = props.userById;
   console.log(props.selectedDog);
   console.log(props.selectedDog.breed);
   console.log(props.selectedGoal);
-  const userGoal = props.dogByOwner.goalMode;
+  const userGoal = props.userById.goalMode;
   console.log(userGoal);
+  console.log(props.userById);
+  const userId = userCtx.userById;
+  // console.log(props.);
 
   console.log(userCtx);
   // const dogValue = props.dogValue;
@@ -46,13 +49,13 @@ const DogCard = (props) => {
             <p>{dog.birthday}</p>
           </div>
         ))}
-        {userGoal === "Companionship" && dogByOwner[0] && (
+        {userGoal === "Companionship" && (
           <div>Affection Level:{dogValue.currentAffection}</div>
         )}
-        {userGoal === "Routine & Discipline" && dogByOwner[0] && (
+        {userGoal === "Routine & Discipline" && (
           <div>Hunger Level:{dogValue.currentHunger}</div>
         )}
-        {userGoal === "Dog Confomation Show" && dogByOwner[0] && (
+        {userGoal === "Dog Show" && (
           <div>Obdience Level:{dogValue.currentObedience}</div>
         )}
       </div>

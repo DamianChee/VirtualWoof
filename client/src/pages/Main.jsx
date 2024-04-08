@@ -22,6 +22,8 @@ const Main = () => {
   const [showSelectGoal, setShowSelectGoal] = useState(null);
   const [dogValue, setDogValue] = useState({});
   const [userById, setUserById] = useState({});
+  const [tasks, setTasks] = useState([]);
+  const userId = userCtx.userById;
 
   console.log(dogByOwner[0]);
   // const dogId = dogByOwner[0]._id;
@@ -94,6 +96,12 @@ const Main = () => {
       toggleSelectGoal();
       await updateUser();
       getUserById();
+      getAllTasks();
+      console.log("Tasks before selecting random tasks:", tasks);
+      const randomTasks = selectRandomTasks(tasks, 3);
+      console.log("Random tasks selected:", randomTasks);
+      await assignTaskToUser(randomTasks);
+      getAllTasks();
     }
   };
 
@@ -122,7 +130,7 @@ const Main = () => {
       "/api/users/userid",
       "POST",
       {
-        id: "66112280318207e2c47f1214",
+        id: userId, // need to change this to dynamically reflect the userid
       },
       userCtx.accessToken
     );
@@ -143,7 +151,7 @@ const Main = () => {
         size: selectedDog.size,
         personality: selectedDog.personality,
         coat: selectedDog.coat,
-        owner: "66112280318207e2c47f1214", // need to change this to dynamically reflect the userid
+        owner: userId, // need to change this to dynamically reflect the userid
       },
       userCtx.accessToken
     );
@@ -161,7 +169,7 @@ const Main = () => {
       "/api/dogs/owner",
       "POST",
       {
-        owner: "66112280318207e2c47f1214",
+        owner: userId,
       }, // need to change this to dynamically reflect the userid
       userCtx.accessToken
     );
@@ -180,7 +188,7 @@ const Main = () => {
       "/api/dogs",
       "PATCH",
       {
-        id: dogByOwner[0]._id,
+        id: userId,
         currentAffection: dogValue.currentAffection,
         currentObedience: dogValue.currentObedience,
         currentHunger: dogValue.currentHunger,
@@ -201,7 +209,7 @@ const Main = () => {
       "/api/users",
       "PATCH",
       {
-        id: "66112280318207e2c47f1214", // // need to change this to dynamically reflect the userid
+        id: userId, // // need to change this to dynamically reflect the userid
         goalMode: selectedGoal.goal,
       },
       userCtx.accessToken
@@ -218,18 +226,65 @@ const Main = () => {
   // GET TASKS DATA
   const getAllTasks = async () => {
     const res = await fetchData(
-      "/endpoint",
+      "/api/tasks",
       undefined,
       undefined,
       userCtx.accessToken
     );
     if (res.ok) {
-      setTasks(res.data);
+      setTasks(res.data.data);
+      console.log("Successfully gotten task");
     } else {
-      alert(JSON.stringify(res.date));
+      alert(JSON.stringify(res.data.data));
+      console.log(res.data.data);
+    }
+  };
+
+  function selectRandomTasks(tasks, count) {
+    const result = [];
+    const tasksCopy = [...tasks];
+    for (let i = 0; i < count; i++) {
+      const randomIndex = Math.floor(Math.random() * tasksCopy.length);
+      result.push(tasksCopy[randomIndex]);
+      tasksCopy.splice(randomIndex, 1);
+    }
+    console.log(result);
+    return result;
+  }
+
+  const assignTaskToUser = async (randomTasks) => {
+    const res = await fetchData(
+      "/api/users",
+      "PATCH",
+      {
+        id: userId,
+        tasks: randomTasks,
+      },
+      userCtx.accessToken
+    );
+    if (res.ok) {
+      console.log("sucessfully updated task");
+    } else {
+      alert(JSON.stringify(res.data));
       console.log(res.data);
     }
   };
+
+  // async function checkAndAssignTasks(startValue, endValue, deadline) {
+  //   const now = new Date().getTime();
+  //   if (startValue === endValue || now >= deadline) {
+  //     const tasks = await getAllTasks();
+  //     const randomTasks = selectRandomTasks(tasks, 3);
+  //     await assignTaskToUser(randomTasks);
+  //   }
+  // }
+
+  // console.log(userById.tasks);
+  // const startValue = userById.tasks.startValue;
+  // const endValue = userById.tasks.endValue;
+  // const deadline = userById.tasks.deadline;
+
+  // checkAndAssignTasks(startValue, endValue, deadline);
 
   useEffect(() => {
     if (dogByOwner.length > 0) {
@@ -245,6 +300,30 @@ const Main = () => {
   useEffect(() => {
     console.log(userById);
   }, [userById]);
+
+  useEffect(() => {
+    console.log(tasks);
+  }, [tasks]);
+
+  useEffect(() => {
+    getAllTasks();
+  }, []);
+
+  // useEffect(() => {
+  //   const fetchTasks = async () => {
+  //     await getAllTasks();
+  //   };
+  //   fetchTasks();
+  // }, []);
+  // useEffect(() => {
+  //   if (userById.tasks) {
+  //     const startValue = userById.tasks.startValue;
+  //     const endValue = userById.tasks.endValue;
+  //     const deadline = userById.tasks.deadline;
+
+  //     checkAndAssignTasks(startValue, endValue, deadline);
+  //   }
+  // }, [userById]);
 
   return (
     <div>
@@ -283,7 +362,17 @@ const Main = () => {
       ></DogCard>
       {/* <div>{selectedGoal.goal}</div> */}
       <div>{userById.goalMode}</div>
-      <TaskList></TaskList>
+      {/* <div>tasks:{userById.tasks}</div> */}
+      {/* {userById.tasks.map((task) => (
+        <TaskList
+          tasks={tasks}
+          key={task.id}
+          task={task.name}
+          description={task.description}
+          startValue={task.startValue}
+          endValue={task.endValue}
+        ></TaskList>
+      ))} */}
     </div>
   );
 };
