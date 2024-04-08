@@ -24,6 +24,7 @@ const Main = () => {
   const [userById, setUserById] = useState({});
   const [tasks, setTasks] = useState([]);
 
+  // tingwei comment
   // this should be the login id of the user
   const userId = userCtx.userById;
 
@@ -103,7 +104,7 @@ const Main = () => {
       const randomTasks = selectRandomTasks(tasks, 3);
       console.log("Random tasks selected:", randomTasks);
       await assignTaskToUser(randomTasks);
-      getUserById();
+      getUserById(); // tingwei comment: can consider changing but up to you
     }
   };
 
@@ -137,7 +138,7 @@ const Main = () => {
       userCtx.accessToken
     );
     if (res.ok) {
-      setUserById(res.data);
+      setUserById(res.data); // tingwei comment: can consider changing but up to you
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -153,7 +154,7 @@ const Main = () => {
         size: selectedDog.size,
         personality: selectedDog.personality,
         coat: selectedDog.coat,
-        owner: userId, // need to change this to dynamically reflect the userid
+        owner: userId, // tingwei comment
       },
       userCtx.accessToken
     );
@@ -171,7 +172,7 @@ const Main = () => {
       "/api/dogs/owner",
       "POST",
       {
-        owner: userId,
+        owner: userId, // tingwei comment
       }, // need to change this to dynamically reflect the userid
       userCtx.accessToken
     );
@@ -211,14 +212,15 @@ const Main = () => {
       "/api/users",
       "PATCH",
       {
-        id: userId, // // need to change this to dynamically reflect the userid
+        id: userId, // tingwei comment
+
         goalMode: selectedGoal.goal,
       },
       userCtx.accessToken
     );
     if (res.okay) {
       console.log("sucessfully updated goal value");
-      getUserById();
+      getUserById(); // tingwei comment: can consider changing but up to you
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.dataß);
@@ -365,6 +367,7 @@ const Main = () => {
       <div>{selectedGoal.goal}</div>
       {/* <div>{userById.goalMode}</div> */}
       {/* <div>tasks:{userById.tasks}</div> */}
+      {/* tingwei comment */}
       {/* {userId.tasks.map((task) => (
         <TaskList
           tasks={tasks}
