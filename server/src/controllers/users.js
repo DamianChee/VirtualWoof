@@ -266,36 +266,6 @@ const giveUserDog = async (req, res) => {
   }
 };
 
-const replaceTaskInUser = async (req, res) => {
-  try {
-    const updateUser = {};
-    updateUser.$set = { tasks: req.body.tasks };
-    const users = await UsersModel.findByIdAndUpdate(req.body.id, updateUser, {
-      new: true,
-    });
-
-    res.json({ status: "ok", msg: "tasks replaced in user", data: users });
-  } catch (error) {
-    console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error adding task to user" });
-  }
-};
-
-const addTaskToUser = async (req, res) => {
-  try {
-    const updateUser = {};
-    updateUser.$set = { tasks: req.body.tasks };
-    const users = await UsersModel.findByIdAndUpdate(req.body.id, updateUser, {
-      new: true,
-    });
-
-    res.json({ status: "ok", msg: "tasks replaced in user", data: users });
-  } catch (error) {
-    console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error adding task to user" });
-  }
-};
-
 const updateUser = async (req, res) => {
   try {
     const updateUser = {};
