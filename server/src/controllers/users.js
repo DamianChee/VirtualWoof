@@ -378,7 +378,7 @@ const login = async (req, res) => {
       jwtid: uuidv4(),
     });
 
-    res.json({ status: "ok", msg: "logged in", access, refresh });
+    res.json({ status: "ok", msg: "logged in", data: auth, access, refresh });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "error not authorized" });
