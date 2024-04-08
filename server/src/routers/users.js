@@ -22,6 +22,6 @@ router.delete("/users", deleteUser);
 router.post("/users/register", register);
 router.post("/users/login", login);
 router.post("/users/refresh", refresh);
-router.post("/users/", getUserById);
+router.post("/users/userid", getUserById);
 
 module.exports = router;
