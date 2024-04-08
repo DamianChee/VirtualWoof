@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 import { jwtDecode } from "jwt-decode";
@@ -11,7 +11,6 @@ const Login = () => {
 
   const userCtx = useContext(UserContext);
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
@@ -32,7 +31,9 @@ const Login = () => {
 
   return (
     <>
-      <h1 className={`${styles.pageheader}`}>Login</h1>
+      <h1 className={`${styles.pageheader}`}>
+        Welcome to Virtualwoof Login Page
+      </h1>
       <br />
       <div>
         <input
