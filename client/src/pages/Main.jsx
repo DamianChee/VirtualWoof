@@ -21,9 +21,8 @@ const Main = () => {
   const [showSelectDog, setShowSelectDog] = useState(null);
   const [showSelectGoal, setShowSelectGoal] = useState(null);
   const [dogValue, setDogValue] = useState({});
-  const [userById, setUserById] = useState({});
 
-  console.log(dogByOwner[0]);
+  console.log(userCtx.userById);
   // const dogId = dogByOwner[0]._id;
   // console.log(dogId);
 
@@ -243,8 +242,8 @@ const Main = () => {
   }, [dogValue]);
 
   useEffect(() => {
-    console.log(userById);
-  }, [userById]);
+    console.log(userCtx.userById);
+  }, [userCtx.userById]);
 
   return (
     <div>
@@ -279,10 +278,10 @@ const Main = () => {
         setSelectedGoal={selectedGoal}
         dogValue={dogValue}
         handleActionClick={handleActionClick}
-        userById={userById}
+        // userById={userById} // use context
       ></DogCard>
       {/* <div>{selectedGoal.goal}</div> */}
-      <div>{userById.goalMode}</div>
+      <div>{userCtx.userById.goalMode}</div>
       <TaskList></TaskList>
     </div>
   );

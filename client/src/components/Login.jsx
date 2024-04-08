@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 import { jwtDecode } from "jwt-decode";
@@ -20,10 +20,10 @@ const Login = () => {
     });
     if (res.ok) {
       userCtx.setAccessToken(res.data.access);
-      const decoded = jwtDecode(res.data.access);
+      const userData = res.data;
+      userCtx.setUserById(userData.data._id);
       // redirect to main page
       navigate("/main");
-      console.log(res);
     } else {
       alert(JSON.stringify(res.data));
     }
