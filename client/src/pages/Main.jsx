@@ -21,6 +21,7 @@ const Main = () => {
   const [showSelectDog, setShowSelectDog] = useState(null);
   const [showSelectGoal, setShowSelectGoal] = useState(null);
   const [dogValue, setDogValue] = useState({});
+  const [userById, setUserById] = useState({});
 
   console.log(dogByOwner[0]);
   // const dogId = dogByOwner[0]._id;
@@ -88,9 +89,11 @@ const Main = () => {
     }
   };
 
-  const handleGoalClick = () => {
+  const handleGoalClick = async () => {
     if (selectedGoal) {
       toggleSelectGoal();
+      await updateUser();
+      getUserById();
     }
   };
 
@@ -112,6 +115,23 @@ const Main = () => {
     console.log(dogValue.currentAffection);
     await updateDog();
     // getDogByOwner();
+  };
+
+  const getUserById = async () => {
+    const res = await fetchData(
+      "/api/users/userid",
+      "POST",
+      {
+        id: "66112280318207e2c47f1214",
+      },
+      userCtx.accessToken
+    );
+    if (res.ok) {
+      setUserById(res.data);
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
   };
 
   const addDog = async () => {
@@ -186,6 +206,13 @@ const Main = () => {
       },
       userCtx.accessToken
     );
+    if (res.okay) {
+      console.log("sucessfully updated goal value");
+      getUserById();
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.dataß);
+    }
   };
 
   // GET TASKS DATA
@@ -214,6 +241,10 @@ const Main = () => {
     // Perform actions with the updated dogValue here
     console.log(dogValue.currentAffection);
   }, [dogValue]);
+
+  useEffect(() => {
+    console.log(userById);
+  }, [userById]);
 
   return (
     <div>
@@ -248,8 +279,10 @@ const Main = () => {
         setSelectedGoal={selectedGoal}
         dogValue={dogValue}
         handleActionClick={handleActionClick}
+        userById={userById}
       ></DogCard>
-      <div>{selectedGoal.goal}</div>
+      {/* <div>{selectedGoal.goal}</div> */}
+      <div>{userById.goalMode}</div>
       <TaskList></TaskList>
     </div>
   );

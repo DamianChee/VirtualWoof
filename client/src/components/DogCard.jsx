@@ -9,10 +9,11 @@ const DogCard = (props) => {
   // const [dogbyOwner, setDogByOwner] = useState([]);
   const dogByOwner = props.dogByOwner;
   const dogValue = props.dogValue;
+  const userById = props.userById;
   console.log(props.selectedDog);
   console.log(props.selectedDog.breed);
   console.log(props.selectedGoal);
-  const userGoal = props.selectedGoal.goal;
+  const userGoal = props.dogByOwner.goalMode;
   console.log(userGoal);
 
   console.log(userCtx);
