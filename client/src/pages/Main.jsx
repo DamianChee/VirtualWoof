@@ -24,7 +24,10 @@ const Main = () => {
   const [userById, setUserById] = useState({});
   const [tasks, setTasks] = useState([]);
 
-  console.log(userCtx.userById);
+  // this should be the login id of the user
+  const userId = userCtx.userById;
+
+  console.log(userId);
   // const dogId = dogByOwner[0]._id;
   // console.log(dogId);
 
@@ -362,7 +365,7 @@ const Main = () => {
       <div>{selectedGoal.goal}</div>
       {/* <div>{userById.goalMode}</div> */}
       {/* <div>tasks:{userById.tasks}</div> */}
-      {userById.tasks.map((task) => (
+      {userId.tasks.map((task) => (
         <TaskList
           tasks={tasks}
           key={task.id}

@@ -10,12 +10,13 @@ import UserContext from "./context/user";
 /* 
 
 main is the dog stuff
+in the UserContext.Provider value (add values in here)
+if need other info, do the same as the one shown
 
 */
 
 function App() {
   const [accessToken, setAccessToken] = useState("");
-  const [showLogin, setShowLogin] = useState(true);
   const [userById, setUserById] = useState({});
 
   return (
