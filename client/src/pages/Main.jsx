@@ -132,7 +132,7 @@ const Main = () => {
       "/api/users/userid",
       "POST",
       {
-        id: "66112280318207e2c47f1214", // need to change this to dynamically reflect the userid
+        id: userId, // need to change this to dynamically reflect the userid
       },
       userCtx.accessToken
     );
@@ -153,7 +153,7 @@ const Main = () => {
         size: selectedDog.size,
         personality: selectedDog.personality,
         coat: selectedDog.coat,
-        owner: "66112280318207e2c47f1214", // need to change this to dynamically reflect the userid
+        owner: userId, // need to change this to dynamically reflect the userid
       },
       userCtx.accessToken
     );
@@ -171,7 +171,7 @@ const Main = () => {
       "/api/dogs/owner",
       "POST",
       {
-        owner: "66112280318207e2c47f1214",
+        owner: userId,
       }, // need to change this to dynamically reflect the userid
       userCtx.accessToken
     );
@@ -211,7 +211,7 @@ const Main = () => {
       "/api/users",
       "PATCH",
       {
-        id: "66112280318207e2c47f1214", // // need to change this to dynamically reflect the userid
+        id: userId, // // need to change this to dynamically reflect the userid
         goalMode: selectedGoal.goal,
       },
       userCtx.accessToken
@@ -259,7 +259,7 @@ const Main = () => {
       "/api/users",
       "PATCH",
       {
-        id: "66112280318207e2c47f1214",
+        id: userId,
         tasks: randomTasks,
       },
       userCtx.accessToken
@@ -365,14 +365,14 @@ const Main = () => {
       <div>{selectedGoal.goal}</div>
       {/* <div>{userById.goalMode}</div> */}
       {/* <div>tasks:{userById.tasks}</div> */}
-      {userId.tasks.map((task) => (
+      {/* {userId.tasks.map((task) => (
         <TaskList
           tasks={tasks}
           key={task.id}
           task={task.name}
           description={task.description}
         ></TaskList>
-      ))}
+      ))} */}
     </div>
   );
 };
