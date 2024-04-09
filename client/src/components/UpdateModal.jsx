@@ -31,7 +31,10 @@ const UpdateModal = (props) => {
   return (
     <>
       {ReactDOM.createPortal(
-        <OverLay />,
+        <OverLay
+          setShowUpdateModal={props.setShowUpdateModal}
+          deleteDog={props.deleteDog}
+        />,
         document.querySelector("#modal-root")
       )}
     </>
