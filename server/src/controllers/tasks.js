@@ -299,17 +299,19 @@ const seedTasks = async (req, res) => {
     res.json({ status: "ok", msg: "seeding successful", data: tasks });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "seeding failed" });
+    res.status(400).json({ status: "error", msg: "Error in seedTasks" });
   }
 };
 
 const getAllTasks = async (req, res) => {
   try {
     const allTasks = await TasksModel.find();
-    res.json({ status: "ok", msg: "returning all tasks", data: allTasks });
+    if (allTasks.length)
+      res.json({ status: "ok", msg: "returning all tasks", data: allTasks });
+    else res.json({ status: "ok", msg: "There are no tasks" });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error getting" });
+    res.status(400).json({ status: "error", msg: "Error in getAllTasks" });
   }
 };
 
@@ -319,7 +321,7 @@ const getTaskById = async (req, res) => {
     res.json({ status: "ok", msg: "returning all tasks", data: task });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error getting" });
+    res.status(400).json({ status: "error", msg: "Error in getTaskById" });
   }
 };
 

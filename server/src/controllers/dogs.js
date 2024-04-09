@@ -104,39 +104,41 @@ const seedDogs = async (req, res) => {
     res.json({ status: "ok", msg: "seed completed", data: dogs });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "seeding failed" });
+    res.status(400).json({ status: "error", msg: "Error in seedDogs" });
   }
 };
 
 const getAllDogs = async (req, res) => {
   try {
-    const allDogs = await DogsModel.find();
+    const dogs = await DogsModel.find();
     if (allDogs.length)
-      res.json({ status: "ok", msg: "dogs found", data: allDogs });
+      res.json({ status: "ok", msg: "dogs found", data: dogs });
     else res.json({ status: "ok", msg: "no dogs found" });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error getting" });
+    res.status(400).json({ status: "error", msg: "Error in getAllDogs" });
   }
 };
 
 const getDogById = async (req, res) => {
   try {
     const dog = await DogsModel.findById(req.body.id);
-    res.json({ status: "ok", msg: "dogs found", data: dog });
+    if (dog.length) res.json({ status: "ok", msg: "dogs found", data: dog });
+    else res.json({ status: "ok", msg: "Dog id does not exist" });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error getting" });
+    res.status(400).json({ status: "error", msg: "Error in getDogById" });
   }
 };
 
 const getDogsByOwner = async (req, res) => {
   try {
     const dogs = await DogsModel.find({ owner: req.body.owner });
-    res.json({ status: "ok", msg: "dogs found", data: dogs });
+    if (dogs.length) res.json({ status: "ok", msg: "dogs found", data: dogs });
+    else res.json({ status: "ok", msg: "Owner has no dogs" });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error getting" });
+    res.status(400).json({ status: "error", msg: "Error in getDogsByOwner" });
   }
 };
 
@@ -144,12 +146,12 @@ const addDog = async (req, res) => {
   try {
     const newDog = {
       breed: req.body.breed,
-      size: req.body.size,
-      personality: req.body.personality,
-      coat: req.body.coat,
-      currentAffection: req.body.currentAffection,
-      currentObedience: req.body.currentObedience,
-      currentHunger: req.body.currentHunger,
+      size: req.body.size || "Medium",
+      personality: req.body.personality || "Excited",
+      coat: req.body.coat || "Short",
+      currentAffection: req.body.currentAffection || 50,
+      currentObedience: req.body.currentObedience || 50,
+      currentHunger: req.body.currentHunger || 50,
       owner: req.body.owner,
     };
     const dog = await DogsModel.create(newDog);
@@ -163,7 +165,7 @@ const addDog = async (req, res) => {
     res.json({ status: "ok", msg: "dog saved", data: { dog, user } });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error adding" });
+    res.status(400).json({ status: "error", msg: "Error in addDog" });
   }
 };
 
@@ -186,7 +188,7 @@ const updateDog = async (req, res) => {
     res.json({ status: "ok", msg: "dog updated", data: dogs });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error updating" });
+    res.status(400).json({ status: "error", msg: "Error in updateDog" });
   }
 };
 
@@ -203,7 +205,9 @@ const increaseDogAffection = async (req, res) => {
     res.json({ status: "ok", msg: "dog updated", data: dog });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error updating" });
+    res
+      .status(400)
+      .json({ status: "error", msg: "Error in increaseDogAffection" });
   }
 };
 
@@ -220,7 +224,9 @@ const increaseDogObedience = async (req, res) => {
     res.json({ status: "ok", msg: "dog updated", data: dog });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error updating" });
+    res
+      .status(400)
+      .json({ status: "error", msg: "Error in increaseDogObedience" });
   }
 };
 
@@ -237,7 +243,9 @@ const increaseDogHunger = async (req, res) => {
     res.json({ status: "ok", msg: "dog updated", data: dog });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error updating" });
+    res
+      .status(400)
+      .json({ status: "error", msg: "Error in increaseDogHunger" });
   }
 };
 
@@ -252,7 +260,7 @@ const deleteDog = async (req, res) => {
     res.json({ status: "ok", msg: "dog deleted", data: dog });
   } catch (error) {
     console.error(error.message);
-    res.status(400).json({ status: "error", msg: "error deleting" });
+    res.status(400).json({ status: "error", msg: "Error in deleteDog" });
   }
 };
 
