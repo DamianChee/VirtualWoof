@@ -8,6 +8,11 @@ const OverLay = (props) => {
   const fetchData = useFetch();
   const userCtx = useContext(UserContext);
 
+  const handleOkButton = () => {
+    props.setShowUpdateModal(false);
+    props.deleteDog();
+  };
+
   return (
     <div className={styles.backdrop}>
       <div className={styles.modal}>
@@ -16,10 +21,7 @@ const OverLay = (props) => {
         <h1>You dog ran away</h1>
         <br />
         <div className="row">
-          <button
-            onClick={() => props.setShowUpdateModal(false)}
-            className="col-md-3"
-          >
+          <button onClick={handleOkButton} className="col-md-3">
             Ok
           </button>
         </div>
