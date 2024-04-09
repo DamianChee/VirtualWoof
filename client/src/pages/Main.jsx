@@ -10,11 +10,9 @@ import TaskList from "../components/TaskList";
 import Button from "../components/Button";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
-import  {useInfo} from "../context/info";
-
+import { useInfo } from "../context/info";
 
 const Main = () => {
-
   const { isLoggedIn, userInfo } = useInfo();
 
   const userCtx = useContext(UserContext);
@@ -111,11 +109,7 @@ const Main = () => {
       const randomTasks = selectRandomTasks(tasks, 3);
       console.log("Random tasks selected:", randomTasks);
       await assignTaskToUser(randomTasks);
-<<<<<<< HEAD
-      await getUserById();
-=======
       getUserById(); // tingwei comment: can consider changing but up to you
->>>>>>> 3abc282e94a70c6913cc6386f5f299a410777b80
     }
   };
 
@@ -175,6 +169,26 @@ const Main = () => {
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
+    }
+  };
+
+  // dog ran away, instead of delete dog
+  // the function name is to represent the CRUD
+  const deleteDog = async () => {
+    const res = await fetchData(
+      "/api/users",
+      "DELETE",
+      {
+        id: dogByOwner[0].id,
+      },
+      userCtx.accessToken
+    );
+    if (res.okay) {
+      console.log("dog ran away");
+      getUserById();
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.dataß);
     }
   };
 
@@ -396,12 +410,8 @@ const Main = () => {
       {/* <div>{selectedGoal.goal}</div> */}
       <div>{userById.goalMode}</div>
       {/* <div>tasks:{userById.tasks}</div> */}
-<<<<<<< HEAD
-      {/* {userById?.tasks?.map((task) => (
-=======
       {/* tingwei comment */}
       {/* {userId.tasks.map((task) => (
->>>>>>> 3abc282e94a70c6913cc6386f5f299a410777b80
         <TaskList
           tasks={tasks}
           key={task.id}
