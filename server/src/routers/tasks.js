@@ -18,7 +18,7 @@ const router = express.Router();
 
 router.get("/tasks/seed", seedTasks);
 router.get("/tasks", getAllTasks);
-router.post("/tasks", getTaskById);
+router.post("/tasks/id", getTaskById);
 router.post("/tasks/type", getTasksByType);
 router.post("/tasks/difficulty", getTasksByDifficulty);
 router.post("/tasks/typedifficulty", getTasksByTypeDifficulty);
