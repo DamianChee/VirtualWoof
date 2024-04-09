@@ -202,8 +202,8 @@ const Main = () => {
       userCtx.accessToken
     );
     if (res.okay) {
-      console.log("dog ran away");
       getUserById();
+      console.log("dog ran away");
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.dataß);
@@ -240,10 +240,9 @@ const Main = () => {
       },
       userCtx.accessToken
     );
-    console.log(`updateDog debug: ${res}`);
     if (res.ok) {
-      console.log("sucessfully updated dog value");
       getDogByOwner();
+      console.log("sucessfully updated dog value");
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -262,8 +261,8 @@ const Main = () => {
       userCtx.accessToken
     );
     if (res.okay) {
-      console.log("sucessfully updated goal value");
       getUserById();
+      console.log("sucessfully updated goal value");
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -333,8 +332,16 @@ const Main = () => {
       console.log("sucessfully checked task expiry");
 
       // Damian:
-      // If task has expired, refresh the tasks
-      if (res.data.data) refreshTasks();
+      // If task has expired, refresh the tasks (the endpoint above immediately
+      // return true or false so we can use res.data.data without needing to set
+      // it into state and worry about useState bugs)
+      if (res.data.data) {
+        // If you want to check which tasks are completed then adding points to
+        // dog, do it before refreshTasks()
+        // code here...
+        // code here...
+        refreshTasks();
+      }
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
