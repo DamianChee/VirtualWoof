@@ -6,6 +6,8 @@ import Register from "./pages/Register";
 import Task from "./pages/Task";
 import NotFound from "./pages/NotFound";
 import UserContext from "./context/user";
+import { ThemeProvider } from "@mui/material";
+import theme from "./theme";
 
 /* 
 
@@ -20,7 +22,7 @@ function App() {
   const [userById, setUserById] = useState({});
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <UserContext.Provider
         value={{ accessToken, setAccessToken, userById, setUserById }}
       >
@@ -33,7 +35,7 @@ function App() {
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </UserContext.Provider>
-    </div>
+    </ThemeProvider>
   );
 }
 

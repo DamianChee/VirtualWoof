@@ -26,6 +26,8 @@ const Main = () => {
 
   // this should be the login id of the user
   const userId = userCtx.userById;
+  const userGoal = userById.goalMode;
+  console.log(userGoal);
 
   console.log(userId);
   // const dogId = dogByOwner[0]._id;
@@ -97,8 +99,8 @@ const Main = () => {
     if (selectedGoal) {
       toggleSelectGoal();
       await updateUser();
-      getUserById();
-      getAllTasks();
+      await getUserById();
+      await getTasksByGoal();
       console.log("Tasks before selecting random tasks:", tasks);
       const randomTasks = selectRandomTasks(tasks, 3);
       console.log("Random tasks selected:", randomTasks);
@@ -171,7 +173,7 @@ const Main = () => {
       "/api/dogs/owner",
       "POST",
       {
-        owner: userId,
+        owner: userGoal,
       }, // need to change this to dynamically reflect the userid
       userCtx.accessToken
     );
@@ -226,11 +228,28 @@ const Main = () => {
   };
 
   // GET TASKS DATA
-  const getAllTasks = async () => {
+  // const getAllTasks = async () => {
+  //   const res = await fetchData(
+  //     "/api/tasks",
+  //     undefined,
+  //     undefined,
+  //     userCtx.accessToken
+  //   );
+  //   if (res.ok) {
+  //     setTasks(res.data.data);
+  //     console.log("Successfully gotten task");
+  //   } else {
+  //     alert(JSON.stringify(res.data.data));
+  //     console.log(res.data.data);
+  //   }
+  // };
+
+  const getTasksByGoal = async () => {
+    console.log(userGoal);
     const res = await fetchData(
-      "/api/tasks",
-      undefined,
-      undefined,
+      "/api/tasks/type",
+      "POST",
+      { type: userById.goalMode },
       userCtx.accessToken
     );
     if (res.ok) {
@@ -307,10 +326,15 @@ const Main = () => {
     console.log(tasks);
   }, [tasks]);
 
-  useEffect(() => {
-    getAllTasks();
-  }, []);
+  // useEffect(() => {
+  //   getTasksByGoal();
+  // }, []);
 
+  useEffect(() => {
+    if (userById.goalMode) {
+      getTasksByGoal();
+    }
+  }, [userById]);
   // useEffect(() => {
   //   const fetchTasks = async () => {
   //     await getAllTasks();
@@ -360,14 +384,16 @@ const Main = () => {
       {/* <div>{selectedGoal.goal}</div> */}
       <div>{userById.goalMode}</div>
       {/* <div>tasks:{userById.tasks}</div> */}
-      {userById?.tasks?.map((task) => (
+      {/* {userById?.tasks?.map((task) => (
         <TaskList
           tasks={tasks}
           key={task.id}
           task={task.name}
           description={task.description}
+          startValue={task.startValue}
+          endValue={task.endValue}
         ></TaskList>
-      ))}
+      ))} */}
     </div>
   );
 };
