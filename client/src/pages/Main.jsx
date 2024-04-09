@@ -11,6 +11,7 @@ import Button from "../components/Button";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 import { useInfo } from "../context/info";
+import UpdateModal from "../components/UpdateModal";
 
 const Main = () => {
   const {
@@ -36,6 +37,7 @@ const Main = () => {
 
   const userCtx = useContext(UserContext);
   const fetchData = useFetch();
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   // const [selectedDog, setSelectedDog] = useState({});
   // const [selectedGoal, setSelectedGoal] = useState({});
@@ -417,6 +419,12 @@ const Main = () => {
   // }, [getTasksByGoal]);
   return (
     <div>
+      {showUpdateModal && (
+        <UpdateModal
+          setShowUpdateModal={setShowUpdateModal}
+          deleteDog={deleteDog}
+        />
+      )}
       <NavBar></NavBar>
       <Button onClick={toggleSelectDog}>Add Dog</Button>
       {showSelectDog && (
