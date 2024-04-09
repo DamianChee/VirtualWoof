@@ -7,6 +7,15 @@ export const InfoProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [userInfo, setUserInfo] = useState({});
 
+  const [selectedDog, setSelectedDog] = useState({});
+  const [selectedGoal, setSelectedGoal] = useState({});
+  const [dogByOwner, setDogByOwner] = useState([]);
+  const [showSelectDog, setShowSelectDog] = useState(null);
+  const [showSelectGoal, setShowSelectGoal] = useState(null);
+  const [dogValue, setDogValue] = useState({});
+  const [userById, setUserById] = useState({});
+  const [tasks, setTasks] = useState([]);
+
   const storeToken = (token) => {
     setToken(token);
   };
@@ -36,6 +45,22 @@ export const InfoProvider = ({ children }) => {
     login,
     logout,
     setUserInfo,
+    selectedDog,
+    setSelectedDog,
+    selectedGoal,
+    setSelectedGoal,
+    dogByOwner,
+    setDogByOwner,
+    showSelectDog,
+    setShowSelectDog,
+    showSelectGoal,
+    setShowSelectGoal,
+    dogValue,
+    setDogValue,
+    tasks,
+    setTasks,
+    userById,
+    setUserById,
   };
 
   return <InfoContext.Provider value={value}>{children}</InfoContext.Provider>;

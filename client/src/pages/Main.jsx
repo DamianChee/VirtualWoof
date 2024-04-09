@@ -10,24 +10,41 @@ import TaskList from "../components/TaskList";
 import Button from "../components/Button";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
-import  {useInfo} from "../context/info";
-
+import { useInfo } from "../context/info";
 
 const Main = () => {
-
-  const { isLoggedIn, userInfo } = useInfo();
+  const {
+    isLoggedIn,
+    userInfo,
+    selectedDog,
+    setSelectedDog,
+    selectedGoal,
+    setSelectedGoal,
+    dogByOwner,
+    setDogByOwner,
+    showSelectDog,
+    setShowSelectDog,
+    showSelectGoal,
+    setShowSelectGoal,
+    dogValue,
+    setDogValue,
+    userById,
+    setUserById,
+    tasks,
+    setTasks,
+  } = useInfo();
 
   const userCtx = useContext(UserContext);
   const fetchData = useFetch();
 
-  const [selectedDog, setSelectedDog] = useState({});
-  const [selectedGoal, setSelectedGoal] = useState({});
-  const [dogByOwner, setDogByOwner] = useState([]);
-  const [showSelectDog, setShowSelectDog] = useState(null);
-  const [showSelectGoal, setShowSelectGoal] = useState(null);
-  const [dogValue, setDogValue] = useState({});
-  const [userById, setUserById] = useState({});
-  const [tasks, setTasks] = useState([]);
+  // const [selectedDog, setSelectedDog] = useState({});
+  // const [selectedGoal, setSelectedGoal] = useState({});
+  // const [dogByOwner, setDogByOwner] = useState([]);
+  // const [showSelectDog, setShowSelectDog] = useState(null);
+  // const [showSelectGoal, setShowSelectGoal] = useState(null);
+  // const [dogValue, setDogValue] = useState({});
+  // const [userById, setUserById] = useState({});
+  // const [tasks, setTasks] = useState([]);
 
   // tingwei comment
   // this should be the login id of the user
@@ -105,17 +122,13 @@ const Main = () => {
     if (selectedGoal) {
       toggleSelectGoal();
       await updateUser();
-      await getUserById();
+      // await getUserById();
       await getTasksByGoal();
       console.log("Tasks before selecting random tasks:", tasks);
       const randomTasks = selectRandomTasks(tasks, 3);
       console.log("Random tasks selected:", randomTasks);
       await assignTaskToUser(randomTasks);
-<<<<<<< HEAD
       await getUserById();
-=======
-      getUserById(); // tingwei comment: can consider changing but up to you
->>>>>>> 3abc282e94a70c6913cc6386f5f299a410777b80
     }
   };
 
@@ -235,7 +248,7 @@ const Main = () => {
       getUserById(); // tingwei comment: can consider changing but up to you
     } else {
       alert(JSON.stringify(res.data));
-      console.log(res.dataß);
+      console.log(res.data);
     }
   };
 
@@ -396,21 +409,16 @@ const Main = () => {
       {/* <div>{selectedGoal.goal}</div> */}
       <div>{userById.goalMode}</div>
       {/* <div>tasks:{userById.tasks}</div> */}
-<<<<<<< HEAD
-      {/* {userById?.tasks?.map((task) => (
-=======
-      {/* tingwei comment */}
-      {/* {userId.tasks.map((task) => (
->>>>>>> 3abc282e94a70c6913cc6386f5f299a410777b80
+      {userById.tasks?.map((task) => (
         <TaskList
           tasks={tasks}
-          key={task.id}
-          task={task.name}
-          description={task.description}
-          startValue={task.startValue}
-          endValue={task.endValue}
+          key={task?.id}
+          task={task?.name}
+          description={task?.description}
+          startValue={task?.startValue}
+          endValue={task?.endValue}
         ></TaskList>
-      ))} */}
+      ))}
     </div>
   );
 };
