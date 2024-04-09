@@ -73,6 +73,10 @@ const DogCard = (props) => {
             <p>{dog.birthday}</p>
           </div>
         ))}
+        {/* <div>{dogByOwner[0].breed}</div>
+        <div>{dogByOwner[0].personality}</div>
+        <div>{dogByOwner[0].coat}</div>
+        <div>{dogByOwner[0].birthday}</div> */}
         {userGoal === "Companionship" && (
           <div>Affection Level:{dogValue.currentAffection}</div>
         )}

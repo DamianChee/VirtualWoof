@@ -40,12 +40,14 @@ const Main = () => {
   const fetchData = useFetch();
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showMessagePopup, setShowMessagePopup] = useState(false);
+  const [tasksExpired, setTasksExpired] = useState(false);
 
   const userId = userCtx.userById;
   const userGoal = userById.goalMode;
   console.log(userGoal);
 
   console.log(userId);
+  const startValue = userById.startValue;
 
   const dogs = [
     {
@@ -228,7 +230,7 @@ const Main = () => {
       "/api/dogs",
       "PATCH",
       {
-        id: userId,
+        id: dogByOwner[0]._id,
         currentAffection: dogValue.currentAffection,
         currentObedience: dogValue.currentObedience,
         currentHunger: dogValue.currentHunger,
@@ -311,26 +313,56 @@ const Main = () => {
     }
   };
 
-  // async function checkAndAssignTasks(startValue, endValue, deadline) {
-  //   const now = new Date().getTime();
-  //   if (startValue === endValue || now >= deadline) {
-  //     const tasks = await getAllTasks();
-  //     const randomTasks = selectRandomTasks(tasks, 3);
-  //     await assignTaskToUser(randomTasks);
-  //   }
-  // }
+  const checkTaskExpiry = async () => {
+    const res = await fetchData(
+      "/api/tasks/random/type",
+      "POST",
+      {
+        id: userId,
+        type: userById.goalMode,
+      },
+      userCtx.accessToken
+    );
+    if (res.ok) {
+      setTasksExpired(res.data);
+      console.log("sucessfully checked task expiry");
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
 
-  // console.log(userById.tasks);
-  // const startValue = userById.tasks.startValue;
-  // const endValue = userById.tasks.endValue;
-  // const deadline = userById.tasks.deadline;
-
-  // checkAndAssignTasks(startValue, endValue, deadline);
+  const refreshTasks = async () => {
+    const res = await fetchData(
+      "/api/users/tasksreplace/type",
+      "POST",
+      {
+        id: userId,
+        type: userById.goalMode,
+      },
+      userCtx.accessToken
+    );
+    if (res.ok) {
+      setTasks(res.data.data);
+      console.log("sucessfully refreshed task");
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
 
   useEffect(() => {
     getDogByOwner();
+    updateDog();
     getUserById();
-    dogValue;
+    checkTaskExpiry();
+
+    if (tasksExpired === true) {
+      refreshTasks();
+      console.log("true");
+    } else {
+      console.log("false");
+    }
   }, []);
 
   useEffect(() => {
@@ -341,9 +373,9 @@ const Main = () => {
 
   useEffect(() => {
     const shouldShowPopup =
-      dogValue.currentAffection > 240 ||
-      dogValue.currentHunger > 240 ||
-      dogValue.currentObedience > 240;
+      dogValue.currentAffection > 250 ||
+      dogValue.currentHunger > 250 ||
+      dogValue.currentObedience > 250;
 
     setShowMessagePopup(shouldShowPopup);
   }, [
@@ -370,10 +402,10 @@ const Main = () => {
     }
   }, [userById]);
 
-  useEffect(() => {
-    if (userById.tasks) {
-    }
-  }, [updateUser]);
+  // useEffect(() => {
+  //   if (userById.tasks) {
+  //   }
+  // }, [updateUser]);
 
   useEffect(() => {
     if (tasks.length > 0) {
