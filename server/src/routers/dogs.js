@@ -7,6 +7,9 @@ const {
   deleteDog,
   getDogsByOwner,
   getDogById,
+  increaseDogAffection,
+  increaseDogHunger,
+  increaseDogObedience,
 } = require("../controllers/dogs");
 const { authUser } = require("../middleware/auth");
 const router = express.Router();
@@ -25,6 +28,9 @@ router.post("/dogs/id", getDogById);
 router.post("/dogs/owner", getDogsByOwner);
 router.put("/dogs", addDog);
 router.patch("/dogs", updateDog);
+router.post("/dogs/increaseAffection", increaseDogAffection);
+router.post("/dogs/increaseObedience", increaseDogObedience);
+router.post("/dogs/increaseHunger", increaseDogHunger);
 router.delete("/dogs", deleteDog);
 
 module.exports = router;

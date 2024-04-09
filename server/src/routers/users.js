@@ -28,7 +28,6 @@ router.post("/users/tasksreplace", replaceTasksRandomly);
 router.post("/users/tasksreplace/type", replaceTasksByType);
 router.post("/users/tasksreplace/difficulty", replaceTasksByDifficulty);
 router.post("/users/tasksreplace/typedifficulty", replaceTasksByTypeDifficulty);
-
 router.put("/users", addUser);
 router.put("/users/adopt", giveUserDog);
 router.patch("/users", updateUser);
@@ -40,6 +39,12 @@ router.post("/users/userid", getUserById);
 
 // router.get("/users/seed", seedUsers);
 // router.get("/users", getAllUsers);
+// router.post("/users/tasks", authUser, getUserTasks);
+// router.post("/users/tasksexpired", authUser, hasUserTasksExpired);
+// router.post("/users/tasksreplace", authUser, replaceTasksRandomly);
+// router.post("/users/tasksreplace/type", authUser, replaceTasksByType);
+// router.post("/users/tasksreplace/difficulty", authUser, replaceTasksByDifficulty);
+// router.post("/users/tasksreplace/typedifficulty", authUser, replaceTasksByTypeDifficulty);
 // router.put("/users", addUser);
 // router.put("/users/adopt", giveUserDog);
 // router.patch("/users", authUser, updateUser);

@@ -191,6 +191,26 @@ const Main = () => {
     }
   };
 
+  // dog ran away, instead of delete dog
+  // the function name is to represent the CRUD
+  const deleteDog = async () => {
+    const res = await fetchData(
+      "/api/users",
+      "DELETE",
+      {
+        id: dogByOwner[0].id,
+      },
+      userCtx.accessToken
+    );
+    if (res.okay) {
+      console.log("dog ran away");
+      getUserById();
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.dataß);
+    }
+  };
+
   const getDogByOwner = async () => {
     const res = await fetchData(
       "/api/dogs/owner",
