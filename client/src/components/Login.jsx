@@ -15,7 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const userCtx = useContext(UserContext);
-  const { setUserInfo } = useInfo();
+  const { setUserInfo, setUserById } = useInfo();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -28,7 +28,9 @@ const Login = () => {
       userCtx.setAccessToken(res.data.access);
       const userData = res.data;
       userCtx.setUserById(userData.data._id);
+
       setUserInfo(res.data.data);
+      setUserById(res.data.data);
       // redirect to main page
       navigate("/main");
     } else {

@@ -19,7 +19,7 @@ const DogCard = (props) => {
   // const userId = userCtx.userById;
   // console.log(props.);
 
-  console.log(userCtx);
+  // console.log(userCtx);
 
   const {
     isLoggedIn,

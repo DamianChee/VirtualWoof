@@ -44,9 +44,9 @@ const Main = () => {
 
   const userId = userCtx.userById;
   const userGoal = userById.goalMode;
-  console.log(userGoal);
+  // console.log(userGoal);
 
-  console.log(userId);
+  // console.log(userId);
   const startValue = userById.startValue;
 
   const dogs = [
@@ -137,15 +137,19 @@ const Main = () => {
     await updateDog();
   };
 
-  // const toggleMessagePopup = () => {
-  //   setShowMessagePopup(!showMessagePopup);
-  // };
-
-  // const showCongratsMessage = () => {
-  //   if (dogValue.affect >= 0) {
-  //     toggleMessagePopup;
-  //   }
-  // };
+  /**
+   *
+   * const toggleMessagePopup = () => {
+   *  setShowMessagePopup(!showMessagePopup);
+   * };
+   *
+   * const showCongratsMessage = () => {
+   *  if (dogValue.affect >= 0) {
+   *    toggleMessagePopup;
+   *  }
+   * };
+   *
+   */
 
   const getUserById = async () => {
     const res = await fetchData(
@@ -217,7 +221,6 @@ const Main = () => {
     );
     if (res.ok) {
       setDogByOwner(res.data.data);
-      console.log(JSON.stringify(res.data.data));
       console.log("sucessfully got dog");
     } else {
       alert(JSON.stringify(res.data));
@@ -237,7 +240,8 @@ const Main = () => {
       },
       userCtx.accessToken
     );
-    if (res.okay) {
+    console.log(`updateDog debug: ${res}`);
+    if (res.ok) {
       console.log("sucessfully updated dog value");
       getDogByOwner();
     } else {
@@ -267,7 +271,7 @@ const Main = () => {
   };
 
   const getTasksByGoal = async () => {
-    console.log(userGoal);
+    // console.log(userGoal);
     const res = await fetchData(
       "/api/tasks/type",
       "POST",
@@ -283,39 +287,41 @@ const Main = () => {
     }
   };
 
-  function selectRandomTasks(tasks, count) {
-    const result = [];
-    const tasksCopy = [...tasks];
-    for (let i = 0; i < count; i++) {
-      const randomIndex = Math.floor(Math.random() * tasksCopy.length);
-      result.push(tasksCopy[randomIndex]);
-      tasksCopy.splice(randomIndex, 1);
-    }
-    console.log(result);
-    return result;
-  }
+  // function selectRandomTasks(tasks, count) {
+  //   const result = [];
+  //   const tasksCopy = [...tasks];
+  //   for (let i = 0; i < count; i++) {
+  //     const randomIndex = Math.floor(Math.random() * tasksCopy.length);
+  //     result.push(tasksCopy[randomIndex]);
+  //     tasksCopy.splice(randomIndex, 1);
+  //   }
+  //   console.log(result);
+  //   return result;
+  // }
 
-  const assignTaskToUser = async (randomTasks) => {
-    const res = await fetchData(
-      "/api/users",
-      "PATCH",
-      {
-        id: userId,
-        tasks: randomTasks,
-      },
-      userCtx.accessToken
-    );
-    if (res.ok) {
-      console.log("sucessfully updated task");
-    } else {
-      alert(JSON.stringify(res.data));
-      console.log(res.data);
-    }
-  };
+  // const assignTaskToUser = async (randomTasks) => {
+  //   const res = await fetchData(
+  //     "/api/users",
+  //     "PATCH",
+  //     {
+  //       id: userId,
+  //       tasks: randomTasks,
+  //     },
+  //     userCtx.accessToken
+  //   );
+  //   if (res.ok) {
+  //     console.log("sucessfully updated task");
+  //   } else {
+  //     alert(JSON.stringify(res.data));
+  //     console.log(res.data);
+  //   }
+  // };
 
   const checkTaskExpiry = async () => {
+    // Damian:
+    // Run endpoint to check if task has expired
     const res = await fetchData(
-      "/api/tasks/random/type",
+      "/api/users/tasksexpired",
       "POST",
       {
         id: userId,
@@ -324,8 +330,11 @@ const Main = () => {
       userCtx.accessToken
     );
     if (res.ok) {
-      setTasksExpired(res.data);
       console.log("sucessfully checked task expiry");
+
+      // Damian:
+      // If task has expired, refresh the tasks
+      if (res.data.data) refreshTasks();
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -333,6 +342,8 @@ const Main = () => {
   };
 
   const refreshTasks = async () => {
+    // Damian:
+    // Call the endpoint below to replace the task automatically
     const res = await fetchData(
       "/api/users/tasksreplace/type",
       "POST",
@@ -342,8 +353,13 @@ const Main = () => {
       },
       userCtx.accessToken
     );
+
     if (res.ok) {
-      setTasks(res.data.data);
+      // setTasks(res.data.data);
+
+      // Damian:
+      // Call getUserById() to change states and have the tasks?.map below re-render the new tasks
+      getUserById();
       console.log("sucessfully refreshed task");
     } else {
       alert(JSON.stringify(res.data));
@@ -352,18 +368,15 @@ const Main = () => {
   };
 
   useEffect(() => {
-    getDogByOwner();
-    updateDog();
-    getTasksByGoal();
-    getUserById();
-    checkTaskExpiry();
+    // Damian:
+    // After logging in, get all the dogs by user's Id
+    // Then check if tasks has expired
 
-    if (tasksExpired === true) {
-      refreshTasks();
-      console.log("true");
-    } else {
-      console.log("false");
-    }
+    getDogByOwner();
+    // updateDog();
+    // getTasksByGoal();
+    // getUserById();
+    checkTaskExpiry();
   }, []);
 
   useEffect(() => {
@@ -386,36 +399,30 @@ const Main = () => {
   ]);
 
   useEffect(() => {
-    console.log(userById);
+    // console.log(userById);
+    // if (userById.goalMode) {
+    //   getTasksByGoal();
+    // }
   }, [userById]);
 
   useEffect(() => {
-    console.log(tasks);
+    // console.log(tasks);
+    // if (tasks.length > 0) {
+    //   // Ensure tasks is not empty
+    //   const randomTasks = selectRandomTasks(tasks, 3);
+    //   console.log("Random tasks selected:", randomTasks);
+    //   assignTaskToUser(randomTasks); // Assuming assignTaskToUser is an async function
+    // }
   }, [tasks]);
 
   // useEffect(() => {
   //   getTasksByGoal();
   // }, []);
 
-  useEffect(() => {
-    if (userById.goalMode) {
-      getTasksByGoal();
-    }
-  }, [userById]);
-
   // useEffect(() => {
   //   if (userById.tasks) {
   //   }
   // }, [updateUser]);
-
-  useEffect(() => {
-    if (tasks.length > 0) {
-      // Ensure tasks is not empty
-      const randomTasks = selectRandomTasks(tasks, 3);
-      console.log("Random tasks selected:", randomTasks);
-      assignTaskToUser(randomTasks); // Assuming assignTaskToUser is an async function
-    }
-  }, [tasks]);
 
   return (
     <div>
@@ -472,7 +479,7 @@ const Main = () => {
       {userById.tasks?.map((task) => (
         <TaskList
           tasks={tasks}
-          key={task?.id}
+          key={task?._id}
           task={task?.name}
           description={task?.description}
           startValue={task?.startValue}

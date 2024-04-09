@@ -33,7 +33,7 @@ const seedUsers = async (req, res) => {
         username: "test",
         password:
           "$2b$12$37LpR..erY9KK0/IBokpSub6sYeGdzIj.N0P6m5TeJydomel22iEi",
-        goalMode: "Show",
+        goalMode: "Dog Show",
         tasks: [
           {
             name: "Play with the dog",
@@ -71,7 +71,7 @@ const seedUsers = async (req, res) => {
         username: "test1",
         password:
           "$2b$12$b5DSKTNpUg1rVXksuVWLnu/lOe9JaPp4evbiRa8WszrU7PTFZc8HG",
-        goalMode: "Companion",
+        goalMode: "Dog Show",
         tasks: [
           {
             name: "Feed the dog",
@@ -106,7 +106,7 @@ const seedUsers = async (req, res) => {
         username: "test2",
         password:
           "$2b$12$i9MCZ7K5e5r6za/oOQeZAudNZE4MB8.Rbndjt8YYBOVoTG1VYZzXy",
-        goalMode: "Companion",
+        goalMode: "Routine & Discipline",
         tasks: [
           {
             name: "Feed the dog",
@@ -141,7 +141,7 @@ const seedUsers = async (req, res) => {
         username: "test3",
         password:
           "$2b$12$y/3y53fZv.OnAoc8yx6.LOs7zz4Iy3WdXSFoVTKChF6qj956MOX1e",
-        goalMode: "Companion",
+        goalMode: "Routine & Discipline",
         tasks: [
           {
             name: "Feed the dog",
@@ -176,7 +176,7 @@ const seedUsers = async (req, res) => {
         username: "test4",
         password:
           "$2b$12$Q7VWVk5C0ITmc4nj/XUX.OY./CFIOS/Wya0xScyKeK1j/sKsJAOOS",
-        goalMode: "Companion",
+        goalMode: "Companionship",
         tasks: [
           {
             name: "Feed the dog",
@@ -247,7 +247,10 @@ const getUserTasks = async (req, res) => {
 const hasUserTasksExpired = async (req, res) => {
   try {
     const user = await UsersModel.findById(req.body.id);
-    const givenDate = new Date(user.tasks[0].deadline);
+    let givenDate;
+    if (user.tasks.length) givenDate = new Date(user.tasks[0].deadline);
+    else givenDate = new Date(0);
+
     const currentDate = new Date();
     let bool = givenDate.getTime() < currentDate.getTime();
 
@@ -265,7 +268,10 @@ const hasUserTasksExpired = async (req, res) => {
 const replaceTasksRandomly = async (req, res) => {
   try {
     const user = await UsersModel.findById(req.body.id);
-    const givenDate = new Date(user.tasks[0].deadline);
+    let givenDate;
+    if (user.tasks.length) givenDate = new Date(user.tasks[0].deadline);
+    else givenDate = new Date(0);
+
     const currentDate = new Date();
     let bool = givenDate.getTime() < currentDate.getTime();
 
@@ -297,7 +303,10 @@ const replaceTasksRandomly = async (req, res) => {
 const replaceTasksByType = async (req, res) => {
   try {
     const user = await UsersModel.findById(req.body.id);
-    const givenDate = new Date(user.tasks[0].deadline);
+    let givenDate;
+    if (user.tasks.length) givenDate = new Date(user.tasks[0].deadline);
+    else givenDate = new Date(0);
+
     const currentDate = new Date();
     let bool = givenDate.getTime() < currentDate.getTime();
 
@@ -361,7 +370,10 @@ const replaceTasksByDifficulty = async (req, res) => {
 const replaceTasksByTypeDifficulty = async (req, res) => {
   try {
     const user = await UsersModel.findById(req.body.id);
-    const givenDate = new Date(user.tasks[0].deadline);
+    let givenDate;
+    if (user.tasks.length) givenDate = new Date(user.tasks[0].deadline);
+    else givenDate = new Date(0);
+
     const currentDate = new Date();
     let bool = givenDate.getTime() < currentDate.getTime();
 
