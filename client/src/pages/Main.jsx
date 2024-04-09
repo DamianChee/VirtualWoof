@@ -12,6 +12,7 @@ import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 import { useInfo } from "../context/info";
 import UpdateModal from "../components/UpdateModal";
+import MessagePopup from "../components/MessagePopup";
 
 const Main = () => {
   const {
@@ -38,6 +39,7 @@ const Main = () => {
   const userCtx = useContext(UserContext);
   const fetchData = useFetch();
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showMessagePopup, setShowMessagePopup] = useState(false);
 
   const userId = userCtx.userById;
   const userGoal = userById.goalMode;
@@ -132,6 +134,16 @@ const Main = () => {
     console.log(dogValue.currentAffection);
     await updateDog();
   };
+
+  // const toggleMessagePopup = () => {
+  //   setShowMessagePopup(!showMessagePopup);
+  // };
+
+  // const showCongratsMessage = () => {
+  //   if (dogValue.affect >= 0) {
+  //     toggleMessagePopup;
+  //   }
+  // };
 
   const getUserById = async () => {
     const res = await fetchData(
@@ -317,6 +329,8 @@ const Main = () => {
 
   useEffect(() => {
     getDogByOwner();
+    getUserById();
+    dogValue;
   }, []);
 
   useEffect(() => {
@@ -326,8 +340,17 @@ const Main = () => {
   }, [dogByOwner]);
 
   useEffect(() => {
-    console.log(dogValue.currentAffection);
-  }, [dogValue]);
+    const shouldShowPopup =
+      dogValue.currentAffection > 240 ||
+      dogValue.currentHunger > 240 ||
+      dogValue.currentObedience > 240;
+
+    setShowMessagePopup(shouldShowPopup);
+  }, [
+    dogValue.currentAffection,
+    dogValue.currentHunger,
+    dogValue.currentObedience,
+  ]);
 
   useEffect(() => {
     console.log(userById);
@@ -371,6 +394,12 @@ const Main = () => {
         />
       )}
       <NavBar></NavBar>
+      {/* <Button
+        disabled={Object.keys(dogByOwner).length > 0}
+        onClick={toggleSelectDog}
+      >
+        Add Dog
+      </Button> */}
       <Button onClick={toggleSelectDog}>Add Dog</Button>
       {showSelectDog && (
         <SelectDog
@@ -417,6 +446,7 @@ const Main = () => {
           endValue={task?.endValue}
         ></TaskList>
       ))}
+      {showMessagePopup && <MessagePopup />}
     </div>
   );
 };
