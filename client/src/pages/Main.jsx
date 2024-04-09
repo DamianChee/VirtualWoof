@@ -10,8 +10,13 @@ import TaskList from "../components/TaskList";
 import Button from "../components/Button";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
+import  {useInfo} from "../context/info";
+
 
 const Main = () => {
+
+  const { isLoggedIn, userInfo } = useInfo();
+
   const userCtx = useContext(UserContext);
   const fetchData = useFetch();
 
@@ -24,6 +29,7 @@ const Main = () => {
   const [userById, setUserById] = useState({});
   const [tasks, setTasks] = useState([]);
 
+  // tingwei comment
   // this should be the login id of the user
   const userId = userCtx.userById;
   const userGoal = userById.goalMode;
@@ -105,7 +111,11 @@ const Main = () => {
       const randomTasks = selectRandomTasks(tasks, 3);
       console.log("Random tasks selected:", randomTasks);
       await assignTaskToUser(randomTasks);
+<<<<<<< HEAD
       await getUserById();
+=======
+      getUserById(); // tingwei comment: can consider changing but up to you
+>>>>>>> 3abc282e94a70c6913cc6386f5f299a410777b80
     }
   };
 
@@ -139,7 +149,7 @@ const Main = () => {
       userCtx.accessToken
     );
     if (res.ok) {
-      setUserById(res.data);
+      setUserById(res.data); // tingwei comment: can consider changing but up to you
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -155,7 +165,7 @@ const Main = () => {
         size: selectedDog.size,
         personality: selectedDog.personality,
         coat: selectedDog.coat,
-        owner: userId, // need to change this to dynamically reflect the userid
+        owner: userId, // tingwei comment
       },
       userCtx.accessToken
     );
@@ -173,7 +183,8 @@ const Main = () => {
       "/api/dogs/owner",
       "POST",
       {
-        owner: userGoal,
+        // owner: userGoal,
+        owner: userId, // tingwei comment
       }, // need to change this to dynamically reflect the userid
       userCtx.accessToken
     );
@@ -213,14 +224,15 @@ const Main = () => {
       "/api/users",
       "PATCH",
       {
-        id: userId, // // need to change this to dynamically reflect the userid
+        id: userId, // tingwei comment
+
         goalMode: selectedGoal.goal,
       },
       userCtx.accessToken
     );
     if (res.okay) {
       console.log("sucessfully updated goal value");
-      getUserById();
+      getUserById(); // tingwei comment: can consider changing but up to you
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.dataß);
@@ -384,7 +396,12 @@ const Main = () => {
       {/* <div>{selectedGoal.goal}</div> */}
       <div>{userById.goalMode}</div>
       {/* <div>tasks:{userById.tasks}</div> */}
+<<<<<<< HEAD
       {/* {userById?.tasks?.map((task) => (
+=======
+      {/* tingwei comment */}
+      {/* {userId.tasks.map((task) => (
+>>>>>>> 3abc282e94a70c6913cc6386f5f299a410777b80
         <TaskList
           tasks={tasks}
           key={task.id}

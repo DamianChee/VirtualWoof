@@ -7,6 +7,7 @@
  *
  ******************************************************************************/
 const UsersModel = require("../models/Users");
+const TasksModel = require("../models/Tasks");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
@@ -233,6 +234,165 @@ const getUserById = async (req, res) => {
   }
 };
 
+const getUserTasks = async (req, res) => {
+  try {
+    const user = await UsersModel.findById(req.body.id);
+    res.json({ status: "ok", msg: "Returning tasks", data: user.tasks });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting" });
+  }
+};
+
+const hasUserTasksExpired = async (req, res) => {
+  try {
+    const user = await UsersModel.findById(req.body.id);
+    const givenDate = new Date(user.tasks[0].deadline);
+    const currentDate = new Date();
+    let bool = givenDate.getTime() < currentDate.getTime();
+
+    res.json({
+      status: "ok",
+      msg: "Checking if tasks has expired",
+      data: bool,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting" });
+  }
+};
+
+const replaceTasksRandomly = async (req, res) => {
+  try {
+    const user = await UsersModel.findById(req.body.id);
+    const givenDate = new Date(user.tasks[0].deadline);
+    const currentDate = new Date();
+    let bool = givenDate.getTime() < currentDate.getTime();
+
+    if (bool) {
+      const allTasks = await TasksModel.find();
+      const random = allTasks.sort(() => Math.random() - 0.5).slice(0, 3);
+      const updateUser = {};
+
+      updateUser.$set = { tasks: random };
+
+      const newUser = await UsersModel.findByIdAndUpdate(
+        req.body.id,
+        updateUser,
+        {
+          new: true,
+        }
+      );
+
+      res.json({ status: "ok", msg: "Tasks replaced", data: newUser });
+    } else {
+      res.json({ status: "ok", msg: "Tasks not expired", data: user.tasks });
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting" });
+  }
+};
+
+const replaceTasksByType = async (req, res) => {
+  try {
+    const user = await UsersModel.findById(req.body.id);
+    const givenDate = new Date(user.tasks[0].deadline);
+    const currentDate = new Date();
+    let bool = givenDate.getTime() < currentDate.getTime();
+
+    if (bool) {
+      const tasks = await TasksModel.find({ type: req.body.type });
+      const random = tasks.sort(() => Math.random() - 0.5).slice(0, 3);
+      const updateUser = {};
+
+      updateUser.$set = { tasks: random };
+
+      const newUser = await UsersModel.findByIdAndUpdate(
+        req.body.id,
+        updateUser,
+        {
+          new: true,
+        }
+      );
+
+      res.json({ status: "ok", msg: "Tasks replaced", data: newUser });
+    } else {
+      res.json({ status: "ok", msg: "Tasks not expired", data: user.tasks });
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting" });
+  }
+};
+
+const replaceTasksByDifficulty = async (req, res) => {
+  try {
+    const user = await UsersModel.findById(req.body.id);
+    const givenDate = new Date(user.tasks[0].deadline);
+    const currentDate = new Date();
+    let bool = givenDate.getTime() < currentDate.getTime();
+
+    if (bool) {
+      const tasks = await TasksModel.find({ difficulty: req.body.difficulty });
+      const random = tasks.sort(() => Math.random() - 0.5).slice(0, 3);
+      const updateUser = {};
+
+      updateUser.$set = { tasks: random };
+
+      const newUser = await UsersModel.findByIdAndUpdate(
+        req.body.id,
+        updateUser,
+        {
+          new: true,
+        }
+      );
+
+      res.json({ status: "ok", msg: "Tasks replaced", data: newUser });
+    } else {
+      res.json({ status: "ok", msg: "Tasks not expired", data: user.tasks });
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting" });
+  }
+};
+
+const replaceTasksByTypeDifficulty = async (req, res) => {
+  try {
+    const user = await UsersModel.findById(req.body.id);
+    const givenDate = new Date(user.tasks[0].deadline);
+    const currentDate = new Date();
+    let bool = givenDate.getTime() < currentDate.getTime();
+
+    if (bool) {
+      const tasks = await TasksModel.find({
+        type: req.body.type,
+        difficulty: req.body.difficulty,
+      });
+      const random = tasks.sort(() => Math.random() - 0.5).slice(0, 3);
+      const updateUser = {};
+
+      updateUser.$set = { tasks: random };
+
+      const newUser = await UsersModel.findByIdAndUpdate(
+        req.body.id,
+        updateUser,
+        {
+          new: true,
+        }
+      );
+
+      res.json({ status: "ok", msg: "Tasks replaced", data: newUser });
+    } else {
+      res.json({ status: "ok", msg: "Tasks not expired", data: user.tasks });
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting" });
+  }
+};
+
 const addUser = async (req, res) => {
   try {
     const newPassword = await bcrypt.hash(req.body.password, 12);
@@ -379,6 +539,12 @@ const refresh = async (req, res) => {
 module.exports = {
   seedUsers,
   getAllUsers,
+  getUserTasks,
+  hasUserTasksExpired,
+  replaceTasksRandomly,
+  replaceTasksByType,
+  replaceTasksByDifficulty,
+  replaceTasksByTypeDifficulty,
   addUser,
   giveUserDog,
   updateUser,
