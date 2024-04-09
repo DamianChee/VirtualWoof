@@ -354,6 +354,7 @@ const Main = () => {
   useEffect(() => {
     getDogByOwner();
     updateDog();
+    getTasksByGoal();
     getUserById();
     checkTaskExpiry();
 
@@ -392,9 +393,9 @@ const Main = () => {
     console.log(tasks);
   }, [tasks]);
 
-  useEffect(() => {
-    getTasksByGoal();
-  }, []);
+  // useEffect(() => {
+  //   getTasksByGoal();
+  // }, []);
 
   useEffect(() => {
     if (userById.goalMode) {

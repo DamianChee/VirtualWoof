@@ -64,7 +64,7 @@ const DogCard = (props) => {
   return (
     <>
       <div>
-        {dogByOwner.map((dog, index) => (
+        {/* {dogByOwner.map((dog, index) => (
           <div key={index}>
             <p>{dog.breed}</p>
             <p>{dog.personality}</p>
@@ -72,7 +72,7 @@ const DogCard = (props) => {
             <p>{dog.size}</p>
             <p>{dog.birthday}</p>
           </div>
-        ))}
+        ))} */}
         {/* <div>{dogByOwner[0].breed}</div>
         <div>{dogByOwner[0].personality}</div>
         <div>{dogByOwner[0].coat}</div>
