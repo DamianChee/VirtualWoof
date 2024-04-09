@@ -10,8 +10,13 @@ import TaskList from "../components/TaskList";
 import Button from "../components/Button";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
+import  {useInfo} from "../context/info";
+
 
 const Main = () => {
+
+  const { isLoggedIn, userInfo } = useInfo();
+
   const userCtx = useContext(UserContext);
   const fetchData = useFetch();
 
@@ -27,6 +32,8 @@ const Main = () => {
   // tingwei comment
   // this should be the login id of the user
   const userId = userCtx.userById;
+  const userGoal = userById.goalMode;
+  console.log(userGoal);
 
   console.log(userId);
   // const dogId = dogByOwner[0]._id;
@@ -98,13 +105,17 @@ const Main = () => {
     if (selectedGoal) {
       toggleSelectGoal();
       await updateUser();
-      getUserById();
-      getAllTasks();
+      await getUserById();
+      await getTasksByGoal();
       console.log("Tasks before selecting random tasks:", tasks);
       const randomTasks = selectRandomTasks(tasks, 3);
       console.log("Random tasks selected:", randomTasks);
       await assignTaskToUser(randomTasks);
+<<<<<<< HEAD
+      await getUserById();
+=======
       getUserById(); // tingwei comment: can consider changing but up to you
+>>>>>>> 3abc282e94a70c6913cc6386f5f299a410777b80
     }
   };
 
@@ -172,6 +183,7 @@ const Main = () => {
       "/api/dogs/owner",
       "POST",
       {
+        // owner: userGoal,
         owner: userId, // tingwei comment
       }, // need to change this to dynamically reflect the userid
       userCtx.accessToken
@@ -228,11 +240,28 @@ const Main = () => {
   };
 
   // GET TASKS DATA
-  const getAllTasks = async () => {
+  // const getAllTasks = async () => {
+  //   const res = await fetchData(
+  //     "/api/tasks",
+  //     undefined,
+  //     undefined,
+  //     userCtx.accessToken
+  //   );
+  //   if (res.ok) {
+  //     setTasks(res.data.data);
+  //     console.log("Successfully gotten task");
+  //   } else {
+  //     alert(JSON.stringify(res.data.data));
+  //     console.log(res.data.data);
+  //   }
+  // };
+
+  const getTasksByGoal = async () => {
+    console.log(userGoal);
     const res = await fetchData(
-      "/api/tasks",
-      undefined,
-      undefined,
+      "/api/tasks/type",
+      "POST",
+      { type: userById.goalMode },
       userCtx.accessToken
     );
     if (res.ok) {
@@ -309,25 +338,25 @@ const Main = () => {
     console.log(tasks);
   }, [tasks]);
 
-  useEffect(() => {
-    getAllTasks();
-  }, []);
+  // useEffect(() => {
+  //   getTasksByGoal();
+  // }, []);
 
+  useEffect(() => {
+    if (userById.goalMode) {
+      getTasksByGoal();
+    }
+  }, [userById]);
   // useEffect(() => {
   //   const fetchTasks = async () => {
   //     await getAllTasks();
   //   };
   //   fetchTasks();
   // }, []);
-  // useEffect(() => {
-  //   if (userById.tasks) {
-  //     const startValue = userById.tasks.startValue;
-  //     const endValue = userById.tasks.endValue;
-  //     const deadline = userById.tasks.deadline;
-
-  //     checkAndAssignTasks(startValue, endValue, deadline);
-  //   }
-  // }, [userById]);
+  useEffect(() => {
+    if (userById.tasks) {
+    }
+  }, [userById]);
 
   return (
     <div>
@@ -364,16 +393,22 @@ const Main = () => {
         handleActionClick={handleActionClick}
         userById={userById}
       ></DogCard>
-      <div>{selectedGoal.goal}</div>
-      {/* <div>{userById.goalMode}</div> */}
+      {/* <div>{selectedGoal.goal}</div> */}
+      <div>{userById.goalMode}</div>
       {/* <div>tasks:{userById.tasks}</div> */}
+<<<<<<< HEAD
+      {/* {userById?.tasks?.map((task) => (
+=======
       {/* tingwei comment */}
       {/* {userId.tasks.map((task) => (
+>>>>>>> 3abc282e94a70c6913cc6386f5f299a410777b80
         <TaskList
           tasks={tasks}
           key={task.id}
           task={task.name}
           description={task.description}
+          startValue={task.startValue}
+          endValue={task.endValue}
         ></TaskList>
       ))} */}
     </div>

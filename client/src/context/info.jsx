@@ -35,6 +35,7 @@ export const InfoProvider = ({ children }) => {
     storeUser,
     login,
     logout,
+    setUserInfo,
   };
 
   return <InfoContext.Provider value={value}>{children}</InfoContext.Provider>;

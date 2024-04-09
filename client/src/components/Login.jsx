@@ -3,7 +3,11 @@ import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 import { jwtDecode } from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./PageStyles.module.css";
+import { TextField } from "@mui/material";
+import { Stack } from "@mui/material";
+import Button from "./Button";
+import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 
 const Login = () => {
   const fetchData = useFetch();
@@ -31,42 +35,68 @@ const Login = () => {
 
   return (
     <>
-      <h1 className={`${styles.pageheader}`}>
-        Welcome to Virtualwoof Login Page
-      </h1>
       <br />
-      <div>
-        <input
-          type="text"
-          className={`${styles.emailinputbox}`}
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="password"
-          className={`${styles.passwordinputbox}`}
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <button
-        className={`${styles.loginbutton}`}
-        type="submit"
-        onClick={handleLogin}
-      >
-        login
-      </button>
-      <br />
-      <Link to="/register">
-        <button className={`${styles.registerbutton}`}>
-          go to registration screen
-        </button>
-      </Link>
-      <div className="col-md-4"></div>
+      <Container>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="600px"
+        >
+          <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+            // margin="16px"
+            width="500px"
+          >
+            <h1>Welcome to Virtual Woof</h1>
+            <br></br>
+            <h3>Login </h3>
+            <TextField
+              id="outlined-basic"
+              type="text"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              fullWidth
+            ></TextField>
+
+            <TextField
+              id="outlined-basic"
+              type="password"
+              label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              fullWidth
+            ></TextField>
+            <Stack
+              direction="column"
+              justifyContent="flex-end"
+              alignItems="center"
+              spacing={1}
+              margin="16px"
+              width="500px"
+            >
+              <Button
+                variant="contained"
+                type="submit"
+                onClick={handleLogin}
+                fullWidth
+              >
+                LOGIN
+              </Button>
+
+              <Link to="/register">
+                <Button variant="text" fullWidth>
+                  Don’t have an account? Sign Up{" "}
+                </Button>
+              </Link>
+            </Stack>
+          </Stack>
+        </Box>
+      </Container>
     </>
   );
 };
