@@ -12,6 +12,15 @@ const authUser = (req, res, next) => {
 
       req.decoded = decoded;
       next();
+
+      /**
+       *     const user = await User.findById(req.userData.userId);
+    if (!user) return res.status(400).send({ error: 'User not found' });
+
+    // Ensure the user is only editing their own information
+    if (user._id.toString() !== req.userData.userId) {
+      return res.status(403).send({ error: 'Unauthorized action' });
+       */
     } catch (error) {
       console.error(error.message);
       return res.status(401).json({ status: "error", msg: "unauthorized" });

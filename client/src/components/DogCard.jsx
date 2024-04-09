@@ -10,16 +10,10 @@ const DogCard = (props) => {
   const dogByOwner = props.dogByOwner;
   const dogValue = props.dogValue;
   // const userById = props.userById;
-  console.log(props.selectedDog);
-  console.log(props.selectedDog.breed);
-  console.log(props.selectedGoal);
   const userGoal = props.userById.goalMode;
-  console.log(userGoal);
-  console.log(props.userById);
   // const userId = userCtx.userById;
   // console.log(props.);
 
-  console.log(userCtx);
   // const dogValue = props.dogValue;
   // const [currentDog, setCurrentDog] = useState(dogByOwner);
   // useEffect(() => {

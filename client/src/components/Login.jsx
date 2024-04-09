@@ -8,12 +8,14 @@ import { Stack } from "@mui/material";
 import Button from "./Button";
 import { Container } from "@mui/material";
 import { Box } from "@mui/material";
+import { useInfo } from "../context/info";
 
 const Login = () => {
   const fetchData = useFetch();
   const navigate = useNavigate();
 
   const userCtx = useContext(UserContext);
+  const { setUserInfo } = useInfo();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,6 +28,7 @@ const Login = () => {
       userCtx.setAccessToken(res.data.access);
       const userData = res.data;
       userCtx.setUserById(userData.data._id);
+      setUserInfo(res.data.data);
       // redirect to main page
       navigate("/main");
     } else {
