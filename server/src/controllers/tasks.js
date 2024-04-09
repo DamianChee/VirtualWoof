@@ -313,6 +313,16 @@ const getAllTasks = async (req, res) => {
   }
 };
 
+const getTaskById = async (req, res) => {
+  try {
+    const task = await TasksModel.findById(req.body.id);
+    res.json({ status: "ok", msg: "returning all tasks", data: task });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error getting" });
+  }
+};
+
 const getTasksByType = async (req, res) => {
   try {
     const tasks = await TasksModel.find({ type: req.body.type });
@@ -477,6 +487,7 @@ const deleteTask = async (req, res) => {
 module.exports = {
   seedTasks,
   getAllTasks,
+  getTaskById,
   getTasksByType,
   getTasksByDifficulty,
   getTasksByTypeDifficulty,
