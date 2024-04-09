@@ -420,6 +420,7 @@ const Main = () => {
     <div>
       {showUpdateModal && (
         <UpdateModal
+          key={userId}
           setShowUpdateModal={setShowUpdateModal}
           deleteDog={deleteDog}
         />
