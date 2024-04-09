@@ -397,7 +397,6 @@ const Main = () => {
     <div>
       {showUpdateModal && (
         <UpdateModal
-          id={props.id}
           setShowUpdateModal={setShowUpdateModal}
           deleteDog={deleteDog}
         />

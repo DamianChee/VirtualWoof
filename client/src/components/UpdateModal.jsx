@@ -34,7 +34,7 @@ const UpdateModal = (props) => {
   return (
     <>
       {ReactDOM.createPortal(
-        <OverLay id={props.id} />,
+        <OverLay />,
         document.querySelector("#modal-root")
       )}
     </>
