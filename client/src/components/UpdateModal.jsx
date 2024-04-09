@@ -17,14 +17,11 @@ const OverLay = (props) => {
     <div className={styles.backdrop}>
       <div className={styles.modal}>
         <br />
-        <br />
         <h1>You dog ran away</h1>
         <br />
-        <div className="row">
-          <button onClick={handleOkButton} className="col-md-3">
-            Ok
-          </button>
-        </div>
+        <button onClick={handleOkButton} className="col-md-3">
+          Ok
+        </button>
       </div>
     </div>
   );
@@ -34,7 +31,10 @@ const UpdateModal = (props) => {
   return (
     <>
       {ReactDOM.createPortal(
-        <OverLay />,
+        <OverLay
+          setShowUpdateModal={props.setShowUpdateModal}
+          deleteDog={props.deleteDog}
+        />,
         document.querySelector("#modal-root")
       )}
     </>

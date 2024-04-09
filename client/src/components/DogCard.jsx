@@ -2,17 +2,47 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
+import { useInfo } from "../context/info";
 
 const DogCard = (props) => {
   const userCtx = useContext(UserContext);
   // const fetchData = useFetch();
   // const [dogbyOwner, setDogByOwner] = useState([]);
-  const dogByOwner = props.dogByOwner;
-  const dogValue = props.dogValue;
+  // const dogByOwner = props.dogByOwner;
+  // const dogValue = props.dogValue;
   // const userById = props.userById;
-  const userGoal = props.userById.goalMode;
+  // console.log(props.selectedDog);
+  // console.log(props.selectedDog.breed);
+  // console.log(props.selectedGoal);
+  // console.log(userGoal);
+  // console.log(props.userById);
   // const userId = userCtx.userById;
   // console.log(props.);
+
+  console.log(userCtx);
+
+  const {
+    isLoggedIn,
+    userInfo,
+    selectedDog,
+    setSelectedDog,
+    selectedGoal,
+    setSelectedGoal,
+    dogByOwner,
+    setDogByOwner,
+    showSelectDog,
+    setShowSelectDog,
+    showSelectGoal,
+    setShowSelectGoal,
+    dogValue,
+    setDogValue,
+    userById,
+    setUserById,
+    tasks,
+    setTasks,
+  } = useInfo();
+
+  const userGoal = userById.goalMode;
 
   // const dogValue = props.dogValue;
   // const [currentDog, setCurrentDog] = useState(dogByOwner);
@@ -34,7 +64,7 @@ const DogCard = (props) => {
   return (
     <>
       <div>
-        {dogByOwner.map((dog, index) => (
+        {/* {dogByOwner.map((dog, index) => (
           <div key={index}>
             <p>{dog.breed}</p>
             <p>{dog.personality}</p>
@@ -42,7 +72,11 @@ const DogCard = (props) => {
             <p>{dog.size}</p>
             <p>{dog.birthday}</p>
           </div>
-        ))}
+        ))} */}
+        {/* <div>{dogByOwner[0].breed}</div>
+        <div>{dogByOwner[0].personality}</div>
+        <div>{dogByOwner[0].coat}</div>
+        <div>{dogByOwner[0].birthday}</div> */}
         {userGoal === "Companionship" && (
           <div>Affection Level:{dogValue.currentAffection}</div>
         )}

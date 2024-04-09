@@ -12,6 +12,7 @@ import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 import { useInfo } from "../context/info";
 import UpdateModal from "../components/UpdateModal";
+import MessagePopup from "../components/MessagePopup";
 
 const Main = () => {
   const {
@@ -38,27 +39,15 @@ const Main = () => {
   const userCtx = useContext(UserContext);
   const fetchData = useFetch();
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showMessagePopup, setShowMessagePopup] = useState(false);
+  const [tasksExpired, setTasksExpired] = useState(false);
 
-  // const [selectedDog, setSelectedDog] = useState({});
-  // const [selectedGoal, setSelectedGoal] = useState({});
-  // const [dogByOwner, setDogByOwner] = useState([]);
-  // const [showSelectDog, setShowSelectDog] = useState(null);
-  // const [showSelectGoal, setShowSelectGoal] = useState(null);
-  // const [dogValue, setDogValue] = useState({});
-  // const [userById, setUserById] = useState({});
-  // const [tasks, setTasks] = useState([]);
-
-  // tingwei comment
-  // this should be the login id of the user
   const userId = userCtx.userById;
   const userGoal = userById.goalMode;
   console.log(userGoal);
 
   console.log(userId);
-  // const dogId = dogByOwner[0]._id;
-  // console.log(dogId);
-
-  // const userId = user;
+  const startValue = userById.startValue;
 
   const dogs = [
     {
@@ -124,12 +113,7 @@ const Main = () => {
     if (selectedGoal) {
       toggleSelectGoal();
       await updateUser();
-      // await getUserById();
       await getTasksByGoal();
-      console.log("Tasks before selecting random tasks:", tasks);
-      const randomTasks = selectRandomTasks(tasks, 3);
-      console.log("Random tasks selected:", randomTasks);
-      await assignTaskToUser(randomTasks);
       await getUserById();
     }
   };
@@ -151,20 +135,29 @@ const Main = () => {
     }));
     console.log(dogValue.currentAffection);
     await updateDog();
-    // getDogByOwner();
   };
+
+  // const toggleMessagePopup = () => {
+  //   setShowMessagePopup(!showMessagePopup);
+  // };
+
+  // const showCongratsMessage = () => {
+  //   if (dogValue.affect >= 0) {
+  //     toggleMessagePopup;
+  //   }
+  // };
 
   const getUserById = async () => {
     const res = await fetchData(
       "/api/users/userid",
       "POST",
       {
-        id: userId, // need to change this to dynamically reflect the userid
+        id: userId,
       },
       userCtx.accessToken
     );
     if (res.ok) {
-      setUserById(res.data); // tingwei comment: can consider changing but up to you
+      setUserById(res.data);
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
@@ -180,7 +173,7 @@ const Main = () => {
         size: selectedDog.size,
         personality: selectedDog.personality,
         coat: selectedDog.coat,
-        owner: userId, // tingwei comment
+        owner: userId,
       },
       userCtx.accessToken
     );
@@ -218,9 +211,8 @@ const Main = () => {
       "/api/dogs/owner",
       "POST",
       {
-        // owner: userGoal,
-        owner: userId, // tingwei comment
-      }, // need to change this to dynamically reflect the userid
+        owner: userId,
+      },
       userCtx.accessToken
     );
     if (res.ok) {
@@ -238,7 +230,7 @@ const Main = () => {
       "/api/dogs",
       "PATCH",
       {
-        id: userId,
+        id: dogByOwner[0]._id,
         currentAffection: dogValue.currentAffection,
         currentObedience: dogValue.currentObedience,
         currentHunger: dogValue.currentHunger,
@@ -259,7 +251,7 @@ const Main = () => {
       "/api/users",
       "PATCH",
       {
-        id: userId, // tingwei comment
+        id: userId,
 
         goalMode: selectedGoal.goal,
       },
@@ -267,29 +259,12 @@ const Main = () => {
     );
     if (res.okay) {
       console.log("sucessfully updated goal value");
-      getUserById(); // tingwei comment: can consider changing but up to you
+      getUserById();
     } else {
       alert(JSON.stringify(res.data));
       console.log(res.data);
     }
   };
-
-  // GET TASKS DATA
-  // const getAllTasks = async () => {
-  //   const res = await fetchData(
-  //     "/api/tasks",
-  //     undefined,
-  //     undefined,
-  //     userCtx.accessToken
-  //   );
-  //   if (res.ok) {
-  //     setTasks(res.data.data);
-  //     console.log("Successfully gotten task");
-  //   } else {
-  //     alert(JSON.stringify(res.data.data));
-  //     console.log(res.data.data);
-  //   }
-  // };
 
   const getTasksByGoal = async () => {
     console.log(userGoal);
@@ -338,21 +313,58 @@ const Main = () => {
     }
   };
 
-  // async function checkAndAssignTasks(startValue, endValue, deadline) {
-  //   const now = new Date().getTime();
-  //   if (startValue === endValue || now >= deadline) {
-  //     const tasks = await getAllTasks();
-  //     const randomTasks = selectRandomTasks(tasks, 3);
-  //     await assignTaskToUser(randomTasks);
-  //   }
-  // }
+  const checkTaskExpiry = async () => {
+    const res = await fetchData(
+      "/api/tasks/random/type",
+      "POST",
+      {
+        id: userId,
+        type: userById.goalMode,
+      },
+      userCtx.accessToken
+    );
+    if (res.ok) {
+      setTasksExpired(res.data);
+      console.log("sucessfully checked task expiry");
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
 
-  // console.log(userById.tasks);
-  // const startValue = userById.tasks.startValue;
-  // const endValue = userById.tasks.endValue;
-  // const deadline = userById.tasks.deadline;
+  const refreshTasks = async () => {
+    const res = await fetchData(
+      "/api/users/tasksreplace/type",
+      "POST",
+      {
+        id: userId,
+        type: userById.goalMode,
+      },
+      userCtx.accessToken
+    );
+    if (res.ok) {
+      setTasks(res.data.data);
+      console.log("sucessfully refreshed task");
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
 
-  // checkAndAssignTasks(startValue, endValue, deadline);
+  useEffect(() => {
+    getDogByOwner();
+    updateDog();
+    getTasksByGoal();
+    getUserById();
+    checkTaskExpiry();
+
+    if (tasksExpired === true) {
+      refreshTasks();
+      console.log("true");
+    } else {
+      console.log("false");
+    }
+  }, []);
 
   useEffect(() => {
     if (dogByOwner.length > 0) {
@@ -361,8 +373,17 @@ const Main = () => {
   }, [dogByOwner]);
 
   useEffect(() => {
-    console.log(dogValue.currentAffection);
-  }, [dogValue]);
+    const shouldShowPopup =
+      dogValue.currentAffection > 250 ||
+      dogValue.currentHunger > 250 ||
+      dogValue.currentObedience > 250;
+
+    setShowMessagePopup(shouldShowPopup);
+  }, [
+    dogValue.currentAffection,
+    dogValue.currentHunger,
+    dogValue.currentObedience,
+  ]);
 
   useEffect(() => {
     console.log(userById);
@@ -372,9 +393,9 @@ const Main = () => {
     console.log(tasks);
   }, [tasks]);
 
-  useEffect(() => {
-    getTasksByGoal();
-  }, []);
+  // useEffect(() => {
+  //   getTasksByGoal();
+  // }, []);
 
   useEffect(() => {
     if (userById.goalMode) {
@@ -383,48 +404,35 @@ const Main = () => {
   }, [userById]);
 
   // useEffect(() => {
-  //   const fetchTasks = async () => {
-  //     await getAllTasks();
-  //   };
-  //   fetchTasks();
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (tasks) {
-  //       const randomTasks = selectRandomTasks(tasks, 3);
-  //       await assignTaskToUser(randomTasks);
-  //       await getUserById();
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [tasks]);
+  //   if (userById.tasks) {
+  //   }
+  // }, [updateUser]);
 
   useEffect(() => {
-    if (userById.tasks) {
+    if (tasks.length > 0) {
+      // Ensure tasks is not empty
+      const randomTasks = selectRandomTasks(tasks, 3);
+      console.log("Random tasks selected:", randomTasks);
+      assignTaskToUser(randomTasks); // Assuming assignTaskToUser is an async function
     }
-  }, [updateUser]);
+  }, [tasks]);
 
-  // useEffect(() => {
-  //   const fetchDataAndUpdate = async () => {
-  //     // First, fetch tasks by goal
-  //     await getTasksByGoal();
-  //     // Then, fetch user by ID
-  //     await updateUser();
-  //   };
-
-  //   fetchDataAndUpdate();
-  // }, [getTasksByGoal]);
   return (
     <div>
       {showUpdateModal && (
         <UpdateModal
+          key={userId}
           setShowUpdateModal={setShowUpdateModal}
           deleteDog={deleteDog}
         />
       )}
       <NavBar></NavBar>
+      {/* <Button
+        disabled={Object.keys(dogByOwner).length > 0}
+        onClick={toggleSelectDog}
+      >
+        Add Dog
+      </Button> */}
       <Button onClick={toggleSelectDog}>Add Dog</Button>
       {showSelectDog && (
         <SelectDog
@@ -471,6 +479,7 @@ const Main = () => {
           endValue={task?.endValue}
         ></TaskList>
       ))}
+      {showMessagePopup && <MessagePopup />}
     </div>
   );
 };

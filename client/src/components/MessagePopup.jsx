@@ -1,7 +1,7 @@
 import React from "react";
 
 const MessagePopup = () => {
-  return <div></div>;
+  return <div> Congratulation!</div>;
 };
 
 export default MessagePopup;
