@@ -22,9 +22,7 @@ const router = express.Router();
 
 router.get("/users/seed", seedUsers);
 router.get("/users", getAllUsers);
-
 router.post("/users/tasks", getUserTasks);
-
 router.post("/users/tasksexpired", hasUserTasksExpired);
 router.post("/users/tasksreplace", replaceTasksRandomly);
 router.post("/users/tasksreplace/type", replaceTasksByType);
