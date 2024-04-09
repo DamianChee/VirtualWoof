@@ -7,6 +7,8 @@
  *
  ******************************************************************************/
 const DogsModel = require("../models/Dogs");
+const UsersModel = require("../models/Users");
+const { giveUserDog } = require("./users");
 
 const seedDogs = async (req, res) => {
   try {
@@ -150,9 +152,15 @@ const addDog = async (req, res) => {
       currentHunger: req.body.currentHunger,
       owner: req.body.owner,
     };
-    const dogs = await DogsModel.create(newDog);
+    const dog = await DogsModel.create(newDog);
 
-    res.json({ status: "ok", msg: "dog saved", data: dogs });
+    let user = await UsersModel.findById(req.body.owner);
+    user.dogs.push(dog._id);
+    user = await UsersModel.findByIdAndUpdate(req.body.owner, user, {
+      new: true,
+    });
+
+    res.json({ status: "ok", msg: "dog saved", data: { dog, user } });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "error adding" });
