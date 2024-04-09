@@ -11,7 +11,7 @@ const tasks = require("./src/routers/tasks");
 const users = require("./src/routers/users");
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
+  windowMs: 1000,
   max: 100,
   standardHeaders: true,
   legacyHeaders: false,
