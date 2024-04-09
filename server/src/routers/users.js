@@ -10,12 +10,27 @@ const {
   login,
   refresh,
   getUserById,
+  getUserTasks,
+  hasUserTasksExpired,
+  replaceTasksRandomly,
+  replaceTasksByType,
+  replaceTasksByDifficulty,
+  replaceTasksByTypeDifficulty,
 } = require("../controllers/users");
 const { authUser } = require("../middleware/auth");
 const router = express.Router();
 
 router.get("/users/seed", seedUsers);
 router.get("/users", getAllUsers);
+
+router.post("/users/tasks", getUserTasks);
+
+router.post("/users/tasksexpired", hasUserTasksExpired);
+router.post("/users/tasksreplace", replaceTasksRandomly);
+router.post("/users/tasksreplace/type", replaceTasksByType);
+router.post("/users/tasksreplace/difficulty", replaceTasksByDifficulty);
+router.post("/users/tasksreplace/typedifficulty", replaceTasksByTypeDifficulty);
+
 router.put("/users", addUser);
 router.put("/users/adopt", giveUserDog);
 router.patch("/users", updateUser);
