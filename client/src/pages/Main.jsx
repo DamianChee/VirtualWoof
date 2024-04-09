@@ -42,6 +42,8 @@ const Main = () => {
   const [showMessagePopup, setShowMessagePopup] = useState(false);
   const [tasksExpired, setTasksExpired] = useState(false);
 
+  const [goalModeChanged, setGoalModeChanged] = useState(false);
+
   const userId = userCtx.userById;
   const userGoal = userById.goalMode;
   // console.log(userGoal);
@@ -112,9 +114,9 @@ const Main = () => {
   const handleGoalClick = async () => {
     if (selectedGoal) {
       toggleSelectGoal();
-      await updateUser();
-      await getTasksByGoal();
-      await getUserById();
+      await updateUser(); // update user's goal, set goalModeChanged to true
+      // await getTasksByGoal();
+      // await refreshTasks(); // this has been moved to useEffect( , [goalModeChanged])
     }
   };
 
@@ -201,7 +203,7 @@ const Main = () => {
       },
       userCtx.accessToken
     );
-    if (res.okay) {
+    if (res.ok) {
       getUserById();
       console.log("dog ran away");
     } else {
@@ -260,8 +262,9 @@ const Main = () => {
       },
       userCtx.accessToken
     );
-    if (res.okay) {
+    if (res.ok) {
       getUserById();
+      setGoalModeChanged(true);
       console.log("sucessfully updated goal value");
     } else {
       alert(JSON.stringify(res.data));
@@ -351,12 +354,14 @@ const Main = () => {
   const refreshTasks = async () => {
     // Damian:
     // Call the endpoint below to replace the task automatically
+    let goal = userById.goalMode;
+    if (selectedGoal.goal) goal = selectedGoal.goal;
     const res = await fetchData(
       "/api/users/tasksreplace/type",
       "POST",
       {
         id: userId,
-        type: userById.goalMode,
+        type: goal,
       },
       userCtx.accessToken
     );
@@ -386,8 +391,15 @@ const Main = () => {
     checkTaskExpiry();
   }, []);
 
+  // Damian:
+  // When updateUser, change goalModeChanged to true, when it becomes true
+  // refreshTasks in here
   useEffect(() => {
-    if (dogByOwner.length > 0) {
+    refreshTasks();
+  }, [goalModeChanged]);
+
+  useEffect(() => {
+    if (dogByOwner && dogByOwner.length > 0) {
       setDogValue(dogByOwner[0]);
     }
   }, [dogByOwner]);
