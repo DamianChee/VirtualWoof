@@ -238,7 +238,7 @@ const Main = () => {
       "/api/dogs",
       "PATCH",
       {
-        id: dogByOwner[0]._id,
+        id: userId,
         currentAffection: dogValue.currentAffection,
         currentObedience: dogValue.currentObedience,
         currentHunger: dogValue.currentHunger,
@@ -368,13 +368,13 @@ const Main = () => {
     console.log(userById);
   }, [userById]);
 
-  // useEffect(() => {
-  //   console.log(tasks);
-  // }, [tasks]);
+  useEffect(() => {
+    console.log(tasks);
+  }, [tasks]);
 
-  // useEffect(() => {
-  //   getTasksByGoal();
-  // }, []);
+  useEffect(() => {
+    getTasksByGoal();
+  }, []);
 
   useEffect(() => {
     if (userById.goalMode) {
@@ -391,16 +391,15 @@ const Main = () => {
 
   // useEffect(() => {
   //   const fetchData = async () => {
-  //     if (userById.goalMode) {
-  //       const tasksRes = await getTasksByGoal();
-  //       const randomTasks = selectRandomTasks(tasksRes.data, 3);
+  //     if (tasks) {
+  //       const randomTasks = selectRandomTasks(tasks, 3);
   //       await assignTaskToUser(randomTasks);
   //       await getUserById();
   //     }
   //   };
 
   //   fetchData();
-  // }, [userById, getTasksByGoal, assignTaskToUser, getUserById]);
+  // }, [tasks]);
 
   useEffect(() => {
     if (userById.tasks) {
@@ -460,6 +459,7 @@ const Main = () => {
       ></DogCard>
       {/* <div>{selectedGoal.goal}</div> */}
       <div>{userById.goalMode}</div>
+      {/* <div>{tasks}</div> */}
       {/* <div>tasks:{userById.tasks}</div> */}
       {userById.tasks?.map((task) => (
         <TaskList
