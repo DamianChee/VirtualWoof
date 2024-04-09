@@ -190,9 +190,65 @@ const updateDog = async (req, res) => {
   }
 };
 
+const increaseDogAffection = async (req, res) => {
+  try {
+    const updateDog = {};
+    if (req.body.currentAffection)
+      updateDog.currentAffection = req.body.currentAffection;
+    else updateDog.$inc = { currentAffection: 5 };
+    const dog = await DogsModel.findByIdAndUpdate(req.body.id, updateDog, {
+      new: true,
+    });
+
+    res.json({ status: "ok", msg: "dog updated", data: dog });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error updating" });
+  }
+};
+
+const increaseDogObedience = async (req, res) => {
+  try {
+    const updateDog = {};
+    if (req.body.currentObedience)
+      updateDog.currentObedience = req.body.currentObedience;
+    else updateDog.$inc = { currentObedience: 5 };
+    const dog = await DogsModel.findByIdAndUpdate(req.body.id, updateDog, {
+      new: true,
+    });
+
+    res.json({ status: "ok", msg: "dog updated", data: dog });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error updating" });
+  }
+};
+
+const increaseDogHunger = async (req, res) => {
+  try {
+    const updateDog = {};
+    if (req.body.currentHunger)
+      updateDog.currentHunger = req.body.currentHunger;
+    else updateDog.$inc = { currentHunger: 5 };
+    const dog = await DogsModel.findByIdAndUpdate(req.body.id, updateDog, {
+      new: true,
+    });
+
+    res.json({ status: "ok", msg: "dog updated", data: dog });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error updating" });
+  }
+};
+
 const deleteDog = async (req, res) => {
   try {
-    const dog = await DogsModel.findByIdAndUpdate(req.body.id);
+    const dog = await DogsModel.findByIdAndDelete(req.body.dog);
+    const user = await UsersModel.findByIdAndUpdate(
+      req.body.id,
+      { $pull: { dogs: req.body.dog } },
+      { new: true }
+    );
     res.json({ status: "ok", msg: "dog deleted", data: dog });
   } catch (error) {
     console.error(error.message);
@@ -207,5 +263,8 @@ module.exports = {
   getDogsByOwner,
   addDog,
   updateDog,
+  increaseDogAffection,
+  increaseDogObedience,
+  increaseDogHunger,
   deleteDog,
 };
