@@ -359,7 +359,6 @@ const Main = () => {
   }, [dogByOwner]);
 
   useEffect(() => {
-    // Perform actions with the updated dogValue here
     console.log(dogValue.currentAffection);
   }, [dogValue]);
 
@@ -367,9 +366,9 @@ const Main = () => {
     console.log(userById);
   }, [userById]);
 
-  useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
+  // useEffect(() => {
+  //   console.log(tasks);
+  // }, [tasks]);
 
   // useEffect(() => {
   //   getTasksByGoal();
@@ -380,17 +379,42 @@ const Main = () => {
       getTasksByGoal();
     }
   }, [userById]);
+
   // useEffect(() => {
   //   const fetchTasks = async () => {
   //     await getAllTasks();
   //   };
   //   fetchTasks();
   // }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (userById.goalMode) {
+  //       const tasksRes = await getTasksByGoal();
+  //       const randomTasks = selectRandomTasks(tasksRes.data, 3);
+  //       await assignTaskToUser(randomTasks);
+  //       await getUserById();
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [userById, getTasksByGoal, assignTaskToUser, getUserById]);
+
   useEffect(() => {
     if (userById.tasks) {
     }
-  }, [userById]);
+  }, [updateUser]);
 
+  // useEffect(() => {
+  //   const fetchDataAndUpdate = async () => {
+  //     // First, fetch tasks by goal
+  //     await getTasksByGoal();
+  //     // Then, fetch user by ID
+  //     await updateUser();
+  //   };
+
+  //   fetchDataAndUpdate();
+  // }, [getTasksByGoal]);
   return (
     <div>
       <NavBar></NavBar>

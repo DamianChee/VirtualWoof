@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import UserContext from "./context/user";
 import { ThemeProvider } from "@mui/material";
 import theme from "./theme";
+import "./index.css";
 
 /* 
 

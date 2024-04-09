@@ -8,7 +8,12 @@ const DogList = (props) => {
     <>
       <Card
         onClick={() => props.handleSelectedDog(props.dog)}
-        sx={{ width: 200 }}
+        sx={{
+          width: "90%",
+          borderRadius: "20px",
+          padding: "16px",
+          height: "90",
+        }}
       >
         <CardMedia
           component="img"
