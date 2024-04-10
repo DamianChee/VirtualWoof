@@ -136,7 +136,7 @@ const Main = () => {
       currentObedience: prevDogValue.currentObedience + 5,
     }));
     console.log(dogValue.currentAffection);
-    await updateDog();
+    // await updateDog();
   };
 
   /**
@@ -235,7 +235,7 @@ const Main = () => {
       "/api/dogs",
       "PATCH",
       {
-        id: dogByOwner[0]._id,
+        id: "6615ee74bbd228b03275a743",
         currentAffection: dogValue.currentAffection,
         currentObedience: dogValue.currentObedience,
         currentHunger: dogValue.currentHunger,
@@ -405,6 +405,7 @@ const Main = () => {
   }, [dogByOwner]);
 
   useEffect(() => {
+    updateDog();
     const shouldShowPopup =
       dogValue.currentAffection > 250 ||
       dogValue.currentHunger > 250 ||
