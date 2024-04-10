@@ -147,9 +147,9 @@ const Main = () => {
   // check if affection is less than or equal to 0
   const handleDogRunAway = () => {
     if (
-      dogByOwner[0].currentObedience <= 0 ||
-      dogByOwner[0].currentAffection <= 0 ||
-      dogByOwner[0].currentHunger <= 0
+      (dogByOwner[0].currentObedience <= 0 && goals.goal == "Dog Show") ||
+      (dogByOwner[0].currentAffection <= 0 && goals.goal == "Companionship") ||
+      (dogByOwner[0].currentHunger <= 0 && goals.goal == "Routine & Discipline")
     ) {
       setShowUpdateModal(true);
     } else {
@@ -417,9 +417,7 @@ const Main = () => {
     if (dogByOwner && dogByOwner.length > 0) {
       setDogValue(dogByOwner[0]);
       // check if dog will run away, when logged in
-      if (selectedGoal.length > 0) {
-        handleDogRunAway();
-      }
+      handleDogRunAway();
     }
   }, [dogByOwner]);
 
