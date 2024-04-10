@@ -12,7 +12,7 @@ const TasksSchema = new mongoose.Schema(
   {
     name: { type: String, require: true },
     description: { type: String, require: true },
-    type: { type: String, require: true, default: "Show" },
+    type: { type: String, require: true, default: "Blank" },
     difficulty: { type: String, default: "Easy" },
     startValue: { type: Number, default: 0 },
     endValue: { type: Number, default: 1 },
