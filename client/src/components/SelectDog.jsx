@@ -15,7 +15,8 @@ const SelectDog = (props) => {
 
   return (
     <div className="overlay">
-      <div className="modal">
+      <div className="selectdogmodal">
+        <h2>Select a dog</h2>
         <Stack
           direction="row"
           spacing={2}
@@ -29,16 +30,15 @@ const SelectDog = (props) => {
               handleSelectedDog={props.handleSelectedDog}
             ></DogList>
           ))}
-
-          <Button
-            onClick={() => {
-              console.log("Button clicked");
-              props.handleNextClick();
-            }}
-          >
-            Next
-          </Button>
         </Stack>
+        <Button
+          onClick={() => {
+            console.log("Button clicked");
+            props.handleNextClick();
+          }}
+        >
+          Next
+        </Button>
       </div>
     </div>
   );

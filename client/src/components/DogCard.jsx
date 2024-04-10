@@ -60,11 +60,13 @@ const DogCard = (props) => {
   // console.log(dogByOwner[0].currentAffection);
 
   // console.log(affectionLevel + 10);
+  // const dogs = props.dogs;
 
   return (
     <>
       <div>
-        {/* {dogByOwner.map((dog, index) => (
+        {/* Keeping this here but commented out because right now a user can only add one dog */}
+        {dogByOwner.map((dog, index) => (
           <div key={index}>
             <p>{dog.breed}</p>
             <p>{dog.personality}</p>
@@ -72,7 +74,8 @@ const DogCard = (props) => {
             <p>{dog.size}</p>
             <p>{dog.birthday}</p>
           </div>
-        ))} */}
+        ))}
+        <img src={selectedDog.imageUrl} alt="test" />
         {/* <div>{dogByOwner[0].breed}</div>
         <div>{dogByOwner[0].personality}</div>
         <div>{dogByOwner[0].coat}</div>

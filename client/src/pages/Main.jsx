@@ -13,6 +13,8 @@ import UserContext from "../context/user";
 import { useInfo } from "../context/info";
 import UpdateModal from "../components/UpdateModal";
 import MessagePopup from "../components/MessagePopup";
+import { Box } from "@mui/material";
+import { Stack } from "@mui/material";
 
 const Main = () => {
   const {
@@ -53,24 +55,27 @@ const Main = () => {
 
   const dogs = [
     {
+      name: "Polly",
       breed: "Poodle",
-      personality: "Friendly and sensitive",
+      personality: "friendly and active",
       coat: "curly",
       size: "medium",
       imageUrl: Dog1,
     },
     {
+      name: "Buddy",
       breed: "Beagle",
-      personality: "Friendly and loyal",
-      coat: "straight",
+      personality: "friendly and loyal",
+      coat: "rough",
       size: "medium",
       imageUrl: Dog2,
     },
     {
+      name: "Charlie",
       breed: "Chihuahua",
-      personality: "Friendly and playful",
-      coat: "straight",
-      size: "medium",
+      personality: "friendly and playful",
+      coat: "smooth",
+      size: "small",
       imageUrl: Dog3,
     },
   ];
@@ -79,7 +84,7 @@ const Main = () => {
     {
       goal: "Companionship",
       description:
-        "You seek a furry virtual companion that you can interact with.",
+        "A furry interactive virtual companion is what makes you happy!",
     },
     {
       goal: "Routine & Discipline",
@@ -88,7 +93,7 @@ const Main = () => {
     {
       goal: "Dog Show",
       description:
-        "You seek to exhibit your dog's attributes and conformation.",
+        "You can't wait to show off your dog's attributes and conformation!",
     },
   ];
 
@@ -235,7 +240,7 @@ const Main = () => {
       "/api/dogs",
       "PATCH",
       {
-        id: "6615ee74bbd228b03275a743",
+        id: dogByOwner[0]._id,
         currentAffection: dogValue.currentAffection,
         currentObedience: dogValue.currentObedience,
         currentHunger: dogValue.currentHunger,
@@ -380,11 +385,16 @@ const Main = () => {
   };
 
   useEffect(() => {
+    sessionStorage.setItem("selectedDog", JSON.stringify(selectedDog));
+  }, [selectedDog]);
+
+  useEffect(() => {
     // Damian:
     // After logging in, get all the dogs by user's Id
     // Then check if tasks has expired
 
     getDogByOwner();
+    // selectedDog;
     // updateDog();
     // getTasksByGoal();
     // getUserById();
@@ -454,13 +464,27 @@ const Main = () => {
         />
       )}
       <NavBar></NavBar>
-      {/* <Button
+      <Box
+        sx={{ display: "flex", justifyContent: "flex-end", padding: "24px" }}
+      >
+        {/* <Button
         disabled={Object.keys(dogByOwner).length > 0}
         onClick={toggleSelectDog}
       >
         Add Dog
       </Button> */}
-      <Button onClick={toggleSelectDog}>Add Dog</Button>
+        <Button
+          onClick={toggleSelectDog}
+          sx={{
+            width: "12%",
+            borderRadius: "20px",
+            margin: "0px 32px 0px 32px",
+            letterSpacing: "3px",
+          }}
+        >
+          Add Dog
+        </Button>
+      </Box>
       {showSelectDog && (
         <SelectDog
           dogs={dogs}
@@ -482,6 +506,7 @@ const Main = () => {
           handleGoalClick={handleGoalClick}
         ></SelectGoal>
       )}
+
       <DogCard
         dogs={dogs}
         selectedDog={selectedDog}
@@ -492,20 +517,27 @@ const Main = () => {
         handleActionClick={handleActionClick}
         userById={userById}
       ></DogCard>
-      {/* <div>{selectedGoal.goal}</div> */}
-      <div>{userById.goalMode}</div>
-      {/* <div>{tasks}</div> */}
-      {/* <div>tasks:{userById.tasks}</div> */}
-      {userById.tasks?.map((task) => (
-        <TaskList
-          tasks={tasks}
-          key={task?._id}
-          task={task?.name}
-          description={task?.description}
-          startValue={task?.startValue}
-          endValue={task?.endValue}
-        ></TaskList>
-      ))}
+      <Stack
+        direction="row"
+        spacing={2}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <h3>Goal: {userById.goalMode}</h3>
+        {userById.tasks?.map((task, idx) => (
+          <TaskList
+            tasks={tasks}
+            index={idx}
+            key={task?._id}
+            task={task?.name}
+            description={task?.description}
+            startValue={task?.startValue}
+            endValue={task?.endValue}
+            difficulty={task?.difficulty}
+          ></TaskList>
+        ))}
+      </Stack>
+
       {showMessagePopup && <MessagePopup />}
     </div>
   );

@@ -9,10 +9,10 @@ const DogList = (props) => {
       <Card
         onClick={() => props.handleSelectedDog(props.dog)}
         sx={{
-          width: "90%",
+          width: "80%",
           borderRadius: "20px",
           padding: "16px",
-          height: "90",
+          height: "80%",
         }}
       >
         <CardMedia
@@ -22,17 +22,17 @@ const DogList = (props) => {
           alt={props.dog}
         ></CardMedia>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {props.dog.breed}
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            alignContent={"center"}
+          >
+            {props.dog.name}
           </Typography>
-          <Typography variant="body2" component="div">
-            {props.dog.personality}
-          </Typography>
-          <Typography variant="body2" component="div">
-            {props.dog.size}
-          </Typography>
-          <Typography variant="body2" component="div">
-            {props.dog.coat}
+          <Typography variant="body1" component="div">
+            I am a {props.dog.personality} {props.dog.size}-sized{" "}
+            {props.dog.breed} that has a {props.dog.coat} coat!
           </Typography>
         </CardContent>
       </Card>

@@ -7,7 +7,12 @@ export const InfoProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [userInfo, setUserInfo] = useState({});
 
-  const [selectedDog, setSelectedDog] = useState({});
+  const [selectedDog, setSelectedDog] = useState(() => {
+    const savedDog = sessionStorage.getItem("selectedDog");
+    return savedDog ? JSON.parse(savedDog) : {};
+  });
+
+  // const [selectedDog, setSelectedDog] = useState({});
   const [selectedGoal, setSelectedGoal] = useState({});
   const [dogByOwner, setDogByOwner] = useState([]);
   const [showSelectDog, setShowSelectDog] = useState(null);
