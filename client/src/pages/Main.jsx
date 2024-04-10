@@ -158,6 +158,15 @@ const Main = () => {
    *
    */
 
+  // check if affection is less than or equal to 0
+  const handleDogRunAway = async () => {
+    if (dogValue.currentAffection <= 0) {
+      setShowUpdateModal(true);
+    } else {
+      console.log("dog is happy");
+    }
+  };
+
   const getUserById = async () => {
     const res = await fetchData(
       "/api/users/userid",
@@ -201,10 +210,11 @@ const Main = () => {
   // the function name is to represent the CRUD
   const deleteDog = async () => {
     const res = await fetchData(
-      "/api/users",
+      "/api/dogs",
       "DELETE",
       {
-        id: dogByOwner[0].id,
+        id: userId,
+        dog: dogByOwner[0]._id,
       },
       userCtx.accessToken
     );
@@ -213,7 +223,7 @@ const Main = () => {
       console.log("dog ran away");
     } else {
       alert(JSON.stringify(res.data));
-      console.log(res.dataß);
+      console.log(res.data);
     }
   };
 
@@ -228,6 +238,7 @@ const Main = () => {
     );
     if (res.ok) {
       setDogByOwner(res.data.data);
+
       console.log("sucessfully got dog");
     } else {
       alert(JSON.stringify(res.data));
@@ -324,6 +335,18 @@ const Main = () => {
   //   }
   // };
 
+  const howManyTasksUncompleted = () => {
+    let counter = 0;
+    if (!userById.tasks.length) return undefined;
+
+    for (let i = 0; i < userById.tasks.length; ++i) {
+      if (userById.tasks[i].startValue !== userById.tasks[i].endValue) {
+        ++counter;
+      }
+    }
+    return counter;
+  };
+
   const checkTaskExpiry = async () => {
     // Damian:
     // Run endpoint to check if task has expired
@@ -347,6 +370,24 @@ const Main = () => {
         // If you want to check which tasks are completed then adding points to
         // dog, do it before refreshTasks()
         // code here...
+        // console.log("Tasks uncompleted: " + howManyTasksUncompleted());
+        const numberOfTasks = howManyTasksUncompleted();
+        console.log("Number of tasks uncompleted: " + numberOfTasks);
+
+        for (let i = 0; i < numberOfTasks; ++i) {
+          console.log(JSON.stringify(dogByOwner));
+          // console.log("Dog Value is: " + JSON.stringify(dogValue));
+
+          // setDogValue((prevDogValue) => ({
+          //   ...prevDogValue,
+          //   currentAffection: prevDogValue.currentAffection - 10,
+          //   currentHunger: prevDogValue.currentHunger - 10,
+          //   currentObedience: prevDogValue.currentObedience - 10,
+          // }));
+        }
+
+        // updateDog();
+        // console.log(dogValue.currentAffection);
         // code here...
         refreshTasks();
       }
@@ -399,6 +440,8 @@ const Main = () => {
     // getTasksByGoal();
     // getUserById();
     checkTaskExpiry();
+    // check if dog will run away, when logged in
+    handleDogRunAway();
   }, []);
 
   // Damian:
