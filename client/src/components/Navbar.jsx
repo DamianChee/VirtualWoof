@@ -12,7 +12,7 @@ const Navbar = () => {
               className={(navData) => (navData.isActive ? styles.active : "")}
               to="/main"
             >
-              Main
+              Woofs
             </NavLink>
           </li>
           <li>

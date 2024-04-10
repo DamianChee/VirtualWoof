@@ -70,7 +70,7 @@ h2 {
   color: #000;
   /* M3/headline/medium */
   font-family: Roboto;
-  font-size: 36px;
+  font-size: 28px;
   font-style: normal;
   font-weight: 500;
   line-height: 36px;
@@ -168,7 +168,7 @@ h5 {
   letter-spacing: 5px;
   line-height: 44px; /* 122.222% */
   padding: 8px;
-  margin: 16px;
+  margin: 0px, 0px, 8px, 0px;
 }
 
 h6 {
@@ -178,6 +178,32 @@ h6 {
   font-style: normal;
   font-weight: 400;
   line-height: 32px; /* 133.333% */
-  margin: 0px;
-  padding: 0px 8px;
+  padding: 32px 8px, 0px, 8px;
+}
+
+h8 {
+  color: #000;
+
+  /* M3/body/large */
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  letter-spacing: 0.5px;
+  padding: 8px;
+}
+
+.messagemodal {
+  display: flex;
+  width: 60%;
+  height: fit-content;
+  padding: 24px;
+  flex-direction: column;
+  /* align-items: flex-start; */
+  gap: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--Schemes-Outline-Variant, #f5e0bb);
+  background: var(--Schemes-Surface-Bright, #fffbff);
+  z-index: 4;
 }

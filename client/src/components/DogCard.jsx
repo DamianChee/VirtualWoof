@@ -54,6 +54,7 @@ const DogCard = (props) => {
           </div>
         ))} */}
             <h2>{selectedDog.name}</h2>
+            {/* <h7>{userById.goalMode}</h7> */}
 
             {userGoal === "Companionship" && (
               <h5>Affection Level:{dogValue.currentAffection}</h5>
@@ -83,9 +84,27 @@ const DogCard = (props) => {
             spacing={1}
             margin="16px"
           >
-            <Button onClick={props.handleActionClick}>Feed</Button>
-            <Button onClick={props.handleActionClick}>Train</Button>
-            <Button onClick={props.handleActionClick}>Play</Button>
+            <Button
+              variant="outlined"
+              onClick={props.handleActionClick}
+              fullWidth
+            >
+              Feed
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={props.handleActionClick}
+              fullWidth
+            >
+              Train
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={props.handleActionClick}
+              fullWidth
+            >
+              Play
+            </Button>
           </Stack>
         </div>
       )}

@@ -9,6 +9,7 @@ const Button = (props) => {
       sx={{
         borderRadius: "20px",
         letterSpacing: "3px",
+        padding: "8px",
       }}
       onClick={props.onClick}
       {...props}

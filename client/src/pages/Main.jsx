@@ -129,6 +129,10 @@ const Main = () => {
     setShowSelectGoal(!showSelectGoal);
   };
 
+  const toggleMessagePopup = () => {
+    setShowMessagePopup(!showMessagePopup);
+  };
+
   const handleActionClick = async () => {
     setDogValue((prevDogValue) => ({
       ...prevDogValue,
@@ -469,9 +473,9 @@ const Main = () => {
     }
 
     const shouldShowPopup =
-      dogValue.currentAffection > 250 ||
-      dogValue.currentHunger > 250 ||
-      dogValue.currentObedience > 250;
+      dogValue.currentAffection > 200 ||
+      dogValue.currentHunger > 200 ||
+      dogValue.currentObedience > 200;
 
     setShowMessagePopup(shouldShowPopup);
     getDogByOwner();
@@ -495,18 +499,25 @@ const Main = () => {
       <Box
         sx={{ display: "flex", justifyContent: "flex-end", padding: "24px" }}
       >
-        {/* <Button
-        disabled={Object.keys(dogByOwner).length > 0}
-        onClick={toggleSelectDog}
-      >
-        Add Dog
-      </Button> */}
+        <Button
+          disabled={
+            dogByOwner.length > 0 ||
+            !(
+              dogValue.currentAffection >= 100 ||
+              dogValue.currentObedience >= 100 ||
+              dogValue.currentHunger >= 100
+            )
+          }
+          onClick={toggleSelectDog}
+        >
+          Add Dog
+        </Button>
         <Button
           onClick={toggleSelectDog}
           sx={{
             width: "12%",
             borderRadius: "20px",
-            margin: "0px 32px 0px 32px",
+            margin: "8px 32px 8px 32px",
             letterSpacing: "3px",
           }}
         >
@@ -535,44 +546,53 @@ const Main = () => {
         ></SelectGoal>
       )}
       {/* {userById?.goalMode && <h3>Goal: {userById?.goalMode}</h3>} */}
-
-      {dogByOwner && (
-        <DogCard
-          dogs={dogs}
-          selectedDog={selectedDog}
-          dogByOwner={dogByOwner}
-          selectedGoal={selectedGoal}
-          setSelectedGoal={selectedGoal}
-          dogValue={dogValue}
-          handleActionClick={handleActionClick}
-          userById={userById}
-        ></DogCard>
-      )}
-      {/* <div>
+      <Stack direction="column" spacing={5} alignItems="center">
+        {dogByOwner && (
+          <DogCard
+            dogs={dogs}
+            selectedDog={selectedDog}
+            dogByOwner={dogByOwner}
+            selectedGoal={selectedGoal}
+            setSelectedGoal={selectedGoal}
+            dogValue={dogValue}
+            handleActionClick={handleActionClick}
+            userById={userById}
+          ></DogCard>
+        )}
+        {/* <div>
         <h4>Goal:{userById.goalMode}</h4>
       </div> */}
 
-      <Stack
-        direction="row"
-        spacing={2}
-        alignItems="center"
-        justifyContent="center"
-      >
-        {userById.tasks?.map((task, idx) => (
-          <TaskList
-            tasks={tasks}
-            index={idx}
-            key={task?._id}
-            task={task?.name}
-            description={task?.description}
-            startValue={task?.startValue}
-            endValue={task?.endValue}
-            difficulty={task?.difficulty}
-          ></TaskList>
-        ))}
+        <Stack
+          direction="row"
+          spacing={2}
+          alignItems="center"
+          justifyContent="center"
+        >
+          {userById.tasks?.map((task, idx) => (
+            <TaskList
+              tasks={tasks}
+              index={idx}
+              key={task?._id}
+              task={task?.name}
+              description={task?.description}
+              startValue={task?.startValue}
+              endValue={task?.endValue}
+              difficulty={task?.difficulty}
+            ></TaskList>
+          ))}
+        </Stack>
+        <br></br>
+        <br></br>
+        {showMessagePopup && (
+          <MessagePopup
+            selectedDog={selectedDog}
+            toggleMessagePopup={toggleMessagePopup}
+            showMessagePopup={showMessagePopup}
+            setShowMessagePopup={showMessagePopup}
+          />
+        )}
       </Stack>
-
-      {showMessagePopup && <MessagePopup />}
     </div>
   );
 };
