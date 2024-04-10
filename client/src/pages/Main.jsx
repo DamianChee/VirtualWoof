@@ -38,7 +38,7 @@ const Main = () => {
 
   const userCtx = useContext(UserContext);
   const fetchData = useFetch();
-  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(true);
   const [showMessagePopup, setShowMessagePopup] = useState(false);
   const [tasksExpired, setTasksExpired] = useState(false);
 
@@ -196,10 +196,11 @@ const Main = () => {
   // the function name is to represent the CRUD
   const deleteDog = async () => {
     const res = await fetchData(
-      "/api/users",
+      "/api/dogs",
       "DELETE",
       {
-        id: dogByOwner[0].id,
+        id: userId,
+        dog: dogByOwner,
       },
       userCtx.accessToken
     );
@@ -208,7 +209,7 @@ const Main = () => {
       console.log("dog ran away");
     } else {
       alert(JSON.stringify(res.data));
-      console.log(res.dataß);
+      console.log(res.data);
     }
   };
 
