@@ -233,6 +233,7 @@ const Main = () => {
     );
     if (res.ok) {
       setDogByOwner(res.data.data);
+
       console.log("sucessfully got dog");
     } else {
       alert(JSON.stringify(res.data));
@@ -329,6 +330,18 @@ const Main = () => {
   //   }
   // };
 
+  const howManyTasksUncompleted = () => {
+    let counter = 0;
+    if (!userById.tasks.length) return undefined;
+
+    for (let i = 0; i < userById.tasks.length; ++i) {
+      if (userById.tasks[i].startValue !== userById.tasks[i].endValue) {
+        ++counter;
+      }
+    }
+    return counter;
+  };
+
   const checkTaskExpiry = async () => {
     // Damian:
     // Run endpoint to check if task has expired
@@ -352,6 +365,24 @@ const Main = () => {
         // If you want to check which tasks are completed then adding points to
         // dog, do it before refreshTasks()
         // code here...
+        // console.log("Tasks uncompleted: " + howManyTasksUncompleted());
+        const numberOfTasks = howManyTasksUncompleted();
+        console.log("Number of tasks uncompleted: " + numberOfTasks);
+
+        for (let i = 0; i < numberOfTasks; ++i) {
+          console.log(JSON.stringify(dogByOwner));
+          // console.log("Dog Value is: " + JSON.stringify(dogValue));
+
+          // setDogValue((prevDogValue) => ({
+          //   ...prevDogValue,
+          //   currentAffection: prevDogValue.currentAffection - 10,
+          //   currentHunger: prevDogValue.currentHunger - 10,
+          //   currentObedience: prevDogValue.currentObedience - 10,
+          // }));
+        }
+
+        // updateDog();
+        // console.log(dogValue.currentAffection);
         // code here...
         refreshTasks();
       }
