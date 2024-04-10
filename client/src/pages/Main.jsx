@@ -457,7 +457,9 @@ const Main = () => {
     if (dogByOwner && dogByOwner.length > 0) {
       setDogValue(dogByOwner[0]);
       // check if dog will run away, when logged in
-      handleDogRunAway();
+      if (selectedGoal.length > 0) {
+        handleDogRunAway();
+      }
     }
   }, [dogByOwner]);
 
