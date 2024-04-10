@@ -153,8 +153,9 @@ const Main = () => {
    *
    */
 
+  // check if affection is less than or equal to 0
   const handleDogRunAway = async () => {
-    if (dogValue <= 0) {
+    if (dogValue.currentAffection <= 0) {
       setShowUpdateModal(true);
     } else {
       console.log("dog is happy");
@@ -398,7 +399,7 @@ const Main = () => {
     // getTasksByGoal();
     // getUserById();
     checkTaskExpiry();
-    // check if dog affection is equal to or less than 0
+    // check if dog will run away, when logged in
     handleDogRunAway();
   }, []);
 
