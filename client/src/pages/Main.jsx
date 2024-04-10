@@ -532,6 +532,7 @@ const Main = () => {
           handleGoalClick={handleGoalClick}
         ></SelectGoal>
       )}
+      {/* {userById?.goalMode && <h3>Goal: {userById?.goalMode}</h3>} */}
 
       {dogByOwner && (
         <DogCard
@@ -545,13 +546,16 @@ const Main = () => {
           userById={userById}
         ></DogCard>
       )}
+      {/* <div>
+        <h4>Goal:{userById.goalMode}</h4>
+      </div> */}
+
       <Stack
         direction="row"
         spacing={2}
         alignItems="center"
         justifyContent="center"
       >
-        <h3>Goal: {userById.goalMode}</h3>
         {userById.tasks?.map((task, idx) => (
           <TaskList
             tasks={tasks}
