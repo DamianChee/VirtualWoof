@@ -209,7 +209,7 @@ const Main = () => {
       "DELETE",
       {
         id: userId,
-        dog: dogByOwner.id,
+        dog: dogByOwner[0]._id,
       },
       userCtx.accessToken
     );
