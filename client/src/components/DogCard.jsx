@@ -3,23 +3,11 @@ import Button from "./Button";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
 import { useInfo } from "../context/info";
+import { Stack } from "@mui/material";
+import { Container } from "@mui/material";
 
 const DogCard = (props) => {
   const userCtx = useContext(UserContext);
-  // const fetchData = useFetch();
-  // const [dogbyOwner, setDogByOwner] = useState([]);
-  // const dogByOwner = props.dogByOwner;
-  // const dogValue = props.dogValue;
-  // const userById = props.userById;
-  // console.log(props.selectedDog);
-  // console.log(props.selectedDog.breed);
-  // console.log(props.selectedGoal);
-  // console.log(userGoal);
-  // console.log(props.userById);
-  // const userId = userCtx.userById;
-  // console.log(props.);
-
-  // console.log(userCtx);
 
   const {
     isLoggedIn,
@@ -44,29 +32,17 @@ const DogCard = (props) => {
 
   const userGoal = userById.goalMode;
 
-  // const dogValue = props.dogValue;
-  // const [currentDog, setCurrentDog] = useState(dogByOwner);
-  // useEffect(() => {
-  //   setCurrentDog(dogByOwner);
-  // }, [dogByOwner]);
-
-  // console.log(props.dogByOwner[1].currentHunger);
-
-  // const affectionLevel = dogByOwner[0].currentAffection;
-  // console.log(affectionLevel);
-  // // const hungerLevel = dogByOwner[0].currentHunger;
-  // const obedienceLevel = dogByOwner[0].currentObedience;
-
-  // console.log(dogByOwner[0].currentAffection);
-
-  // console.log(affectionLevel + 10);
-  // const dogs = props.dogs;
-
   return (
     <>
-      <div>
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
+        margin="16px"
+      >
         {/* Keeping this here but commented out because right now a user can only add one dog */}
-        {dogByOwner.map((dog, index) => (
+        {/* {dogByOwner.map((dog, index) => (
           <div key={index}>
             <p>{dog.breed}</p>
             <p>{dog.personality}</p>
@@ -74,25 +50,42 @@ const DogCard = (props) => {
             <p>{dog.size}</p>
             <p>{dog.birthday}</p>
           </div>
-        ))}
-        <img src={selectedDog.imageUrl} alt="test" />
-        {/* <div>{dogByOwner[0].breed}</div>
-        <div>{dogByOwner[0].personality}</div>
-        <div>{dogByOwner[0].coat}</div>
-        <div>{dogByOwner[0].birthday}</div> */}
+        ))} */}
+        <h2>{selectedDog.name}</h2>
+        <h4>Goal:{userById.goalMode}</h4>
+
         {userGoal === "Companionship" && (
-          <div>Affection Level:{dogValue.currentAffection}</div>
+          <h5>Affection Level:{dogValue.currentAffection}</h5>
         )}
         {userGoal === "Routine & Discipline" && (
-          <div>Hunger Level:{dogValue.currentHunger}</div>
+          <h5>Hunger Level:{dogValue.currentHunger}</h5>
         )}
         {userGoal === "Dog Show" && (
-          <div>Obdience Level:{dogValue.currentObedience}</div>
+          <h5>Obdience Level:{dogValue.currentObedience}</h5>
         )}
-      </div>
-      <Button onClick={props.handleActionClick}>Feed</Button>
-      <Button onClick={props.handleActionClick}>Train</Button>
-      <Button onClick={props.handleActionClick}>Play</Button>
+        <img
+          className="dogimage"
+          src={selectedDog.imageUrl}
+          alt="selected dog"
+        />
+        {dogByOwner[0] && (
+          <h6>
+            I am a {dogByOwner[0].personality} {dogByOwner[0].size}-sized{" "}
+            {dogByOwner[0].breed} that has a {dogByOwner[0].coat} coat!
+          </h6>
+        )}
+      </Stack>
+      <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
+        margin="16px"
+      >
+        <Button onClick={props.handleActionClick}>Feed</Button>
+        <Button onClick={props.handleActionClick}>Train</Button>
+        <Button onClick={props.handleActionClick}>Play</Button>
+      </Stack>
     </>
   );
 };

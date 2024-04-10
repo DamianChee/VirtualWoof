@@ -80,7 +80,7 @@ h2 {
 
 .tasks {
   display: flex;
-  width: 80%;
+  width: 20%;
   padding: 24px 16px;
   flex-direction: column;
   /* justify-content: center; */
@@ -119,4 +119,8 @@ h3 {
   line-height: 32px; /* 133.333% */
   margin: 0px;
   padding: 0px 24px;
+}
+
+.dogimage {
+  width: 20%;
 }
