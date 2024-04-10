@@ -58,6 +58,18 @@ const seedUsers = async (req, res) => {
             created_at: "2024-04-02T16:00:00.000Z",
             _id: "660e1d3d31b260c3ea0d1496",
           },
+          {
+            name: "Feed the dog",
+            description:
+              "Keeping a routine of feeding your dog on time builds discipline and allows your dog to feel less stressed and worried about when their next meal will be provided!",
+            type: "Routine",
+            difficulty: "easy",
+            startValue: 0,
+            endValue: 3,
+            deadline: "2024-04-03T15:59:59.000Z",
+            created_at: "2024-04-02T16:00:00.000Z",
+            _id: "660e1d3d31b260c3ea0d1500",
+          },
         ],
         dogs: [
           "660e20599a62ff52a09a9b02",

@@ -112,7 +112,7 @@ const Main = () => {
       toggleSelectGoal();
       toggleSelectDog();
       await addDog();
-      getDogByOwner();
+      await getDogByOwner();
     }
   };
 
@@ -160,7 +160,11 @@ const Main = () => {
 
   // check if affection is less than or equal to 0
   const handleDogRunAway = async () => {
-    if (dogValue.currentAffection <= 0) {
+    if (
+      dogByOwner[0].currentObedience <= 0 ||
+      dogByOwner[0].currentAffection <= 0 ||
+      dogByOwner[0].currentHunger <= 0
+    ) {
       setShowUpdateModal(true);
     } else {
       console.log("dog is happy");
@@ -259,7 +263,6 @@ const Main = () => {
       userCtx.accessToken
     );
     if (res.ok) {
-      getDogByOwner();
       console.log("sucessfully updated dog value");
     } else {
       alert(JSON.stringify(res.data));
@@ -347,6 +350,26 @@ const Main = () => {
     return counter;
   };
 
+  const decreaseDogValues = async (value) => {
+    const res = await fetchData(
+      "/api/dogs",
+      "PATCH",
+      {
+        id: dogByOwner[0]._id,
+        currentAffection: dogByOwner[0].currentAffection - value,
+        currentObedience: dogByOwner[0].currentObedience - value,
+        currentHunger: dogByOwner[0].currentHunger - value,
+      },
+      userCtx.accessToken
+    );
+    if (res.ok) {
+      console.log("Dog values decreased");
+    } else {
+      alert(JSON.stringify(res.data));
+      console.log(res.data);
+    }
+  };
+
   const checkTaskExpiry = async () => {
     // Damian:
     // Run endpoint to check if task has expired
@@ -367,28 +390,14 @@ const Main = () => {
       // return true or false so we can use res.data.data without needing to set
       // it into state and worry about useState bugs)
       if (res.data.data) {
-        // If you want to check which tasks are completed then adding points to
-        // dog, do it before refreshTasks()
-        // code here...
-        // console.log("Tasks uncompleted: " + howManyTasksUncompleted());
+        // Find number of tasks uncompleted before replacing them
         const numberOfTasks = howManyTasksUncompleted();
-        console.log("Number of tasks uncompleted: " + numberOfTasks);
+        // For each task decrease values by 10
+        const valueToDecrease = numberOfTasks * 10;
 
-        for (let i = 0; i < numberOfTasks; ++i) {
-          console.log(JSON.stringify(dogByOwner));
-          // console.log("Dog Value is: " + JSON.stringify(dogValue));
-
-          // setDogValue((prevDogValue) => ({
-          //   ...prevDogValue,
-          //   currentAffection: prevDogValue.currentAffection - 10,
-          //   currentHunger: prevDogValue.currentHunger - 10,
-          //   currentObedience: prevDogValue.currentObedience - 10,
-          // }));
-        }
-
-        // updateDog();
-        // console.log(dogValue.currentAffection);
-        // code here...
+        // Decrease the values by calling PATCH /api/dogs
+        decreaseDogValues(valueToDecrease);
+        // Refresh/reset the dogByOwner state
         refreshTasks();
       }
     } else {
@@ -435,13 +444,8 @@ const Main = () => {
     // Then check if tasks has expired
 
     getDogByOwner();
-    // selectedDog;
-    // updateDog();
-    // getTasksByGoal();
-    // getUserById();
+
     checkTaskExpiry();
-    // check if dog will run away, when logged in
-    handleDogRunAway();
   }, []);
 
   // Damian:
@@ -454,48 +458,27 @@ const Main = () => {
   useEffect(() => {
     if (dogByOwner && dogByOwner.length > 0) {
       setDogValue(dogByOwner[0]);
+      // check if dog will run away, when logged in
+      handleDogRunAway();
     }
   }, [dogByOwner]);
 
   useEffect(() => {
-    updateDog();
+    if (dogByOwner && dogByOwner.length > 0) {
+      updateDog();
+    }
     const shouldShowPopup =
       dogValue.currentAffection > 250 ||
       dogValue.currentHunger > 250 ||
       dogValue.currentObedience > 250;
 
     setShowMessagePopup(shouldShowPopup);
+    getDogByOwner();
   }, [
     dogValue.currentAffection,
     dogValue.currentHunger,
     dogValue.currentObedience,
   ]);
-
-  useEffect(() => {
-    // console.log(userById);
-    // if (userById.goalMode) {
-    //   getTasksByGoal();
-    // }
-  }, [userById]);
-
-  useEffect(() => {
-    // console.log(tasks);
-    // if (tasks.length > 0) {
-    //   // Ensure tasks is not empty
-    //   const randomTasks = selectRandomTasks(tasks, 3);
-    //   console.log("Random tasks selected:", randomTasks);
-    //   assignTaskToUser(randomTasks); // Assuming assignTaskToUser is an async function
-    // }
-  }, [tasks]);
-
-  // useEffect(() => {
-  //   getTasksByGoal();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (userById.tasks) {
-  //   }
-  // }, [updateUser]);
 
   return (
     <div>
@@ -504,6 +487,7 @@ const Main = () => {
           key={userId}
           setShowUpdateModal={setShowUpdateModal}
           deleteDog={deleteDog}
+          getDogByOwner={getDogByOwner}
         />
       )}
       <NavBar></NavBar>
@@ -550,16 +534,18 @@ const Main = () => {
         ></SelectGoal>
       )}
 
-      <DogCard
-        dogs={dogs}
-        selectedDog={selectedDog}
-        dogByOwner={dogByOwner}
-        selectedGoal={selectedGoal}
-        setSelectedGoal={selectedGoal}
-        dogValue={dogValue}
-        handleActionClick={handleActionClick}
-        userById={userById}
-      ></DogCard>
+      {dogByOwner && (
+        <DogCard
+          dogs={dogs}
+          selectedDog={selectedDog}
+          dogByOwner={dogByOwner}
+          selectedGoal={selectedGoal}
+          setSelectedGoal={selectedGoal}
+          dogValue={dogValue}
+          handleActionClick={handleActionClick}
+          userById={userById}
+        ></DogCard>
+      )}
       <Stack
         direction="row"
         spacing={2}

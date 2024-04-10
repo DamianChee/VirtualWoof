@@ -11,6 +11,7 @@ const OverLay = (props) => {
   const handleOkButton = () => {
     props.setShowUpdateModal(false);
     props.deleteDog();
+    props.getDogByOwner();
   };
 
   return (
@@ -34,6 +35,7 @@ const UpdateModal = (props) => {
         <OverLay
           setShowUpdateModal={props.setShowUpdateModal}
           deleteDog={props.deleteDog}
+          getDogByOwner={getDogByOwner}
         />,
         document.querySelector("#modal-root")
       )}

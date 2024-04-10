@@ -21,9 +21,9 @@ const seedDogs = async (req, res) => {
         size: "Medium",
         personality: "Lazy",
         coat: "Short",
-        currentAffection: 80,
-        currentObedience: 50,
-        currentHunger: 25,
+        currentAffection: 30,
+        currentObedience: 30,
+        currentHunger: 30,
         owner: "660e1c58b23ff2bdba967db5",
         birthday: "2024-04-04T03:36:57.119Z",
       },
@@ -172,17 +172,17 @@ const addDog = async (req, res) => {
 const updateDog = async (req, res) => {
   try {
     const updateDog = {};
-    if (req.body.breed) updateDog.breed = req.body.breed;
-    if (req.body.size) updateDog.size = req.body.size;
-    if (req.body.personality) updateDog.personality = req.body.personality;
-    if (req.body.coat) updateDog.coat = req.body.coat;
-    if (req.body.currentAffection)
+    if ("breed" in req.body) updateDog.breed = req.body.breed;
+    if ("size" in req.body) updateDog.size = req.body.size;
+    if ("personality" in req.body) updateDog.personality = req.body.personality;
+    if ("coat" in req.body) updateDog.coat = req.body.coat;
+    if ("currentAffection" in req.body)
       updateDog.currentAffection = req.body.currentAffection;
-    if (req.body.currentObedience)
+    if ("currentObedience" in req.body)
       updateDog.currentObedience = req.body.currentObedience;
-    if (req.body.currentHunger)
+    if ("currentHunger" in req.body)
       updateDog.currentHunger = req.body.currentHunger;
-    if (req.body.owner) updateDog.owner = req.body.owner;
+    if ("owner" in req.body) updateDog.owner = req.body.owner;
     const dogs = await DogsModel.findByIdAndUpdate(req.body.id, updateDog);
 
     res.json({ status: "ok", msg: "dog updated", data: dogs });
