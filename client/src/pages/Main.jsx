@@ -42,15 +42,13 @@ const Main = () => {
   const fetchData = useFetch();
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showMessagePopup, setShowMessagePopup] = useState(false);
-  const [tasksExpired, setTasksExpired] = useState(false);
+  const [hasChecked, setHasChecked] = useState(false);
+  const [hasNoDog, setHasNoDog] = useState(false);
 
   const [goalModeChanged, setGoalModeChanged] = useState(false);
 
   const userId = userCtx.userById;
   const userGoal = userById.goalMode;
-  // console.log(userGoal);
-
-  // console.log(userId);
   const startValue = userById.startValue;
 
   const dogs = [
@@ -120,8 +118,6 @@ const Main = () => {
     if (selectedGoal) {
       toggleSelectGoal();
       await updateUser(); // update user's goal, set goalModeChanged to true
-      // await getTasksByGoal();
-      // await refreshTasks(); // this has been moved to useEffect( , [goalModeChanged])
     }
   };
 
@@ -159,7 +155,7 @@ const Main = () => {
    */
 
   // check if affection is less than or equal to 0
-  const handleDogRunAway = async () => {
+  const handleDogRunAway = () => {
     if (
       dogByOwner[0].currentObedience <= 0 ||
       dogByOwner[0].currentAffection <= 0 ||
@@ -383,13 +379,15 @@ const Main = () => {
       userCtx.accessToken
     );
     if (res.ok) {
-      console.log("sucessfully checked task expiry");
+      console.log("sucessfully checked task expiry: " + res.data.data);
 
       // Damian:
       // If task has expired, refresh the tasks (the endpoint above immediately
       // return true or false so we can use res.data.data without needing to set
       // it into state and worry about useState bugs)
       if (res.data.data) {
+        console.log("task must be replaced");
+
         // Find number of tasks uncompleted before replacing them
         const numberOfTasks = howManyTasksUncompleted();
         // For each task decrease values by 10
@@ -427,6 +425,7 @@ const Main = () => {
       // Damian:
       // Call getUserById() to change states and have the tasks?.map below re-render the new tasks
       getUserById();
+      getDogByOwner();
       console.log("sucessfully refreshed task");
     } else {
       alert(JSON.stringify(res.data));
@@ -439,23 +438,22 @@ const Main = () => {
   }, [selectedDog]);
 
   useEffect(() => {
-    // Damian:
-    // After logging in, get all the dogs by user's Id
-    // Then check if tasks has expired
-
     getDogByOwner();
-
-    checkTaskExpiry();
   }, []);
 
   // Damian:
   // When updateUser, change goalModeChanged to true, when it becomes true
   // refreshTasks in here
   useEffect(() => {
-    refreshTasks();
+    if (goalModeChanged) refreshTasks();
   }, [goalModeChanged]);
 
   useEffect(() => {
+    if (!hasChecked && dogByOwner && dogByOwner.length) {
+      checkTaskExpiry();
+      setHasChecked(true);
+    }
+
     if (dogByOwner && dogByOwner.length > 0) {
       setDogValue(dogByOwner[0]);
       // check if dog will run away, when logged in
@@ -467,6 +465,7 @@ const Main = () => {
     if (dogByOwner && dogByOwner.length > 0) {
       updateDog();
     }
+
     const shouldShowPopup =
       dogValue.currentAffection > 250 ||
       dogValue.currentHunger > 250 ||

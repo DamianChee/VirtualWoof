@@ -35,7 +35,7 @@ const UpdateModal = (props) => {
         <OverLay
           setShowUpdateModal={props.setShowUpdateModal}
           deleteDog={props.deleteDog}
-          getDogByOwner={getDogByOwner}
+          getDogByOwner={props.getDogByOwner}
         />,
         document.querySelector("#modal-root")
       )}
