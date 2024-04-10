@@ -61,6 +61,8 @@ export const InfoProvider = ({ children }) => {
     setTasks,
     userById,
     setUserById,
+    dogId,
+    setDogId,
   };
 
   return <InfoContext.Provider value={value}>{children}</InfoContext.Provider>;
