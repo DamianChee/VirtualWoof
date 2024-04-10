@@ -38,7 +38,7 @@ const Main = () => {
 
   const userCtx = useContext(UserContext);
   const fetchData = useFetch();
-  const [showUpdateModal, setShowUpdateModal] = useState(true);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showMessagePopup, setShowMessagePopup] = useState(false);
   const [tasksExpired, setTasksExpired] = useState(false);
 
@@ -153,6 +153,14 @@ const Main = () => {
    *
    */
 
+  const handleDogRunAway = async () => {
+    if (dogValue <= 0) {
+      setShowUpdateModal(true);
+    } else {
+      console.log("dog is happy");
+    }
+  };
+
   const getUserById = async () => {
     const res = await fetchData(
       "/api/users/userid",
@@ -200,7 +208,7 @@ const Main = () => {
       "DELETE",
       {
         id: userId,
-        dog: dogByOwner,
+        dog: dogByOwner.id,
       },
       userCtx.accessToken
     );
@@ -390,6 +398,8 @@ const Main = () => {
     // getTasksByGoal();
     // getUserById();
     checkTaskExpiry();
+    // check if dog affection is equal to or less than 0
+    handleDogRunAway();
   }, []);
 
   // Damian:
