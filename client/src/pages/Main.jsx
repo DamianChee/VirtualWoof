@@ -144,20 +144,6 @@ const Main = () => {
     // await updateDog();
   };
 
-  /**
-   *
-   * const toggleMessagePopup = () => {
-   *  setShowMessagePopup(!showMessagePopup);
-   * };
-   *
-   * const showCongratsMessage = () => {
-   *  if (dogValue.affect >= 0) {
-   *    toggleMessagePopup;
-   *  }
-   * };
-   *
-   */
-
   // check if affection is less than or equal to 0
   const handleDogRunAway = () => {
     if (
@@ -308,36 +294,6 @@ const Main = () => {
     }
   };
 
-  // function selectRandomTasks(tasks, count) {
-  //   const result = [];
-  //   const tasksCopy = [...tasks];
-  //   for (let i = 0; i < count; i++) {
-  //     const randomIndex = Math.floor(Math.random() * tasksCopy.length);
-  //     result.push(tasksCopy[randomIndex]);
-  //     tasksCopy.splice(randomIndex, 1);
-  //   }
-  //   console.log(result);
-  //   return result;
-  // }
-
-  // const assignTaskToUser = async (randomTasks) => {
-  //   const res = await fetchData(
-  //     "/api/users",
-  //     "PATCH",
-  //     {
-  //       id: userId,
-  //       tasks: randomTasks,
-  //     },
-  //     userCtx.accessToken
-  //   );
-  //   if (res.ok) {
-  //     console.log("sucessfully updated task");
-  //   } else {
-  //     alert(JSON.stringify(res.data));
-  //     console.log(res.data);
-  //   }
-  // };
-
   const howManyTasksUncompleted = () => {
     let counter = 0;
     if (!userById.tasks.length) return undefined;
@@ -473,9 +429,9 @@ const Main = () => {
     }
 
     const shouldShowPopup =
-      dogValue.currentAffection > 200 ||
-      dogValue.currentHunger > 200 ||
-      dogValue.currentObedience > 200;
+      dogValue.currentAffection > 100 ||
+      dogValue.currentHunger > 100 ||
+      dogValue.currentObedience > 100;
 
     setShowMessagePopup(shouldShowPopup);
     getDogByOwner();
@@ -487,32 +443,12 @@ const Main = () => {
 
   return (
     <div>
-      {showUpdateModal && (
-        <UpdateModal
-          key={userId}
-          setShowUpdateModal={setShowUpdateModal}
-          deleteDog={deleteDog}
-          getDogByOwner={getDogByOwner}
-        />
-      )}
       <NavBar></NavBar>
       <Box
         sx={{ display: "flex", justifyContent: "flex-end", padding: "24px" }}
       >
         <Button
-          disabled={
-            dogByOwner.length > 0 ||
-            !(
-              dogValue.currentAffection >= 100 ||
-              dogValue.currentObedience >= 100 ||
-              dogValue.currentHunger >= 100
-            )
-          }
-          onClick={toggleSelectDog}
-        >
-          Add Dog
-        </Button>
-        <Button
+          disabled={dogByOwner}
           onClick={toggleSelectDog}
           sx={{
             width: "12%",
@@ -559,9 +495,6 @@ const Main = () => {
             userById={userById}
           ></DogCard>
         )}
-        {/* <div>
-        <h4>Goal:{userById.goalMode}</h4>
-      </div> */}
 
         <Stack
           direction="row"
@@ -593,6 +526,15 @@ const Main = () => {
           />
         )}
       </Stack>
+      {showUpdateModal && (
+        <UpdateModal
+          key={userId}
+          setShowUpdateModal={setShowUpdateModal}
+          deleteDog={deleteDog}
+          getDogByOwner={getDogByOwner}
+          selectedDog={selectedDog}
+        />
+      )}
     </div>
   );
 };

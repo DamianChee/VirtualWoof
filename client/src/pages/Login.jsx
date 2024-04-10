@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import UserContext from "../context/user";
 import LoginUser from "../components/Login";
+import virtualWoof from "../images/virtualWoof.png";
+
 // import styles from "../components/PageStyles.module.css";
 
 const Login = () => {

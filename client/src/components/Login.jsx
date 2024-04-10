@@ -9,6 +9,7 @@ import Button from "./Button";
 import { Container } from "@mui/material";
 import { Box } from "@mui/material";
 import { useInfo } from "../context/info";
+import virtualWoof from "../images/virtualWoof.png";
 
 const Login = () => {
   const fetchData = useFetch();
@@ -56,8 +57,7 @@ const Login = () => {
             // margin="16px"
             width="500px"
           >
-            <h1>Welcome to Virtual Woof</h1>
-            <br></br>
+            <img className="banner" src={virtualWoof} alt="virtualWoof" />
             <h3>Login </h3>
             <TextField
               id="outlined-basic"

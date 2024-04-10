@@ -7,6 +7,7 @@ import { Stack } from "@mui/material";
 import Button from "./Button";
 import { Container } from "@mui/material";
 import { Box } from "@mui/material";
+import virtualWoof from "../images/virtualWoof.png";
 
 const Registration = () => {
   const fetchData = useFetch();
@@ -48,6 +49,7 @@ const Registration = () => {
             // margin="16px"
             width="500px"
           >
+            <img className="banner" src={virtualWoof} alt="virtualWoof" />
             <h3>Register</h3>
 
             <TextField

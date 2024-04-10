@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import UserContext from "../context/user";
 import RegisterUser from "../components/Registration";
-import styles from "../components/PageStyles.module.css";
+// import styles from "../components/PageStyles.module.css";
 
 const Register = () => {
   const [accessToken, setAccessToken] = useState("");
 
   return (
-    <div className={`${styles.backgroundpage}`}>
+    <div>
       <UserContext.Provider value={{ accessToken, setAccessToken }}>
         <RegisterUser></RegisterUser>
       </UserContext.Provider>

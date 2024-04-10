@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import styles from "./Modal.module.css";
 import useFetch from "../hooks/useFetch";
 import UserContext from "../context/user";
+import Button from "./Button";
 
 const OverLay = (props) => {
   const fetchData = useFetch();
@@ -17,12 +18,15 @@ const OverLay = (props) => {
   return (
     <div className={styles.backdrop}>
       <div className={styles.modal}>
-        <br />
-        <h1>You dog ran away</h1>
-        <br />
-        <button onClick={handleOkButton} className="col-md-3">
+        <h2>You dog has ran away</h2>
+        <h6>
+          Because {props.selectedDog.name} is not feeling loved, well-behaved
+          and well-fed, it has decided to find a new owner!
+        </h6>
+
+        <Button onClick={handleOkButton} className="col-md-3">
           Ok
-        </button>
+        </Button>
       </div>
     </div>
   );
@@ -36,6 +40,7 @@ const UpdateModal = (props) => {
           setShowUpdateModal={props.setShowUpdateModal}
           deleteDog={props.deleteDog}
           getDogByOwner={props.getDogByOwner}
+          selectedDog={props.selectedDog}
         />,
         document.querySelector("#modal-root")
       )}

@@ -10,7 +10,7 @@ html {
 
 body {
   margin: 0;
-  background-color: whitesmoke;
+  background-color: #ffffff;
 }
 
 .centered {
@@ -79,6 +79,19 @@ h2 {
   text-transform: uppercase;
 }
 
+.dogname {
+  color: #000;
+  /* M3/headline/medium */
+  font-family: Roboto;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 36px;
+  margin: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
 .tasks {
   display: flex;
   width: 20%;
@@ -104,11 +117,12 @@ p {
   letter-spacing: 0.5px;
   display: flex;
   margin: 0px;
-  padding: 0px 24px;
+  /* padding: 0px 24px; */
   /* justify-content: center;
   align-items: center; */
   gap: 16px;
   align-self: stretch;
+  /* letter-spacing: 1px; */
 }
 
 h3 {
@@ -124,12 +138,13 @@ h3 {
 
 .dogimage {
   width: 50%;
+  padding: 8px, 0px, 32px, 0px;
 }
 
 .dogcard {
-  width: fit-content;
+  width: fit-content%;
   justify-content: center;
-  height: 100vh; /* This ensures the container covers the entire viewport height */
+  /* height: 100vh; This ensures the container covers the entire viewport height */
 
   height: auto;
   display: flex;
@@ -171,16 +186,6 @@ h5 {
   margin: 0px, 0px, 8px, 0px;
 }
 
-h6 {
-  color: #000;
-  font-family: Roboto;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 32px; /* 133.333% */
-  padding: 32px 8px, 0px, 8px;
-}
-
 h8 {
   color: #000;
 
@@ -206,4 +211,25 @@ h8 {
   border: 1px solid var(--Schemes-Outline-Variant, #f5e0bb);
   background: var(--Schemes-Surface-Bright, #fffbff);
   z-index: 4;
+}
+
+h6 {
+  color: #000;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px; /* 133.333% */
+  padding: 8px;
+  margin: 0px;
+}
+
+.banner {
+  width: 40%;
+  margin: 0px;
+}
+
+.menu {
+  width: 80%;
+  margin: 0px;
 }

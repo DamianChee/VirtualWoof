@@ -53,17 +53,25 @@ const DogCard = (props) => {
             <p>{dog.birthday}</p>
           </div>
         ))} */}
-            <h2>{selectedDog.name}</h2>
-            {/* <h7>{userById.goalMode}</h7> */}
+            <div className="dogname">{selectedDog.name}</div>
+            {/* <h6>{userById.goalMode}</h6> */}
 
             {userGoal === "Companionship" && (
-              <h5>Affection Level:{dogValue.currentAffection}</h5>
+              <h5>
+                {userById.goalMode}, Affection Level:{dogValue.currentAffection}
+              </h5>
             )}
             {userGoal === "Routine & Discipline" && (
-              <h5>Hunger Level:{dogValue.currentHunger}</h5>
+              <h5>
+                {" "}
+                {userById.goalMode}, Hunger Level:{dogValue.currentHunger}
+              </h5>
             )}
             {userGoal === "Dog Show" && (
-              <h5>Obdience Level:{dogValue.currentObedience}</h5>
+              <h5>
+                {" "}
+                {userById.goalMode}, Obdience Level:{dogValue.currentObedience}
+              </h5>
             )}
             <img
               className="dogimage"
@@ -71,10 +79,13 @@ const DogCard = (props) => {
               alt="selected dog"
             />
             {dogByOwner[0] && (
-              <h6>
-                I am a {dogByOwner[0].personality} {dogByOwner[0].size}-sized{" "}
-                {dogByOwner[0].breed} that has a {dogByOwner[0].coat} coat!
-              </h6>
+              <div>
+                <br></br>
+                <p>
+                  I am a {dogByOwner[0].personality} {dogByOwner[0].size}-sized{" "}
+                  {dogByOwner[0].breed} that has a {dogByOwner[0].coat} coat!
+                </p>
+              </div>
             )}
           </Stack>
           <Stack
@@ -82,7 +93,7 @@ const DogCard = (props) => {
             justifyContent="center"
             alignItems="center"
             spacing={1}
-            margin="16px"
+            margin="8px"
           >
             <Button
               variant="outlined"

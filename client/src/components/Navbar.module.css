@@ -1,5 +1,5 @@
 .navbar {
-  height: 5rem;
+  height: 7rem;
   background-color: #ffdad4;
 }
 .navbar nav {
@@ -9,10 +9,10 @@
   height: 100%;
   list-style: none;
   display: flex;
-  padding: 0;
-  margin: 0;
+  padding: 16px;
+  margin: 0px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 .navbar li {
   margin: 0 1rem;

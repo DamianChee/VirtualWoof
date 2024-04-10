@@ -9,6 +9,7 @@ const TaskList = (props) => {
         Frequency: At least {props.endValue} times before the end of the day.
       </p>
       <p>Difficulty: {props.difficulty}</p>
+      {/* <p>{props.description}</p> */}
     </div>
   );
 };
