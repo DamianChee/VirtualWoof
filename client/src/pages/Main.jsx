@@ -34,8 +34,6 @@ const Main = () => {
     setUserById,
     tasks,
     setTasks,
-    dogId,
-    setDogId,
   } = useInfo();
 
   const userCtx = useContext(UserContext);
