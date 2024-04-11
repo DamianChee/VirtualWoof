@@ -1,7 +1,7 @@
 # Project3
 
 SEI-49 project 3 (MERN)
-This app is a game for dog lovers that does not have the time to take care of real life dogs to have a virtual dog to take care of. The player will have virtual dog that will have stats that they will have to fill up, if not the dog will run away. You will have three tasks that will refresh every day for you to do for your dog. Note that should you fail any of these task, your dog will not like you and will run away if you failed the dog.
+This app is a game for dog lovers that does not have the time to take care of real life dogs to have a virtual dog to take care of. The player will have virtual dog that will have stats that they will have to fill up, if not the dog will run away. You will have three tasks that will refresh every day for you to do for your dog. Note that should you fail any of these task, your dog will not like you and will run away if the dog stats reaches 0 or below.
 
 # Screenshot
 
