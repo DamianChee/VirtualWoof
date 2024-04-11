@@ -43,6 +43,7 @@ const Main = () => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showMessagePopup, setShowMessagePopup] = useState(false);
   const [hasChecked, setHasChecked] = useState(false);
+  const [newUser, setNewUser] = useState(false);
   const [hasNoDog, setHasNoDog] = useState(false);
 
   const [goalModeChanged, setGoalModeChanged] = useState(false);
@@ -111,6 +112,7 @@ const Main = () => {
       toggleSelectDog();
       await addDog();
       await getDogByOwner();
+      setNewUser(true);
     }
   };
 
@@ -140,16 +142,18 @@ const Main = () => {
       currentHunger: prevDogValue.currentHunger + 5,
       currentObedience: prevDogValue.currentObedience + 5,
     }));
-    console.log(dogValue.currentAffection);
     // await updateDog();
   };
 
   // check if affection is less than or equal to 0
   const handleDogRunAway = () => {
     if (
-      (dogByOwner[0].currentObedience <= 0 && goals.goal == "Dog Show") ||
-      (dogByOwner[0].currentAffection <= 0 && goals.goal == "Companionship") ||
-      (dogByOwner[0].currentHunger <= 0 && goals.goal == "Routine & Discipline")
+      (dogByOwner[0].currentObedience <= 0 &&
+        userById.goalMode == "Dog Show") ||
+      (dogByOwner[0].currentAffection <= 0 &&
+        userById.goalMode == "Companionship") ||
+      (dogByOwner[0].currentHunger <= 0 &&
+        userById.goalMode == "Routine & Discipline")
     ) {
       setShowUpdateModal(true);
     } else {
@@ -348,14 +352,17 @@ const Main = () => {
       if (res.data.data) {
         console.log("task must be replaced");
 
-        // Find number of tasks uncompleted before replacing them
-        const numberOfTasks = howManyTasksUncompleted();
-        // For each task decrease values by 10
-        const valueToDecrease = numberOfTasks * 10;
+        if (!newUser) {
+          // Find number of tasks uncompleted before replacing them
+          const numberOfTasks = howManyTasksUncompleted();
+          // For each task decrease values by 10
+          const valueToDecrease = numberOfTasks * 10;
 
-        // Decrease the values by calling PATCH /api/dogs
-        decreaseDogValues(valueToDecrease);
-        // Refresh/reset the dogByOwner state
+          // Decrease the values by calling PATCH /api/dogs
+          decreaseDogValues(valueToDecrease);
+          // Refresh/reset the dogByOwner state
+        }
+
         refreshTasks();
       }
     } else {
@@ -409,14 +416,21 @@ const Main = () => {
   }, [goalModeChanged]);
 
   useEffect(() => {
-    if (!hasChecked && dogByOwner && dogByOwner.length) {
+    if (!hasChecked && !newUser && dogByOwner && dogByOwner.length) {
       checkTaskExpiry();
+
+      setHasChecked(true);
+    } else if (!hasChecked && newUser && dogByOwner && dogByOwner.length) {
+      refreshTasks();
       setHasChecked(true);
     }
 
     if (dogByOwner && dogByOwner.length > 0) {
+      // if (!dogByOwner[0].currentAffection)
       setDogValue(dogByOwner[0]);
+
       // check if dog will run away, when logged in
+      console.log("check dog run away");
       handleDogRunAway();
     }
   }, [dogByOwner]);
