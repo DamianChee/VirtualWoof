@@ -1,0 +1,34 @@
+.navbar {
+  height: 7rem;
+  background-color: #ffdad4;
+}
+.navbar nav {
+  height: 100%;
+}
+.navbar ul {
+  height: 100%;
+  list-style: none;
+  display: flex;
+  padding: 16px;
+  margin: 0px;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar li {
+  margin: 0 1rem;
+  width: 10rem;
+}
+.navbar a {
+  color: #857370;
+  text-decoration: none;
+  font-size: 24px;
+}
+.navbar a:hover,
+.navbar a:active,
+.navbar a.active {
+  color: #a23d30;
+  padding-bottom: 0.25rem;
+  border-bottom: 4px solid #a23d30;
+  font-size: 24px;
+  font-family: "roboto";
+}
