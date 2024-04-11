@@ -103,6 +103,12 @@ To run this project, you will need to add the following environment variables to
 - First dog runs away on new user registration (Should be fixed?)
 - MUI Button produces error in console
 
+## Authors
+
+- [DamianChee](https://github.com/DamianChee/)
+- [thisisanita](https://github.com/thisisanita)
+- [Ng-Ting-Wei](https://github.com/Ng-Ting-Wei)
+
 ## Acknowledgements
 
 - [Phind](https://www.phind.com/search?home=true)
