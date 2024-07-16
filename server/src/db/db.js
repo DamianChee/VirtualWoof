@@ -1,3 +1,27 @@
+const { Client } = require("pg");
+
+const connectDB = async () => {
+  try {
+    const client = new Client({
+      user: "postgres",
+      host: "localhost",
+      database: "your_database",
+      password: "password",
+      port: "5432",
+    });
+
+    await client.connect();
+    console.log("DB connected");
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
+};
+
+module.exports = connectDB;
+
+/**
+ * Old Mangoose Codes
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
@@ -11,3 +35,4 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+ */
